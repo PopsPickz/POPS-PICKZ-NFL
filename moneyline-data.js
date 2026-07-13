@@ -529,25 +529,7 @@ const pointsAllowedPerGame =
       },
 
       defense: {
-        pointsAllowedPerGame:
-          this.findStat(
-            stats,
-            [
-              "pointsAllowedPerGame",
-              "opponentPointsPerGame"
-            ],
-            this.divide(
-              this.findStat(
-                stats,
-                [
-                  "pointsAllowed",
-                  "opponentPoints"
-                ]
-              ),
-              gamesPlayed,
-              22
-            )
-          ),
+        pointsAllowedPerGame,
 
         totalYardsAllowedPerGame:
           this.findStat(
