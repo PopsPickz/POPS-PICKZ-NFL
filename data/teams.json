@@ -1,0 +1,2216 @@
+{
+  "generatedAt": "2026-07-13T03:30:48.833Z",
+  "season": 2026,
+  "teamCount": 32,
+  "source": "ESPN team feed",
+  "teams": [
+    {
+      "teamId": "22",
+      "uid": "s:20~l:28~t:22",
+      "slug": "arizona-cardinals",
+      "abbreviation": "ARI",
+      "teamName": "Arizona Cardinals",
+      "shortName": "Cardinals",
+      "location": "Arizona",
+      "nickname": "Cardinals",
+      "color": "a40227",
+      "alternateColor": "ffffff",
+      "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/ari.png",
+      "links": [
+        {
+          "rel": [
+            "clubhouse",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/_/name/ari/arizona-cardinals",
+          "text": "Clubhouse"
+        },
+        {
+          "rel": [
+            "roster",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/roster/_/name/ari/arizona-cardinals",
+          "text": "Roster"
+        },
+        {
+          "rel": [
+            "stats",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/stats/_/name/ari/arizona-cardinals",
+          "text": "Statistics"
+        },
+        {
+          "rel": [
+            "schedule",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/schedule/_/name/ari",
+          "text": "Schedule"
+        },
+        {
+          "rel": [
+            "tickets",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.vividseats.com/arizona-cardinals-tickets--sports-nfl-football/performer/40?wsUser=717",
+          "text": "Tickets"
+        },
+        {
+          "rel": [
+            "depthchart",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/depth/_/name/ari",
+          "text": "Depth Chart"
+        }
+      ]
+    },
+    {
+      "teamId": "1",
+      "uid": "s:20~l:28~t:1",
+      "slug": "atlanta-falcons",
+      "abbreviation": "ATL",
+      "teamName": "Atlanta Falcons",
+      "shortName": "Falcons",
+      "location": "Atlanta",
+      "nickname": "Falcons",
+      "color": "a71930",
+      "alternateColor": "000000",
+      "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/atl.png",
+      "links": [
+        {
+          "rel": [
+            "clubhouse",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/_/name/atl/atlanta-falcons",
+          "text": "Clubhouse"
+        },
+        {
+          "rel": [
+            "roster",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/roster/_/name/atl/atlanta-falcons",
+          "text": "Roster"
+        },
+        {
+          "rel": [
+            "stats",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/stats/_/name/atl/atlanta-falcons",
+          "text": "Statistics"
+        },
+        {
+          "rel": [
+            "schedule",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/schedule/_/name/atl",
+          "text": "Schedule"
+        },
+        {
+          "rel": [
+            "tickets",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.vividseats.com/atlanta-falcons-tickets--sports-nfl-football/performer/51?wsUser=717",
+          "text": "Tickets"
+        },
+        {
+          "rel": [
+            "depthchart",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/depth/_/name/atl",
+          "text": "Depth Chart"
+        }
+      ]
+    },
+    {
+      "teamId": "33",
+      "uid": "s:20~l:28~t:33",
+      "slug": "baltimore-ravens",
+      "abbreviation": "BAL",
+      "teamName": "Baltimore Ravens",
+      "shortName": "Ravens",
+      "location": "Baltimore",
+      "nickname": "Ravens",
+      "color": "29126f",
+      "alternateColor": "000000",
+      "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/bal.png",
+      "links": [
+        {
+          "rel": [
+            "clubhouse",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/_/name/bal/baltimore-ravens",
+          "text": "Clubhouse"
+        },
+        {
+          "rel": [
+            "roster",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/roster/_/name/bal/baltimore-ravens",
+          "text": "Roster"
+        },
+        {
+          "rel": [
+            "stats",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/stats/_/name/bal/baltimore-ravens",
+          "text": "Statistics"
+        },
+        {
+          "rel": [
+            "schedule",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/schedule/_/name/bal",
+          "text": "Schedule"
+        },
+        {
+          "rel": [
+            "tickets",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.vividseats.com/baltimore-ravens-tickets--sports-nfl-football/performer/60?wsUser=717",
+          "text": "Tickets"
+        },
+        {
+          "rel": [
+            "depthchart",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/depth/_/name/bal",
+          "text": "Depth Chart"
+        }
+      ]
+    },
+    {
+      "teamId": "2",
+      "uid": "s:20~l:28~t:2",
+      "slug": "buffalo-bills",
+      "abbreviation": "BUF",
+      "teamName": "Buffalo Bills",
+      "shortName": "Bills",
+      "location": "Buffalo",
+      "nickname": "Bills",
+      "color": "00338d",
+      "alternateColor": "d50a0a",
+      "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/buf.png",
+      "links": [
+        {
+          "rel": [
+            "clubhouse",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/_/name/buf/buffalo-bills",
+          "text": "Clubhouse"
+        },
+        {
+          "rel": [
+            "roster",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/roster/_/name/buf/buffalo-bills",
+          "text": "Roster"
+        },
+        {
+          "rel": [
+            "stats",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/stats/_/name/buf/buffalo-bills",
+          "text": "Statistics"
+        },
+        {
+          "rel": [
+            "schedule",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/schedule/_/name/buf",
+          "text": "Schedule"
+        },
+        {
+          "rel": [
+            "tickets",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.vividseats.com/buffalo-bills-tickets--sports-nfl-football/performer/128?wsUser=717",
+          "text": "Tickets"
+        },
+        {
+          "rel": [
+            "depthchart",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/depth/_/name/buf",
+          "text": "Depth Chart"
+        }
+      ]
+    },
+    {
+      "teamId": "29",
+      "uid": "s:20~l:28~t:29",
+      "slug": "carolina-panthers",
+      "abbreviation": "CAR",
+      "teamName": "Carolina Panthers",
+      "shortName": "Panthers",
+      "location": "Carolina",
+      "nickname": "Panthers",
+      "color": "0085ca",
+      "alternateColor": "000000",
+      "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/car.png",
+      "links": [
+        {
+          "rel": [
+            "clubhouse",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/_/name/car/carolina-panthers",
+          "text": "Clubhouse"
+        },
+        {
+          "rel": [
+            "roster",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/roster/_/name/car/carolina-panthers",
+          "text": "Roster"
+        },
+        {
+          "rel": [
+            "stats",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/stats/_/name/car/carolina-panthers",
+          "text": "Statistics"
+        },
+        {
+          "rel": [
+            "schedule",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/schedule/_/name/car",
+          "text": "Schedule"
+        },
+        {
+          "rel": [
+            "tickets",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.vividseats.com/carolina-panthers-tickets--sports-nfl-football/performer/144?wsUser=717",
+          "text": "Tickets"
+        },
+        {
+          "rel": [
+            "depthchart",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/depth/_/name/car",
+          "text": "Depth Chart"
+        }
+      ]
+    },
+    {
+      "teamId": "3",
+      "uid": "s:20~l:28~t:3",
+      "slug": "chicago-bears",
+      "abbreviation": "CHI",
+      "teamName": "Chicago Bears",
+      "shortName": "Bears",
+      "location": "Chicago",
+      "nickname": "Bears",
+      "color": "0b1c3a",
+      "alternateColor": "e64100",
+      "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/chi.png",
+      "links": [
+        {
+          "rel": [
+            "clubhouse",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/_/name/chi/chicago-bears",
+          "text": "Clubhouse"
+        },
+        {
+          "rel": [
+            "roster",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/roster/_/name/chi/chicago-bears",
+          "text": "Roster"
+        },
+        {
+          "rel": [
+            "stats",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/stats/_/name/chi/chicago-bears",
+          "text": "Statistics"
+        },
+        {
+          "rel": [
+            "schedule",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/schedule/_/name/chi",
+          "text": "Schedule"
+        },
+        {
+          "rel": [
+            "tickets",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.vividseats.com/chicago-bears-tickets--sports-nfl-football/performer/159?wsUser=717",
+          "text": "Tickets"
+        },
+        {
+          "rel": [
+            "depthchart",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/depth/_/name/chi",
+          "text": "Depth Chart"
+        }
+      ]
+    },
+    {
+      "teamId": "4",
+      "uid": "s:20~l:28~t:4",
+      "slug": "cincinnati-bengals",
+      "abbreviation": "CIN",
+      "teamName": "Cincinnati Bengals",
+      "shortName": "Bengals",
+      "location": "Cincinnati",
+      "nickname": "Bengals",
+      "color": "fb4f14",
+      "alternateColor": "000000",
+      "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/cin.png",
+      "links": [
+        {
+          "rel": [
+            "clubhouse",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/_/name/cin/cincinnati-bengals",
+          "text": "Clubhouse"
+        },
+        {
+          "rel": [
+            "roster",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/roster/_/name/cin/cincinnati-bengals",
+          "text": "Roster"
+        },
+        {
+          "rel": [
+            "stats",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/stats/_/name/cin/cincinnati-bengals",
+          "text": "Statistics"
+        },
+        {
+          "rel": [
+            "schedule",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/schedule/_/name/cin",
+          "text": "Schedule"
+        },
+        {
+          "rel": [
+            "tickets",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.vividseats.com/cincinnati-bengals-tickets--sports-nfl-football/performer/172?wsUser=717",
+          "text": "Tickets"
+        },
+        {
+          "rel": [
+            "depthchart",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/depth/_/name/cin",
+          "text": "Depth Chart"
+        }
+      ]
+    },
+    {
+      "teamId": "5",
+      "uid": "s:20~l:28~t:5",
+      "slug": "cleveland-browns",
+      "abbreviation": "CLE",
+      "teamName": "Cleveland Browns",
+      "shortName": "Browns",
+      "location": "Cleveland",
+      "nickname": "Browns",
+      "color": "472a08",
+      "alternateColor": "ff3c00",
+      "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/cle.png",
+      "links": [
+        {
+          "rel": [
+            "clubhouse",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/_/name/cle/cleveland-browns",
+          "text": "Clubhouse"
+        },
+        {
+          "rel": [
+            "roster",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/roster/_/name/cle/cleveland-browns",
+          "text": "Roster"
+        },
+        {
+          "rel": [
+            "stats",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/stats/_/name/cle/cleveland-browns",
+          "text": "Statistics"
+        },
+        {
+          "rel": [
+            "schedule",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/schedule/_/name/cle",
+          "text": "Schedule"
+        },
+        {
+          "rel": [
+            "tickets",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.vividseats.com/cleveland-browns-tickets--sports-nfl-football/performer/181?wsUser=717",
+          "text": "Tickets"
+        },
+        {
+          "rel": [
+            "depthchart",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/depth/_/name/cle",
+          "text": "Depth Chart"
+        }
+      ]
+    },
+    {
+      "teamId": "6",
+      "uid": "s:20~l:28~t:6",
+      "slug": "dallas-cowboys",
+      "abbreviation": "DAL",
+      "teamName": "Dallas Cowboys",
+      "shortName": "Cowboys",
+      "location": "Dallas",
+      "nickname": "Cowboys",
+      "color": "002a5c",
+      "alternateColor": "b0b7bc",
+      "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/dal.png",
+      "links": [
+        {
+          "rel": [
+            "clubhouse",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/_/name/dal/dallas-cowboys",
+          "text": "Clubhouse"
+        },
+        {
+          "rel": [
+            "roster",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/roster/_/name/dal/dallas-cowboys",
+          "text": "Roster"
+        },
+        {
+          "rel": [
+            "stats",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/stats/_/name/dal/dallas-cowboys",
+          "text": "Statistics"
+        },
+        {
+          "rel": [
+            "schedule",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/schedule/_/name/dal",
+          "text": "Schedule"
+        },
+        {
+          "rel": [
+            "tickets",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.vividseats.com/dallas-cowboys-tickets--sports-nfl-football/performer/214?wsUser=717",
+          "text": "Tickets"
+        },
+        {
+          "rel": [
+            "depthchart",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/depth/_/name/dal",
+          "text": "Depth Chart"
+        }
+      ]
+    },
+    {
+      "teamId": "7",
+      "uid": "s:20~l:28~t:7",
+      "slug": "denver-broncos",
+      "abbreviation": "DEN",
+      "teamName": "Denver Broncos",
+      "shortName": "Broncos",
+      "location": "Denver",
+      "nickname": "Broncos",
+      "color": "0a2343",
+      "alternateColor": "fc4c02",
+      "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/den.png",
+      "links": [
+        {
+          "rel": [
+            "clubhouse",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/_/name/den/denver-broncos",
+          "text": "Clubhouse"
+        },
+        {
+          "rel": [
+            "roster",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/roster/_/name/den/denver-broncos",
+          "text": "Roster"
+        },
+        {
+          "rel": [
+            "stats",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/stats/_/name/den/denver-broncos",
+          "text": "Statistics"
+        },
+        {
+          "rel": [
+            "schedule",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/schedule/_/name/den",
+          "text": "Schedule"
+        },
+        {
+          "rel": [
+            "tickets",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.vividseats.com/denver-broncos-tickets--sports-nfl-football/performer/234?wsUser=717",
+          "text": "Tickets"
+        },
+        {
+          "rel": [
+            "depthchart",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/depth/_/name/den",
+          "text": "Depth Chart"
+        }
+      ]
+    },
+    {
+      "teamId": "8",
+      "uid": "s:20~l:28~t:8",
+      "slug": "detroit-lions",
+      "abbreviation": "DET",
+      "teamName": "Detroit Lions",
+      "shortName": "Lions",
+      "location": "Detroit",
+      "nickname": "Lions",
+      "color": "0076b6",
+      "alternateColor": "bbbbbb",
+      "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/det.png",
+      "links": [
+        {
+          "rel": [
+            "clubhouse",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/_/name/det/detroit-lions",
+          "text": "Clubhouse"
+        },
+        {
+          "rel": [
+            "roster",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/roster/_/name/det/detroit-lions",
+          "text": "Roster"
+        },
+        {
+          "rel": [
+            "stats",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/stats/_/name/det/detroit-lions",
+          "text": "Statistics"
+        },
+        {
+          "rel": [
+            "schedule",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/schedule/_/name/det",
+          "text": "Schedule"
+        },
+        {
+          "rel": [
+            "tickets",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.vividseats.com/detroit-lions-tickets--sports-nfl-football/performer/238?wsUser=717",
+          "text": "Tickets"
+        },
+        {
+          "rel": [
+            "depthchart",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/depth/_/name/det",
+          "text": "Depth Chart"
+        }
+      ]
+    },
+    {
+      "teamId": "9",
+      "uid": "s:20~l:28~t:9",
+      "slug": "green-bay-packers",
+      "abbreviation": "GB",
+      "teamName": "Green Bay Packers",
+      "shortName": "Packers",
+      "location": "Green Bay",
+      "nickname": "Packers",
+      "color": "204e32",
+      "alternateColor": "ffb612",
+      "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/gb.png",
+      "links": [
+        {
+          "rel": [
+            "clubhouse",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/_/name/gb/green-bay-packers",
+          "text": "Clubhouse"
+        },
+        {
+          "rel": [
+            "roster",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/roster/_/name/gb/green-bay-packers",
+          "text": "Roster"
+        },
+        {
+          "rel": [
+            "stats",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/stats/_/name/gb/green-bay-packers",
+          "text": "Statistics"
+        },
+        {
+          "rel": [
+            "schedule",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/schedule/_/name/gb",
+          "text": "Schedule"
+        },
+        {
+          "rel": [
+            "tickets",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.vividseats.com/green-bay-packers-tickets--sports-nfl-football/performer/339?wsUser=717",
+          "text": "Tickets"
+        },
+        {
+          "rel": [
+            "depthchart",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/depth/_/name/gb",
+          "text": "Depth Chart"
+        }
+      ]
+    },
+    {
+      "teamId": "34",
+      "uid": "s:20~l:28~t:34",
+      "slug": "houston-texans",
+      "abbreviation": "HOU",
+      "teamName": "Houston Texans",
+      "shortName": "Texans",
+      "location": "Houston",
+      "nickname": "Texans",
+      "color": "00143f",
+      "alternateColor": "c41230",
+      "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/hou.png",
+      "links": [
+        {
+          "rel": [
+            "clubhouse",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/_/name/hou/houston-texans",
+          "text": "Clubhouse"
+        },
+        {
+          "rel": [
+            "roster",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/roster/_/name/hou/houston-texans",
+          "text": "Roster"
+        },
+        {
+          "rel": [
+            "stats",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/stats/_/name/hou/houston-texans",
+          "text": "Statistics"
+        },
+        {
+          "rel": [
+            "schedule",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/schedule/_/name/hou",
+          "text": "Schedule"
+        },
+        {
+          "rel": [
+            "tickets",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.vividseats.com/houston-texans-tickets--sports-nfl-football/performer/2559?wsUser=717",
+          "text": "Tickets"
+        },
+        {
+          "rel": [
+            "depthchart",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/depth/_/name/hou",
+          "text": "Depth Chart"
+        }
+      ]
+    },
+    {
+      "teamId": "11",
+      "uid": "s:20~l:28~t:11",
+      "slug": "indianapolis-colts",
+      "abbreviation": "IND",
+      "teamName": "Indianapolis Colts",
+      "shortName": "Colts",
+      "location": "Indianapolis",
+      "nickname": "Colts",
+      "color": "003b75",
+      "alternateColor": "ffffff",
+      "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/ind.png",
+      "links": [
+        {
+          "rel": [
+            "clubhouse",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/_/name/ind/indianapolis-colts",
+          "text": "Clubhouse"
+        },
+        {
+          "rel": [
+            "roster",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/roster/_/name/ind/indianapolis-colts",
+          "text": "Roster"
+        },
+        {
+          "rel": [
+            "stats",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/stats/_/name/ind/indianapolis-colts",
+          "text": "Statistics"
+        },
+        {
+          "rel": [
+            "schedule",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/schedule/_/name/ind",
+          "text": "Schedule"
+        },
+        {
+          "rel": [
+            "tickets",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.vividseats.com/indianapolis-colts-tickets--sports-nfl-football/performer/370?wsUser=717",
+          "text": "Tickets"
+        },
+        {
+          "rel": [
+            "depthchart",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/depth/_/name/ind",
+          "text": "Depth Chart"
+        }
+      ]
+    },
+    {
+      "teamId": "30",
+      "uid": "s:20~l:28~t:30",
+      "slug": "jacksonville-jaguars",
+      "abbreviation": "JAX",
+      "teamName": "Jacksonville Jaguars",
+      "shortName": "Jaguars",
+      "location": "Jacksonville",
+      "nickname": "Jaguars",
+      "color": "007487",
+      "alternateColor": "d7a22a",
+      "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/jax.png",
+      "links": [
+        {
+          "rel": [
+            "clubhouse",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/_/name/jax/jacksonville-jaguars",
+          "text": "Clubhouse"
+        },
+        {
+          "rel": [
+            "roster",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/roster/_/name/jax/jacksonville-jaguars",
+          "text": "Roster"
+        },
+        {
+          "rel": [
+            "stats",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/stats/_/name/jax/jacksonville-jaguars",
+          "text": "Statistics"
+        },
+        {
+          "rel": [
+            "schedule",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/schedule/_/name/jax",
+          "text": "Schedule"
+        },
+        {
+          "rel": [
+            "tickets",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.vividseats.com/jacksonville-jaguars-tickets--sports-nfl-football/performer/381?wsUser=717",
+          "text": "Tickets"
+        },
+        {
+          "rel": [
+            "depthchart",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/depth/_/name/jax",
+          "text": "Depth Chart"
+        }
+      ]
+    },
+    {
+      "teamId": "12",
+      "uid": "s:20~l:28~t:12",
+      "slug": "kansas-city-chiefs",
+      "abbreviation": "KC",
+      "teamName": "Kansas City Chiefs",
+      "shortName": "Chiefs",
+      "location": "Kansas City",
+      "nickname": "Chiefs",
+      "color": "e31837",
+      "alternateColor": "ffb612",
+      "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/kc.png",
+      "links": [
+        {
+          "rel": [
+            "clubhouse",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/_/name/kc/kansas-city-chiefs",
+          "text": "Clubhouse"
+        },
+        {
+          "rel": [
+            "roster",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/roster/_/name/kc/kansas-city-chiefs",
+          "text": "Roster"
+        },
+        {
+          "rel": [
+            "stats",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/stats/_/name/kc/kansas-city-chiefs",
+          "text": "Statistics"
+        },
+        {
+          "rel": [
+            "schedule",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/schedule/_/name/kc",
+          "text": "Schedule"
+        },
+        {
+          "rel": [
+            "tickets",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.vividseats.com/kansas-city-chiefs-tickets--sports-nfl-football/performer/427?wsUser=717",
+          "text": "Tickets"
+        },
+        {
+          "rel": [
+            "depthchart",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/depth/_/name/kc",
+          "text": "Depth Chart"
+        }
+      ]
+    },
+    {
+      "teamId": "13",
+      "uid": "s:20~l:28~t:13",
+      "slug": "las-vegas-raiders",
+      "abbreviation": "LV",
+      "teamName": "Las Vegas Raiders",
+      "shortName": "Raiders",
+      "location": "Las Vegas",
+      "nickname": "Raiders",
+      "color": "000000",
+      "alternateColor": "a5acaf",
+      "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/lv.png",
+      "links": [
+        {
+          "rel": [
+            "clubhouse",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/_/name/lv/las-vegas-raiders",
+          "text": "Clubhouse"
+        },
+        {
+          "rel": [
+            "roster",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/roster/_/name/lv/las-vegas-raiders",
+          "text": "Roster"
+        },
+        {
+          "rel": [
+            "stats",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/stats/_/name/lv/las-vegas-raiders",
+          "text": "Statistics"
+        },
+        {
+          "rel": [
+            "schedule",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/schedule/_/name/lv",
+          "text": "Schedule"
+        },
+        {
+          "rel": [
+            "tickets",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.vividseats.com/las-vegas-raiders-tickets--sports-nfl-football/performer/626?wsUser=717",
+          "text": "Tickets"
+        },
+        {
+          "rel": [
+            "depthchart",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/depth/_/name/lv",
+          "text": "Depth Chart"
+        }
+      ]
+    },
+    {
+      "teamId": "24",
+      "uid": "s:20~l:28~t:24",
+      "slug": "los-angeles-chargers",
+      "abbreviation": "LAC",
+      "teamName": "Los Angeles Chargers",
+      "shortName": "Chargers",
+      "location": "Los Angeles",
+      "nickname": "Chargers",
+      "color": "0080c6",
+      "alternateColor": "ffc20e",
+      "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/lac.png",
+      "links": [
+        {
+          "rel": [
+            "clubhouse",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/_/name/lac/los-angeles-chargers",
+          "text": "Clubhouse"
+        },
+        {
+          "rel": [
+            "roster",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/roster/_/name/lac/los-angeles-chargers",
+          "text": "Roster"
+        },
+        {
+          "rel": [
+            "stats",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/stats/_/name/lac/los-angeles-chargers",
+          "text": "Statistics"
+        },
+        {
+          "rel": [
+            "schedule",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/schedule/_/name/lac",
+          "text": "Schedule"
+        },
+        {
+          "rel": [
+            "tickets",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.vividseats.com/los-angeles-chargers-tickets--sports-nfl-football/performer/755?wsUser=717",
+          "text": "Tickets"
+        },
+        {
+          "rel": [
+            "depthchart",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/depth/_/name/lac",
+          "text": "Depth Chart"
+        }
+      ]
+    },
+    {
+      "teamId": "14",
+      "uid": "s:20~l:28~t:14",
+      "slug": "los-angeles-rams",
+      "abbreviation": "LAR",
+      "teamName": "Los Angeles Rams",
+      "shortName": "Rams",
+      "location": "Los Angeles",
+      "nickname": "Rams",
+      "color": "003594",
+      "alternateColor": "ffd100",
+      "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/lar.png",
+      "links": [
+        {
+          "rel": [
+            "clubhouse",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/_/name/lar/los-angeles-rams",
+          "text": "Clubhouse"
+        },
+        {
+          "rel": [
+            "roster",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/roster/_/name/lar/los-angeles-rams",
+          "text": "Roster"
+        },
+        {
+          "rel": [
+            "stats",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/stats/_/name/lar/los-angeles-rams",
+          "text": "Statistics"
+        },
+        {
+          "rel": [
+            "schedule",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/schedule/_/name/lar",
+          "text": "Schedule"
+        },
+        {
+          "rel": [
+            "tickets",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.vividseats.com/los-angeles-rams-tickets--sports-nfl-football/performer/808?wsUser=717",
+          "text": "Tickets"
+        },
+        {
+          "rel": [
+            "depthchart",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/depth/_/name/lar",
+          "text": "Depth Chart"
+        }
+      ]
+    },
+    {
+      "teamId": "15",
+      "uid": "s:20~l:28~t:15",
+      "slug": "miami-dolphins",
+      "abbreviation": "MIA",
+      "teamName": "Miami Dolphins",
+      "shortName": "Dolphins",
+      "location": "Miami",
+      "nickname": "Dolphins",
+      "color": "008e97",
+      "alternateColor": "fc4c02",
+      "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/mia.png",
+      "links": [
+        {
+          "rel": [
+            "clubhouse",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/_/name/mia/miami-dolphins",
+          "text": "Clubhouse"
+        },
+        {
+          "rel": [
+            "roster",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/roster/_/name/mia/miami-dolphins",
+          "text": "Roster"
+        },
+        {
+          "rel": [
+            "stats",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/stats/_/name/mia/miami-dolphins",
+          "text": "Statistics"
+        },
+        {
+          "rel": [
+            "schedule",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/schedule/_/name/mia",
+          "text": "Schedule"
+        },
+        {
+          "rel": [
+            "tickets",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.vividseats.com/miami-dolphins-tickets--sports-nfl-football/performer/532?wsUser=717",
+          "text": "Tickets"
+        },
+        {
+          "rel": [
+            "depthchart",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/depth/_/name/mia",
+          "text": "Depth Chart"
+        }
+      ]
+    },
+    {
+      "teamId": "16",
+      "uid": "s:20~l:28~t:16",
+      "slug": "minnesota-vikings",
+      "abbreviation": "MIN",
+      "teamName": "Minnesota Vikings",
+      "shortName": "Vikings",
+      "location": "Minnesota",
+      "nickname": "Vikings",
+      "color": "4f2683",
+      "alternateColor": "ffc62f",
+      "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/min.png",
+      "links": [
+        {
+          "rel": [
+            "clubhouse",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/_/name/min/minnesota-vikings",
+          "text": "Clubhouse"
+        },
+        {
+          "rel": [
+            "roster",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/roster/_/name/min/minnesota-vikings",
+          "text": "Roster"
+        },
+        {
+          "rel": [
+            "stats",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/stats/_/name/min/minnesota-vikings",
+          "text": "Statistics"
+        },
+        {
+          "rel": [
+            "schedule",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/schedule/_/name/min",
+          "text": "Schedule"
+        },
+        {
+          "rel": [
+            "tickets",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.vividseats.com/minnesota-vikings-tickets--sports-nfl-football/performer/555?wsUser=717",
+          "text": "Tickets"
+        },
+        {
+          "rel": [
+            "depthchart",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/depth/_/name/min",
+          "text": "Depth Chart"
+        }
+      ]
+    },
+    {
+      "teamId": "17",
+      "uid": "s:20~l:28~t:17",
+      "slug": "new-england-patriots",
+      "abbreviation": "NE",
+      "teamName": "New England Patriots",
+      "shortName": "Patriots",
+      "location": "New England",
+      "nickname": "Patriots",
+      "color": "002a5c",
+      "alternateColor": "c60c30",
+      "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/ne.png",
+      "links": [
+        {
+          "rel": [
+            "clubhouse",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/_/name/ne/new-england-patriots",
+          "text": "Clubhouse"
+        },
+        {
+          "rel": [
+            "roster",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/roster/_/name/ne/new-england-patriots",
+          "text": "Roster"
+        },
+        {
+          "rel": [
+            "stats",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/stats/_/name/ne/new-england-patriots",
+          "text": "Statistics"
+        },
+        {
+          "rel": [
+            "schedule",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/schedule/_/name/ne",
+          "text": "Schedule"
+        },
+        {
+          "rel": [
+            "tickets",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.vividseats.com/new-england-patriots-tickets--sports-nfl-football/performer/592?wsUser=717",
+          "text": "Tickets"
+        },
+        {
+          "rel": [
+            "depthchart",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/depth/_/name/ne",
+          "text": "Depth Chart"
+        }
+      ]
+    },
+    {
+      "teamId": "18",
+      "uid": "s:20~l:28~t:18",
+      "slug": "new-orleans-saints",
+      "abbreviation": "NO",
+      "teamName": "New Orleans Saints",
+      "shortName": "Saints",
+      "location": "New Orleans",
+      "nickname": "Saints",
+      "color": "d3bc8d",
+      "alternateColor": "000000",
+      "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/no.png",
+      "links": [
+        {
+          "rel": [
+            "clubhouse",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/_/name/no/new-orleans-saints",
+          "text": "Clubhouse"
+        },
+        {
+          "rel": [
+            "roster",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/roster/_/name/no/new-orleans-saints",
+          "text": "Roster"
+        },
+        {
+          "rel": [
+            "stats",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/stats/_/name/no/new-orleans-saints",
+          "text": "Statistics"
+        },
+        {
+          "rel": [
+            "schedule",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/schedule/_/name/no",
+          "text": "Schedule"
+        },
+        {
+          "rel": [
+            "tickets",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.vividseats.com/new-orleans-saints-tickets--sports-nfl-football/performer/597?wsUser=717",
+          "text": "Tickets"
+        },
+        {
+          "rel": [
+            "depthchart",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/depth/_/name/no",
+          "text": "Depth Chart"
+        }
+      ]
+    },
+    {
+      "teamId": "19",
+      "uid": "s:20~l:28~t:19",
+      "slug": "new-york-giants",
+      "abbreviation": "NYG",
+      "teamName": "New York Giants",
+      "shortName": "Giants",
+      "location": "New York",
+      "nickname": "Giants",
+      "color": "003c7f",
+      "alternateColor": "c9243f",
+      "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/nyg.png",
+      "links": [
+        {
+          "rel": [
+            "clubhouse",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/_/name/nyg/new-york-giants",
+          "text": "Clubhouse"
+        },
+        {
+          "rel": [
+            "roster",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/roster/_/name/nyg/new-york-giants",
+          "text": "Roster"
+        },
+        {
+          "rel": [
+            "stats",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/stats/_/name/nyg/new-york-giants",
+          "text": "Statistics"
+        },
+        {
+          "rel": [
+            "schedule",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/schedule/_/name/nyg",
+          "text": "Schedule"
+        },
+        {
+          "rel": [
+            "tickets",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.vividseats.com/new-york-giants-tickets--sports-nfl-football/performer/599?wsUser=717",
+          "text": "Tickets"
+        },
+        {
+          "rel": [
+            "depthchart",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/depth/_/name/nyg",
+          "text": "Depth Chart"
+        }
+      ]
+    },
+    {
+      "teamId": "20",
+      "uid": "s:20~l:28~t:20",
+      "slug": "new-york-jets",
+      "abbreviation": "NYJ",
+      "teamName": "New York Jets",
+      "shortName": "Jets",
+      "location": "New York",
+      "nickname": "Jets",
+      "color": "115740",
+      "alternateColor": "ffffff",
+      "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/nyj.png",
+      "links": [
+        {
+          "rel": [
+            "clubhouse",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/_/name/nyj/new-york-jets",
+          "text": "Clubhouse"
+        },
+        {
+          "rel": [
+            "roster",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/roster/_/name/nyj/new-york-jets",
+          "text": "Roster"
+        },
+        {
+          "rel": [
+            "stats",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/stats/_/name/nyj/new-york-jets",
+          "text": "Statistics"
+        },
+        {
+          "rel": [
+            "schedule",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/schedule/_/name/nyj",
+          "text": "Schedule"
+        },
+        {
+          "rel": [
+            "tickets",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.vividseats.com/new-york-jets-tickets--sports-nfl-football/performer/601?wsUser=717",
+          "text": "Tickets"
+        },
+        {
+          "rel": [
+            "depthchart",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/depth/_/name/nyj",
+          "text": "Depth Chart"
+        }
+      ]
+    },
+    {
+      "teamId": "21",
+      "uid": "s:20~l:28~t:21",
+      "slug": "philadelphia-eagles",
+      "abbreviation": "PHI",
+      "teamName": "Philadelphia Eagles",
+      "shortName": "Eagles",
+      "location": "Philadelphia",
+      "nickname": "Eagles",
+      "color": "06424d",
+      "alternateColor": "000000",
+      "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/phi.png",
+      "links": [
+        {
+          "rel": [
+            "clubhouse",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/_/name/phi/philadelphia-eagles",
+          "text": "Clubhouse"
+        },
+        {
+          "rel": [
+            "roster",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/roster/_/name/phi/philadelphia-eagles",
+          "text": "Roster"
+        },
+        {
+          "rel": [
+            "stats",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/stats/_/name/phi/philadelphia-eagles",
+          "text": "Statistics"
+        },
+        {
+          "rel": [
+            "schedule",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/schedule/_/name/phi",
+          "text": "Schedule"
+        },
+        {
+          "rel": [
+            "tickets",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.vividseats.com/philadelphia-eagles-tickets--sports-nfl-football/performer/669?wsUser=717",
+          "text": "Tickets"
+        },
+        {
+          "rel": [
+            "depthchart",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/depth/_/name/phi",
+          "text": "Depth Chart"
+        }
+      ]
+    },
+    {
+      "teamId": "23",
+      "uid": "s:20~l:28~t:23",
+      "slug": "pittsburgh-steelers",
+      "abbreviation": "PIT",
+      "teamName": "Pittsburgh Steelers",
+      "shortName": "Steelers",
+      "location": "Pittsburgh",
+      "nickname": "Steelers",
+      "color": "000000",
+      "alternateColor": "ffb612",
+      "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/pit.png",
+      "links": [
+        {
+          "rel": [
+            "clubhouse",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/_/name/pit/pittsburgh-steelers",
+          "text": "Clubhouse"
+        },
+        {
+          "rel": [
+            "roster",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/roster/_/name/pit/pittsburgh-steelers",
+          "text": "Roster"
+        },
+        {
+          "rel": [
+            "stats",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/stats/_/name/pit/pittsburgh-steelers",
+          "text": "Statistics"
+        },
+        {
+          "rel": [
+            "schedule",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/schedule/_/name/pit",
+          "text": "Schedule"
+        },
+        {
+          "rel": [
+            "tickets",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.vividseats.com/pittsburgh-steelers-tickets--sports-nfl-football/performer/686?wsUser=717",
+          "text": "Tickets"
+        },
+        {
+          "rel": [
+            "depthchart",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/depth/_/name/pit",
+          "text": "Depth Chart"
+        }
+      ]
+    },
+    {
+      "teamId": "25",
+      "uid": "s:20~l:28~t:25",
+      "slug": "san-francisco-49ers",
+      "abbreviation": "SF",
+      "teamName": "San Francisco 49ers",
+      "shortName": "49ers",
+      "location": "San Francisco",
+      "nickname": "49ers",
+      "color": "aa0000",
+      "alternateColor": "b3995d",
+      "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/sf.png",
+      "links": [
+        {
+          "rel": [
+            "clubhouse",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/_/name/sf/san-francisco-49ers",
+          "text": "Clubhouse"
+        },
+        {
+          "rel": [
+            "roster",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/roster/_/name/sf/san-francisco-49ers",
+          "text": "Roster"
+        },
+        {
+          "rel": [
+            "stats",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/stats/_/name/sf/san-francisco-49ers",
+          "text": "Statistics"
+        },
+        {
+          "rel": [
+            "schedule",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/schedule/_/name/sf",
+          "text": "Schedule"
+        },
+        {
+          "rel": [
+            "tickets",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.vividseats.com/san-francisco-49ers-tickets--sports-nfl-football/performer/758?wsUser=717",
+          "text": "Tickets"
+        },
+        {
+          "rel": [
+            "depthchart",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/depth/_/name/sf",
+          "text": "Depth Chart"
+        }
+      ]
+    },
+    {
+      "teamId": "26",
+      "uid": "s:20~l:28~t:26",
+      "slug": "seattle-seahawks",
+      "abbreviation": "SEA",
+      "teamName": "Seattle Seahawks",
+      "shortName": "Seahawks",
+      "location": "Seattle",
+      "nickname": "Seahawks",
+      "color": "002a5c",
+      "alternateColor": "69be28",
+      "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/sea.png",
+      "links": [
+        {
+          "rel": [
+            "clubhouse",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/_/name/sea/seattle-seahawks",
+          "text": "Clubhouse"
+        },
+        {
+          "rel": [
+            "roster",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/roster/_/name/sea/seattle-seahawks",
+          "text": "Roster"
+        },
+        {
+          "rel": [
+            "stats",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/stats/_/name/sea/seattle-seahawks",
+          "text": "Statistics"
+        },
+        {
+          "rel": [
+            "schedule",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/schedule/_/name/sea",
+          "text": "Schedule"
+        },
+        {
+          "rel": [
+            "tickets",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.vividseats.com/seattle-seahawks-tickets--sports-nfl-football/performer/772?wsUser=717",
+          "text": "Tickets"
+        },
+        {
+          "rel": [
+            "depthchart",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/depth/_/name/sea",
+          "text": "Depth Chart"
+        }
+      ]
+    },
+    {
+      "teamId": "27",
+      "uid": "s:20~l:28~t:27",
+      "slug": "tampa-bay-buccaneers",
+      "abbreviation": "TB",
+      "teamName": "Tampa Bay Buccaneers",
+      "shortName": "Buccaneers",
+      "location": "Tampa Bay",
+      "nickname": "Buccaneers",
+      "color": "bd1c36",
+      "alternateColor": "3e3a35",
+      "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/tb.png",
+      "links": [
+        {
+          "rel": [
+            "clubhouse",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/_/name/tb/tampa-bay-buccaneers",
+          "text": "Clubhouse"
+        },
+        {
+          "rel": [
+            "roster",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/roster/_/name/tb/tampa-bay-buccaneers",
+          "text": "Roster"
+        },
+        {
+          "rel": [
+            "stats",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/stats/_/name/tb/tampa-bay-buccaneers",
+          "text": "Statistics"
+        },
+        {
+          "rel": [
+            "schedule",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/schedule/_/name/tb",
+          "text": "Schedule"
+        },
+        {
+          "rel": [
+            "tickets",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.vividseats.com/tampa-bay-buccaneers-tickets--sports-nfl-football/performer/839?wsUser=717",
+          "text": "Tickets"
+        },
+        {
+          "rel": [
+            "depthchart",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/depth/_/name/tb",
+          "text": "Depth Chart"
+        }
+      ]
+    },
+    {
+      "teamId": "10",
+      "uid": "s:20~l:28~t:10",
+      "slug": "tennessee-titans",
+      "abbreviation": "TEN",
+      "teamName": "Tennessee Titans",
+      "shortName": "Titans",
+      "location": "Tennessee",
+      "nickname": "Titans",
+      "color": "4495d2",
+      "alternateColor": "001532",
+      "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/ten.png",
+      "links": [
+        {
+          "rel": [
+            "clubhouse",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/_/name/ten/tennessee-titans",
+          "text": "Clubhouse"
+        },
+        {
+          "rel": [
+            "roster",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/roster/_/name/ten/tennessee-titans",
+          "text": "Roster"
+        },
+        {
+          "rel": [
+            "stats",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/stats/_/name/ten/tennessee-titans",
+          "text": "Statistics"
+        },
+        {
+          "rel": [
+            "schedule",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/schedule/_/name/ten",
+          "text": "Schedule"
+        },
+        {
+          "rel": [
+            "tickets",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.vividseats.com/tennessee-titans-tickets--sports-nfl-football/performer/848?wsUser=717",
+          "text": "Tickets"
+        },
+        {
+          "rel": [
+            "depthchart",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/depth/_/name/ten",
+          "text": "Depth Chart"
+        }
+      ]
+    },
+    {
+      "teamId": "28",
+      "uid": "s:20~l:28~t:28",
+      "slug": "washington-commanders",
+      "abbreviation": "WSH",
+      "teamName": "Washington Commanders",
+      "shortName": "Commanders",
+      "location": "Washington",
+      "nickname": "Commanders",
+      "color": "5a1414",
+      "alternateColor": "ffb612",
+      "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/wsh.png",
+      "links": [
+        {
+          "rel": [
+            "clubhouse",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/_/name/wsh/washington-commanders",
+          "text": "Clubhouse"
+        },
+        {
+          "rel": [
+            "roster",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/roster/_/name/wsh/washington-commanders",
+          "text": "Roster"
+        },
+        {
+          "rel": [
+            "stats",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/stats/_/name/wsh/washington-commanders",
+          "text": "Statistics"
+        },
+        {
+          "rel": [
+            "schedule",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/schedule/_/name/wsh",
+          "text": "Schedule"
+        },
+        {
+          "rel": [
+            "tickets",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.vividseats.com/washington-commanders-tickets--sports-nfl-football/performer/925?wsUser=717",
+          "text": "Tickets"
+        },
+        {
+          "rel": [
+            "depthchart",
+            "desktop",
+            "team"
+          ],
+          "href": "https://www.espn.com/nfl/team/depth/_/name/wsh",
+          "text": "Depth Chart"
+        }
+      ]
+    }
+  ]
+}
