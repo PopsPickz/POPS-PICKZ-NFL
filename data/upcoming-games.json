@@ -1,0 +1,666 @@
+{
+  "generatedAt": "2026-07-13T03:01:42.095Z",
+  "season": 2026,
+  "seasonType": "regular",
+  "week": 1,
+  "gameCount": 16,
+  "source": "ESPN schedule feed",
+  "games": [
+    {
+      "gameId": "401872656",
+      "season": 2026,
+      "seasonType": 2,
+      "week": 1,
+      "name": "New England Patriots at Seattle Seahawks",
+      "shortName": "NE @ SEA",
+      "startTime": 1788999600000,
+      "date": "2026-09-10T00:20:00.000Z",
+      "state": "pre",
+      "completed": false,
+      "status": "9/9 - 8:20 PM EDT",
+      "venue": {
+        "name": "Lumen Field",
+        "city": "Seattle",
+        "state": "WA",
+        "indoor": false
+      },
+      "away": {
+        "teamId": "17",
+        "teamName": "New England Patriots",
+        "shortName": "Patriots",
+        "abbreviation": "NE",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ne.png",
+        "color": "002a5c",
+        "alternateColor": "c60c30",
+        "isHome": false,
+        "score": "0"
+      },
+      "home": {
+        "teamId": "26",
+        "teamName": "Seattle Seahawks",
+        "shortName": "Seahawks",
+        "abbreviation": "SEA",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/sea.png",
+        "color": "002a5c",
+        "alternateColor": "69be28",
+        "isHome": true,
+        "score": "0"
+      }
+    },
+    {
+      "gameId": "401872657",
+      "season": 2026,
+      "seasonType": 2,
+      "week": 1,
+      "name": "San Francisco 49ers at Los Angeles Rams",
+      "shortName": "SF VS LAR",
+      "startTime": 1789086900000,
+      "date": "2026-09-11T00:35:00.000Z",
+      "state": "pre",
+      "completed": false,
+      "status": "9/10 - 8:35 PM EDT",
+      "venue": {
+        "name": "Melbourne Cricket Ground",
+        "city": "Melbourne",
+        "state": "VIC",
+        "indoor": false
+      },
+      "away": {
+        "teamId": "25",
+        "teamName": "San Francisco 49ers",
+        "shortName": "49ers",
+        "abbreviation": "SF",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/sf.png",
+        "color": "aa0000",
+        "alternateColor": "b3995d",
+        "isHome": false,
+        "score": "0"
+      },
+      "home": {
+        "teamId": "14",
+        "teamName": "Los Angeles Rams",
+        "shortName": "Rams",
+        "abbreviation": "LAR",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lar.png",
+        "color": "003594",
+        "alternateColor": "ffd100",
+        "isHome": true,
+        "score": "0"
+      }
+    },
+    {
+      "gameId": "401872925",
+      "season": 2026,
+      "seasonType": 2,
+      "week": 1,
+      "name": "Tampa Bay Buccaneers at Cincinnati Bengals",
+      "shortName": "TB @ CIN",
+      "startTime": 1789318800000,
+      "date": "2026-09-13T17:00:00.000Z",
+      "state": "pre",
+      "completed": false,
+      "status": "9/13 - 1:00 PM EDT",
+      "venue": {
+        "name": "Paycor Stadium",
+        "city": "Cincinnati",
+        "state": "OH",
+        "indoor": false
+      },
+      "away": {
+        "teamId": "27",
+        "teamName": "Tampa Bay Buccaneers",
+        "shortName": "Buccaneers",
+        "abbreviation": "TB",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/tb.png",
+        "color": "bd1c36",
+        "alternateColor": "3e3a35",
+        "isHome": false,
+        "score": "0"
+      },
+      "home": {
+        "teamId": "4",
+        "teamName": "Cincinnati Bengals",
+        "shortName": "Bengals",
+        "abbreviation": "CIN",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/cin.png",
+        "color": "fb4f14",
+        "alternateColor": "000000",
+        "isHome": true,
+        "score": "0"
+      }
+    },
+    {
+      "gameId": "401872923",
+      "season": 2026,
+      "seasonType": 2,
+      "week": 1,
+      "name": "New Orleans Saints at Detroit Lions",
+      "shortName": "NO @ DET",
+      "startTime": 1789318800000,
+      "date": "2026-09-13T17:00:00.000Z",
+      "state": "pre",
+      "completed": false,
+      "status": "9/13 - 1:00 PM EDT",
+      "venue": {
+        "name": "Ford Field",
+        "city": "Detroit",
+        "state": "MI",
+        "indoor": true
+      },
+      "away": {
+        "teamId": "18",
+        "teamName": "New Orleans Saints",
+        "shortName": "Saints",
+        "abbreviation": "NO",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/no.png",
+        "color": "d3bc8d",
+        "alternateColor": "000000",
+        "isHome": false,
+        "score": "0"
+      },
+      "home": {
+        "teamId": "8",
+        "teamName": "Detroit Lions",
+        "shortName": "Lions",
+        "abbreviation": "DET",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/det.png",
+        "color": "0076b6",
+        "alternateColor": "bbbbbb",
+        "isHome": true,
+        "score": "0"
+      }
+    },
+    {
+      "gameId": "401872924",
+      "season": 2026,
+      "seasonType": 2,
+      "week": 1,
+      "name": "New York Jets at Tennessee Titans",
+      "shortName": "NYJ @ TEN",
+      "startTime": 1789318800000,
+      "date": "2026-09-13T17:00:00.000Z",
+      "state": "pre",
+      "completed": false,
+      "status": "9/13 - 1:00 PM EDT",
+      "venue": {
+        "name": "Nissan Stadium",
+        "city": "Nashville",
+        "state": "TN",
+        "indoor": false
+      },
+      "away": {
+        "teamId": "20",
+        "teamName": "New York Jets",
+        "shortName": "Jets",
+        "abbreviation": "NYJ",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/nyj.png",
+        "color": "115740",
+        "alternateColor": "ffffff",
+        "isHome": false,
+        "score": "0"
+      },
+      "home": {
+        "teamId": "10",
+        "teamName": "Tennessee Titans",
+        "shortName": "Titans",
+        "abbreviation": "TEN",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ten.png",
+        "color": "4495d2",
+        "alternateColor": "001532",
+        "isHome": true,
+        "score": "0"
+      }
+    },
+    {
+      "gameId": "401872659",
+      "season": 2026,
+      "seasonType": 2,
+      "week": 1,
+      "name": "Baltimore Ravens at Indianapolis Colts",
+      "shortName": "BAL @ IND",
+      "startTime": 1789318800000,
+      "date": "2026-09-13T17:00:00.000Z",
+      "state": "pre",
+      "completed": false,
+      "status": "9/13 - 1:00 PM EDT",
+      "venue": {
+        "name": "Lucas Oil Stadium",
+        "city": "Indianapolis",
+        "state": "IN",
+        "indoor": true
+      },
+      "away": {
+        "teamId": "33",
+        "teamName": "Baltimore Ravens",
+        "shortName": "Ravens",
+        "abbreviation": "BAL",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/bal.png",
+        "color": "29126f",
+        "alternateColor": "000000",
+        "isHome": false,
+        "score": "0"
+      },
+      "home": {
+        "teamId": "11",
+        "teamName": "Indianapolis Colts",
+        "shortName": "Colts",
+        "abbreviation": "IND",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ind.png",
+        "color": "003b75",
+        "alternateColor": "ffffff",
+        "isHome": true,
+        "score": "0"
+      }
+    },
+    {
+      "gameId": "401872658",
+      "season": 2026,
+      "seasonType": 2,
+      "week": 1,
+      "name": "Atlanta Falcons at Pittsburgh Steelers",
+      "shortName": "ATL @ PIT",
+      "startTime": 1789318800000,
+      "date": "2026-09-13T17:00:00.000Z",
+      "state": "pre",
+      "completed": false,
+      "status": "9/13 - 1:00 PM EDT",
+      "venue": {
+        "name": "Acrisure Stadium",
+        "city": "Pittsburgh",
+        "state": "PA",
+        "indoor": false
+      },
+      "away": {
+        "teamId": "1",
+        "teamName": "Atlanta Falcons",
+        "shortName": "Falcons",
+        "abbreviation": "ATL",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/atl.png",
+        "color": "a71930",
+        "alternateColor": "000000",
+        "isHome": false,
+        "score": "0"
+      },
+      "home": {
+        "teamId": "23",
+        "teamName": "Pittsburgh Steelers",
+        "shortName": "Steelers",
+        "abbreviation": "PIT",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/pit.png",
+        "color": "000000",
+        "alternateColor": "ffb612",
+        "isHome": true,
+        "score": "0"
+      }
+    },
+    {
+      "gameId": "401872661",
+      "season": 2026,
+      "seasonType": 2,
+      "week": 1,
+      "name": "Chicago Bears at Carolina Panthers",
+      "shortName": "CHI @ CAR",
+      "startTime": 1789318800000,
+      "date": "2026-09-13T17:00:00.000Z",
+      "state": "pre",
+      "completed": false,
+      "status": "9/13 - 1:00 PM EDT",
+      "venue": {
+        "name": "Bank of America Stadium",
+        "city": "Charlotte",
+        "state": "NC",
+        "indoor": false
+      },
+      "away": {
+        "teamId": "3",
+        "teamName": "Chicago Bears",
+        "shortName": "Bears",
+        "abbreviation": "CHI",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/chi.png",
+        "color": "0b1c3a",
+        "alternateColor": "e64100",
+        "isHome": false,
+        "score": "0"
+      },
+      "home": {
+        "teamId": "29",
+        "teamName": "Carolina Panthers",
+        "shortName": "Panthers",
+        "abbreviation": "CAR",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/car.png",
+        "color": "0085ca",
+        "alternateColor": "000000",
+        "isHome": true,
+        "score": "0"
+      }
+    },
+    {
+      "gameId": "401872922",
+      "season": 2026,
+      "seasonType": 2,
+      "week": 1,
+      "name": "Cleveland Browns at Jacksonville Jaguars",
+      "shortName": "CLE @ JAX",
+      "startTime": 1789318800000,
+      "date": "2026-09-13T17:00:00.000Z",
+      "state": "pre",
+      "completed": false,
+      "status": "9/13 - 1:00 PM EDT",
+      "venue": {
+        "name": "EverBank Stadium",
+        "city": "Jacksonville",
+        "state": "FL",
+        "indoor": false
+      },
+      "away": {
+        "teamId": "5",
+        "teamName": "Cleveland Browns",
+        "shortName": "Browns",
+        "abbreviation": "CLE",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/cle.png",
+        "color": "472a08",
+        "alternateColor": "ff3c00",
+        "isHome": false,
+        "score": "0"
+      },
+      "home": {
+        "teamId": "30",
+        "teamName": "Jacksonville Jaguars",
+        "shortName": "Jaguars",
+        "abbreviation": "JAX",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/jax.png",
+        "color": "007487",
+        "alternateColor": "d7a22a",
+        "isHome": true,
+        "score": "0"
+      }
+    },
+    {
+      "gameId": "401872660",
+      "season": 2026,
+      "seasonType": 2,
+      "week": 1,
+      "name": "Buffalo Bills at Houston Texans",
+      "shortName": "BUF @ HOU",
+      "startTime": 1789318800000,
+      "date": "2026-09-13T17:00:00.000Z",
+      "state": "pre",
+      "completed": false,
+      "status": "9/13 - 1:00 PM EDT",
+      "venue": {
+        "name": "NRG Stadium",
+        "city": "Houston",
+        "state": "TX",
+        "indoor": true
+      },
+      "away": {
+        "teamId": "2",
+        "teamName": "Buffalo Bills",
+        "shortName": "Bills",
+        "abbreviation": "BUF",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/buf.png",
+        "color": "00338d",
+        "alternateColor": "d50a0a",
+        "isHome": false,
+        "score": "0"
+      },
+      "home": {
+        "teamId": "34",
+        "teamName": "Houston Texans",
+        "shortName": "Texans",
+        "abbreviation": "HOU",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/hou.png",
+        "color": "00143f",
+        "alternateColor": "c41230",
+        "isHome": true,
+        "score": "0"
+      }
+    },
+    {
+      "gameId": "401872928",
+      "season": 2026,
+      "seasonType": 2,
+      "week": 1,
+      "name": "Miami Dolphins at Las Vegas Raiders",
+      "shortName": "MIA @ LV",
+      "startTime": 1789331100000,
+      "date": "2026-09-13T20:25:00.000Z",
+      "state": "pre",
+      "completed": false,
+      "status": "9/13 - 4:25 PM EDT",
+      "venue": {
+        "name": "Allegiant Stadium",
+        "city": "Las Vegas",
+        "state": "NV",
+        "indoor": true
+      },
+      "away": {
+        "teamId": "15",
+        "teamName": "Miami Dolphins",
+        "shortName": "Dolphins",
+        "abbreviation": "MIA",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/mia.png",
+        "color": "008e97",
+        "alternateColor": "fc4c02",
+        "isHome": false,
+        "score": "0"
+      },
+      "home": {
+        "teamId": "13",
+        "teamName": "Las Vegas Raiders",
+        "shortName": "Raiders",
+        "abbreviation": "LV",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lv.png",
+        "color": "000000",
+        "alternateColor": "a5acaf",
+        "isHome": true,
+        "score": "0"
+      }
+    },
+    {
+      "gameId": "401872927",
+      "season": 2026,
+      "seasonType": 2,
+      "week": 1,
+      "name": "Green Bay Packers at Minnesota Vikings",
+      "shortName": "GB @ MIN",
+      "startTime": 1789331100000,
+      "date": "2026-09-13T20:25:00.000Z",
+      "state": "pre",
+      "completed": false,
+      "status": "9/13 - 4:25 PM EDT",
+      "venue": {
+        "name": "U.S. Bank Stadium",
+        "city": "Minneapolis",
+        "state": "MN",
+        "indoor": true
+      },
+      "away": {
+        "teamId": "9",
+        "teamName": "Green Bay Packers",
+        "shortName": "Packers",
+        "abbreviation": "GB",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/gb.png",
+        "color": "204e32",
+        "alternateColor": "ffb612",
+        "isHome": false,
+        "score": "0"
+      },
+      "home": {
+        "teamId": "16",
+        "teamName": "Minnesota Vikings",
+        "shortName": "Vikings",
+        "abbreviation": "MIN",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/min.png",
+        "color": "4f2683",
+        "alternateColor": "ffc62f",
+        "isHome": true,
+        "score": "0"
+      }
+    },
+    {
+      "gameId": "401872929",
+      "season": 2026,
+      "seasonType": 2,
+      "week": 1,
+      "name": "Washington Commanders at Philadelphia Eagles",
+      "shortName": "WSH @ PHI",
+      "startTime": 1789331100000,
+      "date": "2026-09-13T20:25:00.000Z",
+      "state": "pre",
+      "completed": false,
+      "status": "9/13 - 4:25 PM EDT",
+      "venue": {
+        "name": "Lincoln Financial Field",
+        "city": "Philadelphia",
+        "state": "PA",
+        "indoor": false
+      },
+      "away": {
+        "teamId": "28",
+        "teamName": "Washington Commanders",
+        "shortName": "Commanders",
+        "abbreviation": "WSH",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/wsh.png",
+        "color": "5a1414",
+        "alternateColor": "ffb612",
+        "isHome": false,
+        "score": "0"
+      },
+      "home": {
+        "teamId": "21",
+        "teamName": "Philadelphia Eagles",
+        "shortName": "Eagles",
+        "abbreviation": "PHI",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/phi.png",
+        "color": "06424d",
+        "alternateColor": "000000",
+        "isHome": true,
+        "score": "0"
+      }
+    },
+    {
+      "gameId": "401872926",
+      "season": 2026,
+      "seasonType": 2,
+      "week": 1,
+      "name": "Arizona Cardinals at Los Angeles Chargers",
+      "shortName": "ARI @ LAC",
+      "startTime": 1789331100000,
+      "date": "2026-09-13T20:25:00.000Z",
+      "state": "pre",
+      "completed": false,
+      "status": "9/13 - 4:25 PM EDT",
+      "venue": {
+        "name": "SoFi Stadium",
+        "city": "Inglewood",
+        "state": "CA",
+        "indoor": false
+      },
+      "away": {
+        "teamId": "22",
+        "teamName": "Arizona Cardinals",
+        "shortName": "Cardinals",
+        "abbreviation": "ARI",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ari.png",
+        "color": "a40227",
+        "alternateColor": "ffffff",
+        "isHome": false,
+        "score": "0"
+      },
+      "home": {
+        "teamId": "24",
+        "teamName": "Los Angeles Chargers",
+        "shortName": "Chargers",
+        "abbreviation": "LAC",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lac.png",
+        "color": "0080c6",
+        "alternateColor": "ffc20e",
+        "isHome": true,
+        "score": "0"
+      }
+    },
+    {
+      "gameId": "401872930",
+      "season": 2026,
+      "seasonType": 2,
+      "week": 1,
+      "name": "Dallas Cowboys at New York Giants",
+      "shortName": "DAL @ NYG",
+      "startTime": 1789345200000,
+      "date": "2026-09-14T00:20:00.000Z",
+      "state": "pre",
+      "completed": false,
+      "status": "9/13 - 8:20 PM EDT",
+      "venue": {
+        "name": "MetLife Stadium",
+        "city": "East Rutherford",
+        "state": "NJ",
+        "indoor": false
+      },
+      "away": {
+        "teamId": "6",
+        "teamName": "Dallas Cowboys",
+        "shortName": "Cowboys",
+        "abbreviation": "DAL",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/dal.png",
+        "color": "002a5c",
+        "alternateColor": "b0b7bc",
+        "isHome": false,
+        "score": "0"
+      },
+      "home": {
+        "teamId": "19",
+        "teamName": "New York Giants",
+        "shortName": "Giants",
+        "abbreviation": "NYG",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/nyg.png",
+        "color": "003c7f",
+        "alternateColor": "c9243f",
+        "isHome": true,
+        "score": "0"
+      }
+    },
+    {
+      "gameId": "401872931",
+      "season": 2026,
+      "seasonType": 2,
+      "week": 1,
+      "name": "Denver Broncos at Kansas City Chiefs",
+      "shortName": "DEN @ KC",
+      "startTime": 1789431300000,
+      "date": "2026-09-15T00:15:00.000Z",
+      "state": "pre",
+      "completed": false,
+      "status": "9/14 - 8:15 PM EDT",
+      "venue": {
+        "name": "GEHA Field at Arrowhead Stadium",
+        "city": "Kansas City",
+        "state": "MO",
+        "indoor": false
+      },
+      "away": {
+        "teamId": "7",
+        "teamName": "Denver Broncos",
+        "shortName": "Broncos",
+        "abbreviation": "DEN",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/den.png",
+        "color": "0a2343",
+        "alternateColor": "fc4c02",
+        "isHome": false,
+        "score": "0"
+      },
+      "home": {
+        "teamId": "12",
+        "teamName": "Kansas City Chiefs",
+        "shortName": "Chiefs",
+        "abbreviation": "KC",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/kc.png",
+        "color": "e31837",
+        "alternateColor": "ffb612",
+        "isHome": true,
+        "score": "0"
+      }
+    }
+  ]
+}
