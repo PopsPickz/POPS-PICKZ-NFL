@@ -46,7 +46,16 @@ const SETTINGS = {
 
   maximumGames: 32,
 
-  requestDelayMilliseconds: 100
+ requestDelayMilliseconds: 100,
+
+playerPositions: [
+  "QB",
+  "RB",
+  "FB",
+  "WR",
+  "TE"
+]
+  
 };
 
 /*
