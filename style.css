@@ -59,124 +59,25 @@ button {
   padding: 18px;
 }
 
-/* =====================================================
-   HERO
-===================================================== */
+/* =====================================
+   HERO BANNER
+===================================== */
 
 .hero {
-  position: relative;
-  min-height: 280px;
-  overflow: hidden;
-  border: 2px solid var(--orange);
-  border-radius: 28px;
-  background:
-    radial-gradient(
-      circle at 14% 50%,
-      rgba(255, 106, 0, 0.28),
-      transparent 26%
-    ),
-    radial-gradient(
-      circle at 86% 40%,
-      rgba(255, 106, 0, 0.2),
-      transparent 30%
-    ),
-    linear-gradient(
-      115deg,
-      #050505 0%,
-      #111111 46%,
-      #050505 100%
-    );
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.hero-image {
+  width: 100%;
+  display: block;
+
+  border-radius: 24px;
+
+  border: 3px solid #ff6a00;
+
   box-shadow:
-    0 0 18px rgba(255, 106, 0, 0.4),
-    inset 0 0 28px rgba(255, 106, 0, 0.08);
-}
-
-.hero::before,
-.hero::after {
-  content: "";
-  position: absolute;
-  width: 420px;
-  height: 2px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    var(--orange),
-    transparent
-  );
-  opacity: 0.9;
-}
-
-.hero::before {
-  top: 50px;
-  left: -80px;
-  transform: rotate(-12deg);
-}
-
-.hero::after {
-  right: -70px;
-  bottom: 55px;
-  transform: rotate(10deg);
-}
-
-.hero-overlay {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
-  align-items: center;
-  min-height: 280px;
-  padding: 28px 42px;
-}
-
-.hero-ball,
-.hero-player {
-  display: grid;
-  place-items: center;
-  min-height: 200px;
-  font-size: clamp(80px, 10vw, 160px);
-  filter:
-    drop-shadow(0 0 18px rgba(255, 106, 0, 0.8))
-    saturate(1.2);
-}
-
-.hero-brand {
-  text-align: center;
-}
-
-.hero-brand h1 {
-  display: flex;
-  flex-direction: column;
-  margin: 0;
-  font-size: clamp(56px, 8vw, 118px);
-  line-height: 0.82;
-  letter-spacing: -4px;
-  font-style: italic;
-  text-shadow:
-    0 3px 0 #000,
-    0 0 22px rgba(255, 106, 0, 0.24);
-}
-
-.brand-orange {
-  color: var(--orange);
-}
-
-.brand-white {
-  color: #f7f7f7;
-}
-
-.hero-brand h2 {
-  margin: 16px 0 6px;
-  color: var(--orange-light);
-  font-size: 30px;
-  letter-spacing: 10px;
-}
-
-.hero-brand p {
-  margin: 0;
-  color: #dedede;
-  font-weight: 700;
-  letter-spacing: 1.4px;
-  text-transform: uppercase;
+    0 0 25px rgba(255,106,0,.45);
 }
 
 /* =====================================================
