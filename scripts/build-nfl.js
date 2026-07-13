@@ -1151,6 +1151,131 @@ async function loadSinglePlayerStatistics(
       stats
   };
 }
+
+/*
+=========================================================
+LOAD ALL OFFENSIVE PLAYER STATISTICS
+=========================================================
+*/
+
+async function loadAllPlayerStatistics(
+  teams,
+  statisticsSeason
+) {
+  const playerStatistics = [];
+  const usedPlayerIds = new Set();
+
+  console.log(
+    `Loading ${statisticsSeason} player statistics...`
+  );
+
+  for (
+    let teamIndex = 0;
+    teamIndex < teams.length;
+    teamIndex += 1
+  ) {
+    const team = teams[teamIndex];
+
+    try {
+      const roster =
+        await loadTeamRoster(
+          team,
+          statisticsSeason
+        );
+
+      console.log(
+        `Loaded roster ${teamIndex + 1}/${teams.length}: ` +
+        `${team.teamName} (${roster.length} skill players)`
+      );
+
+      for (
+        let playerIndex = 0;
+        playerIndex < roster.length;
+        playerIndex += 1
+      ) {
+        const athlete =
+          roster[playerIndex];
+
+        const playerId =
+          text(athlete.id);
+
+        if (
+          !playerId ||
+          usedPlayerIds.has(playerId)
+        ) {
+          continue;
+        }
+
+        try {
+          const player =
+            await loadSinglePlayerStatistics(
+              athlete,
+              statisticsSeason
+            );
+
+          if (player) {
+            playerStatistics.push(player);
+            usedPlayerIds.add(playerId);
+          }
+        } catch (error) {
+          console.warn(
+            `Player stats failed for ${
+              athlete.fullName ||
+              athlete.displayName ||
+              playerId
+            }:`,
+            error?.message || error
+          );
+        }
+
+        await wait(
+          SETTINGS.requestDelayMilliseconds
+        );
+      }
+    } catch (error) {
+      console.warn(
+        `Roster failed for ${team.teamName}:`,
+        error?.message || error
+      );
+    }
+
+    await wait(
+      SETTINGS.requestDelayMilliseconds
+    );
+  }
+
+  playerStatistics.sort(
+    (first, second) =>
+      Number(
+        second.totalTouchdowns || 0
+      ) -
+        Number(
+          first.totalTouchdowns || 0
+        ) ||
+
+      Number(
+        second.rushingYards || 0
+      ) +
+        Number(
+          second.receivingYards || 0
+        ) -
+        (
+          Number(
+            first.rushingYards || 0
+          ) +
+          Number(
+            first.receivingYards || 0
+          )
+        )
+  );
+
+  console.log(
+    `Finished loading ${playerStatistics.length} offensive players.`
+  );
+
+  return playerStatistics;
+}
+
 /*
 =========================================================
 CREATE TEAM STATISTICS OUTPUT
@@ -1178,6 +1303,37 @@ function createTeamStatsOutput(
 
     teams:
       teamStatistics
+  };
+}
+
+
+/*
+=========================================================
+CREATE PLAYER STATISTICS OUTPUT
+=========================================================
+*/
+
+function createPlayerStatsOutput(
+  scheduleSeason,
+  statisticsSeason,
+  playerStatistics
+) {
+  return {
+    generatedAt:
+      new Date().toISOString(),
+
+    scheduleSeason,
+
+    statisticsSeason,
+
+    playerCount:
+      playerStatistics.length,
+
+    source:
+      "ESPN roster and player statistics feeds",
+
+    players:
+      playerStatistics
   };
 }
 
