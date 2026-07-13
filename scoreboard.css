@@ -1,538 +1,79 @@
-/*
-=========================================================
-POPS PICKZ NFL — SCOREBOARD
-File: scoreboard.css
-=========================================================
-*/
+/* ==========================================
+   POPS PICKZ NFL SCOREBOARD
+========================================== */
 
-/* =====================================================
-   SCOREBOARD OUTER SHELL
-===================================================== */
-
-.scoreboard-shell {
-  display: flex;
-  align-items: stretch;
-  width: 100%;
-  min-height: 108px;
-  margin-top: 14px;
-  overflow: hidden;
-
-  border: 1px solid rgba(255, 106, 0, 0.6);
-  border-radius: 16px;
-
-  background:
-    linear-gradient(
-      180deg,
-      #101010 0%,
-      #070707 100%
-    );
-
-  box-shadow:
-    0 0 20px rgba(255, 106, 0, 0.14);
+.scoreboard-shell{
+    margin:18px 0;
+    background:#111;
+    border:2px solid #ff6a00;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 0 18px rgba(255,106,0,.25);
 }
 
-/* =====================================================
-   WEEK / SCOREBOARD LABEL
-===================================================== */
-
-.scoreboard-label {
-  position: relative;
-  z-index: 3;
-
-  flex: 0 0 145px;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
-  min-height: 108px;
-  padding: 14px 18px;
-
-  border-right: 1px solid rgba(255, 106, 0, 0.42);
-
-  background:
-    linear-gradient(
-      135deg,
-      #151515 0%,
-      #090909 100%
-    );
-
-  text-transform: uppercase;
+.scoreboard-track{
+    display:flex;
+    overflow-x:auto;
+    gap:10px;
+    padding:12px;
 }
 
-.scoreboard-label strong {
-  color: #ffffff;
-  font-size: 17px;
-  font-weight: 900;
-  letter-spacing: 0.6px;
+.score-card{
+    min-width:170px;
+    background:#1a1a1a;
+    border:1px solid #333;
+    border-radius:12px;
+    padding:10px;
+    transition:.2s;
 }
 
-.scoreboard-label span {
-  margin-top: 5px;
-
-  color: #ff8a22;
-  font-size: 11px;
-  font-weight: 900;
-  letter-spacing: 0.8px;
+.score-card:hover{
+    border-color:#ff6a00;
+    transform:translateY(-2px);
 }
 
-/* =====================================================
-   SCOREBOARD VIEWPORT
-===================================================== */
-
-.scoreboard-window {
-  position: relative;
-
-  flex: 1;
-  min-width: 0;
-  overflow: hidden;
+.game-time{
+    text-align:center;
+    color:#ffb347;
+    font-size:13px;
+    font-weight:700;
+    margin-bottom:8px;
 }
 
-/*
-Creates subtle fades at both ends of the scrolling ticker.
-*/
-
-.scoreboard-window::before,
-.scoreboard-window::after {
-  content: "";
-
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  z-index: 2;
-
-  width: 34px;
-
-  pointer-events: none;
+.team-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin:6px 0;
 }
 
-.scoreboard-window::before {
-  left: 0;
-
-  background:
-    linear-gradient(
-      90deg,
-      #0b0b0b,
-      transparent
-    );
+.team-left{
+    display:flex;
+    align-items:center;
+    gap:8px;
 }
 
-.scoreboard-window::after {
-  right: 0;
-
-  background:
-    linear-gradient(
-      270deg,
-      #0b0b0b,
-      transparent
-    );
+.team-logo{
+    width:26px;
+    height:26px;
+    object-fit:contain;
 }
 
-/* =====================================================
-   SCROLLING TRACK
-===================================================== */
-
-.scoreboard-track {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-
-  width: max-content;
-  min-width: 100%;
-  min-height: 108px;
-
-  padding: 9px 14px;
+.team-abbr{
+    font-weight:700;
+    color:#fff;
+    font-size:14px;
 }
 
-/*
-The JavaScript duplicates the game cards when enough games
-are available. Moving by 50% creates a seamless loop.
-*/
-
-.scoreboard-track.scoreboard-animate {
-  animation:
-    scoreboardScroll 45s linear infinite;
+.team-score{
+    color:#fff;
+    font-size:20px;
+    font-weight:800;
 }
 
-.scoreboard-window:hover .scoreboard-track {
-  animation-play-state: paused;
-}
-
-@keyframes scoreboardScroll {
-  from {
-    transform: translateX(0);
-  }
-
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-/* =====================================================
-   COMPACT GAME CARD
-===================================================== */
-
-.score-card {
-  flex: 0 0 190px;
-
-  width: 190px;
-  height: 88px;
-
-  padding: 8px 10px;
-
-  overflow: hidden;
-
-  border: 1px solid #303030;
-  border-radius: 11px;
-
-  background:
-    linear-gradient(
-      180deg,
-      #181818 0%,
-      #0c0c0c 100%
-    );
-
-  box-shadow:
-    inset 0 0 12px rgba(255, 255, 255, 0.015);
-
-  transition:
-    transform 0.2s ease,
-    border-color 0.2s ease,
-    box-shadow 0.2s ease;
-}
-
-.score-card:hover {
-  transform: translateY(-2px);
-
-  border-color: rgba(255, 106, 0, 0.75);
-
-  box-shadow:
-    0 0 14px rgba(255, 106, 0, 0.2);
-}
-
-.score-card-live {
-  border-color: rgba(86, 227, 108, 0.72);
-
-  box-shadow:
-    0 0 15px rgba(86, 227, 108, 0.1);
-}
-
-.score-card-final {
-  opacity: 0.88;
-}
-
-/* =====================================================
-   GAME STATUS
-===================================================== */
-
-.score-card-status {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-
-  height: 16px;
-  margin-bottom: 3px;
-
-  color: #ff9a2f;
-  font-size: 10px;
-  font-weight: 900;
-  letter-spacing: 0.45px;
-  text-transform: uppercase;
-}
-
-.score-card-live .score-card-status {
-  color: #56e36c;
-}
-
-.score-live-dot {
-  width: 7px;
-  height: 7px;
-
-  flex: 0 0 7px;
-
-  border-radius: 50%;
-
-  background: #56e36c;
-
-  box-shadow:
-    0 0 8px rgba(86, 227, 108, 0.9);
-
-  animation:
-    scoreboardLivePulse 1.4s ease-in-out infinite;
-}
-
-@keyframes scoreboardLivePulse {
-  0%,
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-
-  50% {
-    opacity: 0.45;
-    transform: scale(0.78);
-  }
-}
-
-/* =====================================================
-   TEAM ROWS
-===================================================== */
-
-.score-team-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  min-height: 24px;
-  padding: 1px 0;
-}
-
-.score-team-identity {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-
-  min-width: 0;
-}
-
-.score-team-logo {
-  width: 24px;
-  height: 24px;
-
-  flex: 0 0 24px;
-
-  object-fit: contain;
-
-  filter:
-    drop-shadow(
-      0 0 3px rgba(255, 255, 255, 0.18)
-    );
-}
-
-.score-team-fallback {
-  display: grid;
-  place-items: center;
-
-  width: 24px;
-  height: 24px;
-
-  flex: 0 0 24px;
-
-  font-size: 16px;
-}
-
-.score-team-name {
-  overflow: hidden;
-
-  color: #f5f5f5;
-  font-size: 13px;
-  font-weight: 900;
-  letter-spacing: 0.3px;
-
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.score-team-score {
-  margin-left: 8px;
-
-  color: #ffffff;
-  font-size: 18px;
-  font-weight: 900;
-  line-height: 1;
-}
-
-/* =====================================================
-   GAME DATE FOOTER
-===================================================== */
-
-.score-card-footer {
-  margin-top: 3px;
-
-  color: #8f8f8f;
-  font-size: 9px;
-  font-weight: 700;
-  text-align: center;
-  text-transform: uppercase;
-}
-
-/* =====================================================
-   LOADING / EMPTY / ERROR STATES
-===================================================== */
-
-.scoreboard-loading,
-.scoreboard-message {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  min-width: 300px;
-  min-height: 88px;
-  padding: 14px 22px;
-
-  color: #bdbdbd;
-  font-size: 14px;
-  font-weight: 800;
-}
-
-.scoreboard-message {
-  flex-direction: column;
-  gap: 7px;
-  text-align: center;
-}
-
-.scoreboard-message strong {
-  color: #ffffff;
-  font-size: 15px;
-}
-
-.scoreboard-message span {
-  color: #a8a8a8;
-  font-size: 12px;
-}
-
-.scoreboard-error {
-  color: #ff7a7a;
-}
-
-#scoreboardRetryButton {
-  margin-top: 5px;
-  padding: 7px 14px;
-
-  border: 1px solid rgba(255, 106, 0, 0.7);
-  border-radius: 7px;
-
-  background: #111111;
-  color: #ffffff;
-
-  font-size: 12px;
-  font-weight: 900;
-}
-
-#scoreboardRetryButton:hover {
-  background: #ff6a00;
-}
-
-/* =====================================================
-   TABLET
-===================================================== */
-
-@media (max-width: 900px) {
-  .scoreboard-shell {
-    min-height: 102px;
-  }
-
-  .scoreboard-label {
-    flex-basis: 120px;
-    min-height: 102px;
-    padding: 12px;
-  }
-
-  .scoreboard-label strong {
-    font-size: 14px;
-  }
-
-  .scoreboard-label span {
-    font-size: 9px;
-  }
-
-  .scoreboard-track {
-    min-height: 102px;
-    padding: 7px 10px;
-  }
-
-  .score-card {
-    flex-basis: 175px;
-    width: 175px;
-    height: 84px;
-  }
-}
-
-/* =====================================================
-   MOBILE
-===================================================== */
-
-@media (max-width: 620px) {
-  .scoreboard-shell {
-    display: block;
-    min-height: 0;
-  }
-
-  .scoreboard-label {
-    min-height: 0;
-    padding: 9px 13px;
-
-    border-right: 0;
-    border-bottom:
-      1px solid rgba(255, 106, 0, 0.36);
-  }
-
-  .scoreboard-label strong {
-    font-size: 13px;
-  }
-
-  .scoreboard-label span {
-    margin-top: 2px;
-    font-size: 9px;
-  }
-
-  .scoreboard-window {
-    min-height: 94px;
-  }
-
-  .scoreboard-track {
-    min-height: 94px;
-    padding: 6px 9px;
-  }
-
-  .score-card {
-    flex: 0 0 165px;
-
-    width: 165px;
-    height: 80px;
-
-    padding: 7px 9px;
-  }
-
-  .score-team-logo,
-  .score-team-fallback {
-    width: 21px;
-    height: 21px;
-    flex-basis: 21px;
-  }
-
-  .score-team-name {
-    font-size: 12px;
-  }
-
-  .score-team-score {
-    font-size: 17px;
-  }
-
-  .score-card-status {
-    font-size: 9px;
-  }
-
-  .score-card-footer {
-    font-size: 8px;
-  }
-
-  .scoreboard-track.scoreboard-animate {
-    animation-duration: 38s;
-  }
-}
-
-/* =====================================================
-   ACCESSIBILITY
-===================================================== */
-
-@media (prefers-reduced-motion: reduce) {
-  .scoreboard-track.scoreboard-animate,
-  .score-live-dot {
-    animation: none;
-  }
-
-  .scoreboard-window {
-    overflow-x: auto;
-  }
+.game-status{
+    text-align:center;
+    color:#999;
+    font-size:12px;
+    margin-top:8px;
 }
