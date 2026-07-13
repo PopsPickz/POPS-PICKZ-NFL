@@ -2,26 +2,25 @@
 =========================================================
 POPS PICKZ NFL — MASTER DATA BUILDER
 File: scripts/build-nfl.js
-Phase 1
+Phase 2 — Foundation
 =========================================================
 
-CURRENT PURPOSE
+CURRENT OUTPUTS
 
-- Download the NFL schedule
-- Find the next upcoming regular-season week
-- Save all games from that week
-- Create data/upcoming-games.json
+1. data/upcoming-games.json
+2. data/teams.json
 
-FUTURE ADDITIONS
+NEXT ADDITIONS
 
 - Team statistics
 - Player statistics
-- TD predictions
-- Passing predictions
-- Rushing predictions
-- Receiving predictions
+- Rosters
+- TD projections
+- Passing projections
+- Rushing projections
+- Receiving projections
 - Moneyline predictions
-- Live grading
+- Live tracking
 - Weekly and season records
 =========================================================
 */
@@ -39,20 +38,20 @@ const SETTINGS = {
   sport: "football",
   league: "nfl",
 
-  /*
-  Regular season = 2
-  Preseason = 1
-  Postseason = 3
-  */
+  seasonTypes: {
+    preseason: 1,
+    regular: 2,
+    postseason: 3
+  },
 
-  seasonType: 2,
+  maximumGames: 32,
 
-  maximumGames: 32
+  requestDelayMilliseconds: 100
 };
 
 /*
 =========================================================
-FILE PATHS
+DIRECTORIES AND FILES
 =========================================================
 */
 
@@ -66,10 +65,17 @@ const DATA_DIRECTORY = path.join(
   "data"
 );
 
-const UPCOMING_GAMES_FILE = path.join(
-  DATA_DIRECTORY,
-  "upcoming-games.json"
-);
+const FILES = {
+  upcomingGames: path.join(
+    DATA_DIRECTORY,
+    "upcoming-games.json"
+  ),
+
+  teams: path.join(
+    DATA_DIRECTORY,
+    "teams.json"
+  )
+};
 
 /*
 =========================================================
@@ -86,28 +92,41 @@ function number(value, fallback = 0) {
 }
 
 function text(value, fallback = "") {
-  const result = String(
+  const cleaned = String(
     value ?? ""
   ).trim();
 
-  return result || fallback;
+  return cleaned || fallback;
 }
 
-function ensureDataDirectory() {
-  if (!fs.existsSync(DATA_DIRECTORY)) {
-    fs.mkdirSync(
-      DATA_DIRECTORY,
-      {
-        recursive: true
-      }
-    );
+function boolean(value) {
+  return Boolean(value);
+}
+
+function unique(values = []) {
+  return Array.from(
+    new Set(values)
+  );
+}
+
+function wait(milliseconds) {
+  return new Promise(resolve => {
+    setTimeout(resolve, milliseconds);
+  });
+}
+
+function ensureDirectory(directoryPath) {
+  if (!fs.existsSync(directoryPath)) {
+    fs.mkdirSync(directoryPath, {
+      recursive: true
+    });
   }
 }
 
-function writeJSON(filePath, value) {
+function writeJSON(filePath, data) {
   fs.writeFileSync(
     filePath,
-    JSON.stringify(value, null, 2),
+    JSON.stringify(data, null, 2),
     "utf8"
   );
 }
@@ -118,16 +137,24 @@ function getCurrentNFLSeason() {
   const month = now.getMonth();
 
   /*
-  January and February belong to the season
+  January and February are part of the NFL season
   that began during the previous calendar year.
 
-  From March onward, prepare for the current
-  calendar year's upcoming NFL season.
+  From March forward, prepare for the upcoming season
+  named for the current calendar year.
   */
 
   return month <= 1
     ? year - 1
     : year;
+}
+
+function safeDate(value) {
+  const date = new Date(value);
+
+  return Number.isNaN(date.getTime())
+    ? null
+    : date;
 }
 
 /*
@@ -136,18 +163,27 @@ NETWORK HELPER
 =========================================================
 */
 
-async function fetchJSON(url) {
+async function fetchJSON(
+  url,
+  options = {}
+) {
   const response = await fetch(url, {
+    cache: "no-store",
+
     headers: {
       Accept: "application/json",
+
       "User-Agent":
-        "POPS-PICKZ-NFL/1.0"
+        "POPS-PICKZ-NFL/2.0",
+
+      ...(options.headers || {})
     }
   });
 
   if (!response.ok) {
     throw new Error(
-      `Request failed: ${response.status} ${response.statusText}`
+      `Request failed: ${response.status} ` +
+      `${response.statusText} — ${url}`
     );
   }
 
@@ -156,87 +192,137 @@ async function fetchJSON(url) {
 
 /*
 =========================================================
-TEAM NORMALIZER
+TEAM NORMALIZATION
 =========================================================
 */
 
-function normalizeTeam(
-  competitor,
-  isHome
-) {
-  const team =
-    competitor?.team || {};
+function normalizeTeamRecord(team = {}) {
+  const logos = Array.isArray(team.logos)
+    ? team.logos
+    : [];
 
   return {
     teamId: text(team.id),
 
-    teamName:
-      text(
-        team.displayName,
-        text(
-          team.name,
-          "NFL Team"
-        )
-      ),
+    uid: text(team.uid),
 
-    shortName:
-      text(
-        team.shortDisplayName,
-        text(
-          team.name,
-          "NFL Team"
-        )
-      ),
+    slug: text(team.slug),
 
-    abbreviation:
-      text(
-        team.abbreviation,
-        "NFL"
-      ),
+    abbreviation: text(
+      team.abbreviation,
+      text(team.shortDisplayName, "NFL")
+    ),
 
-    logo:
-      text(
-        team.logo,
-        text(
-          team.logos?.[0]?.href
-        )
-      ),
+    teamName: text(
+      team.displayName,
+      text(team.name, "NFL Team")
+    ),
 
-    color:
-      text(team.color),
+    shortName: text(
+      team.shortDisplayName,
+      text(team.name, "NFL Team")
+    ),
 
-    alternateColor:
-      text(team.alternateColor),
+    location: text(team.location),
+
+    nickname: text(team.name),
+
+    color: text(team.color),
+
+    alternateColor: text(
+      team.alternateColor
+    ),
+
+    logo: text(
+      team.logo,
+      text(logos[0]?.href)
+    ),
+
+    links: Array.isArray(team.links)
+      ? team.links
+          .map(link => ({
+            rel: Array.isArray(link.rel)
+              ? link.rel
+              : [],
+
+            href: text(link.href),
+
+            text: text(link.text)
+          }))
+          .filter(link => link.href)
+      : []
+  };
+}
+
+function normalizeGameTeam(
+  competitor = {},
+  isHome = false
+) {
+  const team = competitor.team || {};
+
+  return {
+    teamId: text(team.id),
+
+    teamName: text(
+      team.displayName,
+      text(team.name, "NFL Team")
+    ),
+
+    shortName: text(
+      team.shortDisplayName,
+      text(team.name, "NFL Team")
+    ),
+
+    abbreviation: text(
+      team.abbreviation,
+      "NFL"
+    ),
+
+    logo: text(
+      team.logo,
+      text(team.logos?.[0]?.href)
+    ),
+
+    color: text(team.color),
+
+    alternateColor: text(
+      team.alternateColor
+    ),
 
     isHome,
 
     score:
-      competitor?.score !== undefined
+      competitor.score !== undefined
         ? text(competitor.score, "0")
-        : "0"
+        : "0",
+
+    winner: boolean(competitor.winner),
+
+    record: text(
+      competitor.records?.[0]?.summary
+    )
   };
 }
 
 /*
 =========================================================
-GAME NORMALIZER
+GAME NORMALIZATION
 =========================================================
 */
 
-function normalizeGame(event) {
+function normalizeGame(event = {}) {
   const competition =
-    event?.competitions?.[0];
+    event.competitions?.[0];
 
   if (!competition) {
     return null;
   }
 
-  const competitors =
-    Array.isArray(
-      competition.competitors
-    )
-      ? competition.competitors
-      : [];
+  const competitors = Array.isArray(
+    competition.competitors
+  )
+    ? competition.competitors
+    : [];
 
   const awayCompetitor =
     competitors.find(
@@ -265,129 +351,193 @@ function normalizeGame(event) {
   const statusType =
     status.type || {};
 
-  const date =
-    new Date(event.date);
+  const startDate =
+    safeDate(event.date);
 
   const startTime =
-    Number.isNaN(date.getTime())
-      ? 0
-      : date.getTime();
-
-  const seasonType =
-    number(
-      event?.season?.type ??
-      competition?.type?.id
-    );
+    startDate
+      ? startDate.getTime()
+      : 0;
 
   return {
-    gameId:
-      text(event.id),
+    gameId: text(event.id),
 
-    season:
-      number(
-        event?.season?.year,
-        getCurrentNFLSeason()
-      ),
+    season: number(
+      event.season?.year,
+      getCurrentNFLSeason()
+    ),
 
-    seasonType,
+    seasonType: number(
+      event.season?.type ??
+      competition.type?.id
+    ),
 
-    week:
-      number(
-        event?.week?.number ??
-        competition?.week?.number
-      ),
+    week: number(
+      event.week?.number ??
+      competition.week?.number
+    ),
 
-    name:
-      text(
-        event.name,
-        `${
-          awayCompetitor.team
-            ?.displayName || "Away"
-        } vs ${
-          homeCompetitor.team
-            ?.displayName || "Home"
-        }`
-      ),
+    name: text(
+      event.name,
+      `${
+        awayCompetitor.team
+          ?.displayName || "Away"
+      } at ${
+        homeCompetitor.team
+          ?.displayName || "Home"
+      }`
+    ),
 
-    shortName:
-      text(
-        event.shortName
-      ),
+    shortName: text(event.shortName),
+
+    date:
+      startDate
+        ? startDate.toISOString()
+        : "",
 
     startTime,
 
-    date:
-      startTime
-        ? new Date(startTime)
-            .toISOString()
-        : "",
+    state: text(
+      statusType.state,
+      "pre"
+    ),
 
-    state:
+    completed: boolean(
+      statusType.completed
+    ),
+
+    status: text(
+      statusType.shortDetail,
       text(
-        statusType.state,
-        "pre"
-      ),
-
-    completed:
-      Boolean(
-        statusType.completed
-      ),
-
-    status:
-      text(
-        statusType.shortDetail,
+        statusType.detail,
         text(
-          statusType.detail,
-          text(
-            statusType.description,
-            "Scheduled"
-          )
+          statusType.description,
+          "Scheduled"
         )
+      )
+    ),
+
+    period: number(status.period),
+
+    clock: text(
+      status.displayClock
+    ),
+
+    neutralSite: boolean(
+      competition.neutralSite
+    ),
+
+    conferenceCompetition:
+      boolean(
+        competition.conferenceCompetition
       ),
+
+    attendance: number(
+      competition.attendance
+    ),
 
     venue: {
-      name:
-        text(
-          competition?.venue
-            ?.fullName
-        ),
-
-      city:
-        text(
-          competition?.venue
-            ?.address?.city
-        ),
-
-      state:
-        text(
-          competition?.venue
-            ?.address?.state
-        ),
-
-      indoor:
-        Boolean(
-          competition?.venue
-            ?.indoor
-        )
-    },
-
-    away:
-      normalizeTeam(
-        awayCompetitor,
-        false
+      name: text(
+        competition.venue?.fullName
       ),
 
-    home:
-      normalizeTeam(
-        homeCompetitor,
-        true
+      city: text(
+        competition.venue
+          ?.address?.city
+      ),
+
+      state: text(
+        competition.venue
+          ?.address?.state
+      ),
+
+      indoor: boolean(
+        competition.venue?.indoor
+      ),
+
+      grass: boolean(
+        competition.venue?.grass
       )
+    },
+
+    broadcasts: Array.isArray(
+      competition.broadcasts
+    )
+      ? unique(
+          competition.broadcasts.flatMap(
+            broadcast =>
+              Array.isArray(
+                broadcast.names
+              )
+                ? broadcast.names
+                : []
+          )
+        )
+      : [],
+
+    away: normalizeGameTeam(
+      awayCompetitor,
+      false
+    ),
+
+    home: normalizeGameTeam(
+      homeCompetitor,
+      true
+    )
   };
 }
 
 /*
 =========================================================
-LOAD NFL SCHEDULE
+LOAD ALL NFL TEAMS
+=========================================================
+*/
+
+async function loadNFLTeams() {
+  const url =
+    "https://site.api.espn.com/" +
+    "apis/site/v2/sports/" +
+    `${SETTINGS.sport}/` +
+    `${SETTINGS.league}/teams` +
+    "?limit=100";
+
+  console.log(
+    "Loading NFL teams..."
+  );
+
+  const data = await fetchJSON(url);
+
+  const league =
+    data?.sports?.[0]?.leagues?.[0];
+
+  const rawTeams =
+    Array.isArray(league?.teams)
+      ? league.teams
+      : [];
+
+  const teams = rawTeams
+    .map(item =>
+      normalizeTeamRecord(
+        item.team || item
+      )
+    )
+    .filter(team => team.teamId)
+    .sort((first, second) =>
+      first.teamName.localeCompare(
+        second.teamName
+      )
+    );
+
+  console.log(
+    `Loaded ${teams.length} NFL teams.`
+  );
+
+  return teams;
+}
+
+/*
+=========================================================
+LOAD NFL SEASON SCHEDULE
 =========================================================
 */
 
@@ -407,23 +557,16 @@ async function loadSeasonSchedule(
     `Loading NFL ${season} schedule...`
   );
 
-  const data =
-    await fetchJSON(url);
+  const data = await fetchJSON(url);
 
   const events =
-    Array.isArray(data?.events)
+    Array.isArray(data.events)
       ? data.events
       : [];
 
   const games = events
     .map(normalizeGame)
     .filter(Boolean)
-    .filter(game => {
-      return (
-        game.seasonType ===
-        SETTINGS.seasonType
-      );
-    })
     .sort(
       (first, second) =>
         first.startTime -
@@ -431,7 +574,7 @@ async function loadSeasonSchedule(
     );
 
   console.log(
-    `Found ${games.length} regular-season games.`
+    `Loaded ${games.length} total games.`
   );
 
   return games;
@@ -439,62 +582,79 @@ async function loadSeasonSchedule(
 
 /*
 =========================================================
-SELECT NEXT UPCOMING WEEK
+SELECT THE NEXT REGULAR-SEASON SLATE
 =========================================================
 */
 
-function selectUpcomingWeek(games) {
+function selectUpcomingWeek(games = []) {
   const now = Date.now();
 
-  const futureGames =
+  const regularSeasonGames =
     games.filter(game => {
       return (
-        !game.completed &&
-        game.startTime >= now
+        game.seasonType ===
+        SETTINGS.seasonTypes.regular
       );
     });
 
-  if (!futureGames.length) {
+  /*
+  Include games that are live or scheduled in the future.
+  */
+
+  const availableGames =
+    regularSeasonGames
+      .filter(game => {
+        return (
+          game.state === "in" ||
+          (
+            !game.completed &&
+            game.startTime >= now
+          )
+        );
+      })
+      .sort(
+        (first, second) =>
+          first.startTime -
+          second.startTime
+      );
+
+  if (!availableGames.length) {
     return {
       week: null,
       games: []
     };
   }
 
-  /*
-  The first future game determines the next week.
-  */
+  const firstGame =
+    availableGames[0];
 
-  const nextWeek =
-    futureGames[0].week;
+  const selectedWeek =
+    firstGame.week;
 
   let selectedGames =
-    futureGames.filter(game => {
-      return game.week === nextWeek;
+    availableGames.filter(game => {
+      return (
+        selectedWeek > 0 &&
+        game.week === selectedWeek
+      );
     });
 
   /*
-  Safety fallback in case the feed does not include
-  week numbers.
+  Fallback when week numbers are missing.
+  Select games within seven days of the next game.
   */
 
-  if (
-    !nextWeek ||
-    !selectedGames.length
-  ) {
-    const firstGameTime =
-      futureGames[0].startTime;
-
+  if (!selectedGames.length) {
     const sevenDays =
       7 * 24 * 60 * 60 * 1000;
 
     selectedGames =
-      futureGames.filter(game => {
+      availableGames.filter(game => {
         return (
           game.startTime >=
-            firstGameTime &&
+            firstGame.startTime &&
           game.startTime <
-            firstGameTime +
+            firstGame.startTime +
             sevenDays
         );
       });
@@ -502,23 +662,41 @@ function selectUpcomingWeek(games) {
 
   return {
     week:
-      nextWeek || null,
+      selectedWeek || null,
 
-    games:
-      selectedGames.slice(
-        0,
-        SETTINGS.maximumGames
-      )
+    games: selectedGames.slice(
+      0,
+      SETTINGS.maximumGames
+    )
   };
 }
 
 /*
 =========================================================
-CREATE UPCOMING GAMES FILE
+CREATE OUTPUT OBJECTS
 =========================================================
 */
 
-function createUpcomingGamesData(
+function createTeamsOutput(
+  season,
+  teams
+) {
+  return {
+    generatedAt:
+      new Date().toISOString(),
+
+    season,
+
+    teamCount: teams.length,
+
+    source:
+      "ESPN team feed",
+
+    teams
+  };
+}
+
+function createUpcomingGamesOutput(
   season,
   selection
 ) {
@@ -553,64 +731,121 @@ MAIN BUILD
 
 async function build() {
   try {
-    ensureDataDirectory();
+    ensureDirectory(
+      DATA_DIRECTORY
+    );
 
     const season =
       getCurrentNFLSeason();
 
-    const schedule =
-      await loadSeasonSchedule(
-        season
-      );
-
-    const upcomingWeek =
-      selectUpcomingWeek(
-        schedule
-      );
-
-    if (
-      !upcomingWeek.games.length
-    ) {
-      throw new Error(
-        `No upcoming regular-season NFL games were found for ${season}.`
-      );
-    }
-
-    const output =
-      createUpcomingGamesData(
-        season,
-        upcomingWeek
-      );
-
-    writeJSON(
-      UPCOMING_GAMES_FILE,
-      output
-    );
-
     console.log("");
     console.log(
-      "POPS NFL schedule build complete."
+      "======================================"
+    );
+
+    console.log(
+      "POPS PICKZ NFL DATA BUILD"
+    );
+
+    console.log(
+      "======================================"
     );
 
     console.log(
       `Season: ${season}`
     );
 
+    console.log("");
+
+    /*
+    Load teams and schedule.
+    */
+
+    const teams =
+      await loadNFLTeams();
+
+    await wait(
+      SETTINGS.requestDelayMilliseconds
+    );
+
+    const schedule =
+      await loadSeasonSchedule(
+        season
+      );
+
+    /*
+    Select the next week.
+    */
+
+    const upcomingSelection =
+      selectUpcomingWeek(
+        schedule
+      );
+
+    if (
+      !upcomingSelection.games.length
+    ) {
+      throw new Error(
+        `No upcoming regular-season NFL games ` +
+        `were found for ${season}.`
+      );
+    }
+
+    /*
+    Build output objects.
+    */
+
+    const teamsOutput =
+      createTeamsOutput(
+        season,
+        teams
+      );
+
+    const upcomingGamesOutput =
+      createUpcomingGamesOutput(
+        season,
+        upcomingSelection
+      );
+
+    /*
+    Write files.
+    */
+
+    writeJSON(
+      FILES.teams,
+      teamsOutput
+    );
+
+    writeJSON(
+      FILES.upcomingGames,
+      upcomingGamesOutput
+    );
+
+    console.log("");
     console.log(
-      `Week: ${
-        upcomingWeek.week ??
+      "FILES CREATED"
+    );
+
+    console.log(
+      `✓ data/teams.json (${teams.length} teams)`
+    );
+
+    console.log(
+      `✓ data/upcoming-games.json ` +
+      `(${upcomingSelection.games.length} games)`
+    );
+
+    console.log("");
+    console.log(
+      `Upcoming week: ${
+        upcomingSelection.week ??
         "Upcoming slate"
       }`
     );
 
+    console.log("");
     console.log(
-      `Games saved: ${
-        upcomingWeek.games.length
-      }`
-    );
-
-    console.log(
-      "Created: data/upcoming-games.json"
+      "POPS NFL build completed successfully."
     );
   } catch (error) {
     console.error("");
@@ -630,7 +865,7 @@ async function build() {
 
 /*
 =========================================================
-RUN BUILDER
+RUN
 =========================================================
 */
 
