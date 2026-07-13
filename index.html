@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
 
   <title>POPS PICKZ NFL</title>
 
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="scoreboard.css">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="scoreboard.css" />
+  <link rel="stylesheet" href="moneyline-style.css" />
 </head>
 
 <body>
@@ -18,15 +23,13 @@
     ========================================== -->
 
     <header class="hero">
+      <img
+        src="hero-banner.jpg"
+        alt="POPS Pickz NFL"
+        class="hero-image"
+      />
+    </header>
 
-  <img
-    src="hero-banner.jpg"
-    alt="POPS Pickz NFL"
-    class="hero-image"
-  >
-
-</header>
-    
     <!-- =========================================
          MAIN NAVIGATION TABS
     ========================================== -->
@@ -90,6 +93,15 @@
       <button
         type="button"
         class="main-tab"
+        data-tab="moneyline"
+      >
+        <span>💰</span>
+        Moneyline Pickz
+      </button>
+
+      <button
+        type="button"
+        class="main-tab"
         data-tab="live"
       >
         <span>📡</span>
@@ -104,68 +116,19 @@
 
     <section class="scoreboard-shell">
       <div class="scoreboard-label">
-        <strong>WEEK 1</strong>
-        <span>Scoreboard</span>
+        <strong id="scoreboardWeek">NFL</strong>
+        <span>Live Scoreboard</span>
       </div>
 
-      <div class="scoreboard-track" id="scoreboardTrack">
-
-        <article class="score-card">
-          <div class="score-team">
-            <span>KC</span>
-            <strong>24</strong>
+      <div class="scoreboard-window">
+        <div
+          class="scoreboard-track"
+          id="scoreboardTrack"
+        >
+          <div class="ticker-message">
+            Loading NFL games...
           </div>
-
-          <div class="score-team">
-            <span>BAL</span>
-            <strong>20</strong>
-          </div>
-
-          <small>4th • 6:45</small>
-        </article>
-
-        <article class="score-card">
-          <div class="score-team">
-            <span>BUF</span>
-            <strong>17</strong>
-          </div>
-
-          <div class="score-team">
-            <span>NYJ</span>
-            <strong>13</strong>
-          </div>
-
-          <small>4th • 9:12</small>
-        </article>
-
-        <article class="score-card">
-          <div class="score-team">
-            <span>SF</span>
-            <strong>21</strong>
-          </div>
-
-          <div class="score-team">
-            <span>PIT</span>
-            <strong>14</strong>
-          </div>
-
-          <small>3rd • 2:18</small>
-        </article>
-
-        <article class="score-card">
-          <div class="score-team">
-            <span>DAL</span>
-            <strong>10</strong>
-          </div>
-
-          <div class="score-team">
-            <span>CLE</span>
-            <strong>7</strong>
-          </div>
-
-          <small>3rd • 5:32</small>
-        </article>
-
+        </div>
       </div>
     </section>
 
@@ -183,17 +146,27 @@
       >
         <div class="section-header">
           <div>
-            <p class="section-kicker">TODAY'S EDGE</p>
-            <h2>🎯 Predicted TD Scorers</h2>
+            <p class="section-kicker">
+              TODAY'S EDGE
+            </p>
+
+            <h2>
+              🎯 Predicted TD Scorers
+            </h2>
           </div>
 
-          <button type="button" class="small-button">
+          <button
+            type="button"
+            class="small-button"
+          >
             View All
           </button>
         </div>
 
-        <div id="tdScorersBox" class="leader-list">
-
+        <div
+          id="tdScorersBox"
+          class="leader-list"
+        >
           <article class="leader-row">
             <div class="rank">1</div>
 
@@ -244,7 +217,10 @@
             </div>
 
             <div class="player-details">
-              <strong>Christian McCaffrey</strong>
+              <strong>
+                Christian McCaffrey
+              </strong>
+
               <span>SF • RB • vs NYG</span>
             </div>
 
@@ -256,7 +232,6 @@
               <strong>61%</strong>
             </div>
           </article>
-
         </div>
       </section>
 
@@ -268,21 +243,35 @@
       >
         <div class="section-header">
           <div>
-            <p class="section-kicker">PLAYER PROJECTIONS</p>
-            <h2>🏈 Passing Yards / Attempts</h2>
+            <p class="section-kicker">
+              PLAYER PROJECTIONS
+            </p>
+
+            <h2>
+              🏈 Passing Yards / Attempts
+            </h2>
           </div>
         </div>
 
-        <div id="passingBox" class="prediction-grid">
-
+        <div
+          id="passingBox"
+          class="prediction-grid"
+        >
           <article class="prediction-card">
-            <span class="prediction-rank">#1</span>
+            <span class="prediction-rank">
+              #1
+            </span>
+
             <h3>Josh Allen</h3>
+
             <p>BUF • QB • vs ARI</p>
 
             <div class="projection-main">
               <strong>312</strong>
-              <span>Projected Passing Yards</span>
+
+              <span>
+                Projected Passing Yards
+              </span>
             </div>
 
             <div class="projection-stats">
@@ -302,7 +291,6 @@
               </div>
             </div>
           </article>
-
         </div>
       </section>
 
@@ -314,21 +302,35 @@
       >
         <div class="section-header">
           <div>
-            <p class="section-kicker">PLAYER PROJECTIONS</p>
-            <h2>🏃 Rushing Yards / Attempts</h2>
+            <p class="section-kicker">
+              PLAYER PROJECTIONS
+            </p>
+
+            <h2>
+              🏃 Rushing Yards / Attempts
+            </h2>
           </div>
         </div>
 
-        <div id="rushingBox" class="prediction-grid">
-
+        <div
+          id="rushingBox"
+          class="prediction-grid"
+        >
           <article class="prediction-card">
-            <span class="prediction-rank">#1</span>
+            <span class="prediction-rank">
+              #1
+            </span>
+
             <h3>Jahmyr Gibbs</h3>
+
             <p>DET • RB • vs LAR</p>
 
             <div class="projection-main">
               <strong>96</strong>
-              <span>Projected Rushing Yards</span>
+
+              <span>
+                Projected Rushing Yards
+              </span>
             </div>
 
             <div class="projection-stats">
@@ -348,7 +350,6 @@
               </div>
             </div>
           </article>
-
         </div>
       </section>
 
@@ -360,21 +361,35 @@
       >
         <div class="section-header">
           <div>
-            <p class="section-kicker">PLAYER PROJECTIONS</p>
-            <h2>🙌 Receiving Yards / Receptions</h2>
+            <p class="section-kicker">
+              PLAYER PROJECTIONS
+            </p>
+
+            <h2>
+              🙌 Receiving Yards / Receptions
+            </h2>
           </div>
         </div>
 
-        <div id="receivingBox" class="prediction-grid">
-
+        <div
+          id="receivingBox"
+          class="prediction-grid"
+        >
           <article class="prediction-card">
-            <span class="prediction-rank">#1</span>
+            <span class="prediction-rank">
+              #1
+            </span>
+
             <h3>Tyreek Hill</h3>
+
             <p>MIA • WR • vs JAX</p>
 
             <div class="projection-main">
               <strong>112</strong>
-              <span>Projected Receiving Yards</span>
+
+              <span>
+                Projected Receiving Yards
+              </span>
             </div>
 
             <div class="projection-stats">
@@ -394,7 +409,6 @@
               </div>
             </div>
           </article>
-
         </div>
       </section>
 
@@ -406,8 +420,13 @@
       >
         <div class="section-header">
           <div>
-            <p class="section-kicker">2025 REGULAR SEASON</p>
-            <h2>🏆 Season Leaders</h2>
+            <p class="section-kicker">
+              2025 REGULAR SEASON
+            </p>
+
+            <h2>
+              🏆 Season Leaders
+            </h2>
           </div>
         </div>
 
@@ -437,41 +456,10 @@
           </button>
         </div>
 
-        <div id="seasonLeadersBox" class="leaders-table">
-
-          <div class="leaders-table-head">
-            <span>Rank</span>
-            <span>Player</span>
-            <span>Team</span>
-            <span>Yards</span>
-            <span>TD</span>
-          </div>
-
-          <div class="leaders-table-row">
-            <span>1</span>
-            <strong>Josh Allen</strong>
-            <span>BUF</span>
-            <span>1,842</span>
-            <span>13</span>
-          </div>
-
-          <div class="leaders-table-row">
-            <span>2</span>
-            <strong>Patrick Mahomes</strong>
-            <span>KC</span>
-            <span>1,726</span>
-            <span>11</span>
-          </div>
-
-          <div class="leaders-table-row">
-            <span>3</span>
-            <strong>Jalen Hurts</strong>
-            <span>PHI</span>
-            <span>1,624</span>
-            <span>10</span>
-          </div>
-
-        </div>
+        <div
+          id="seasonLeadersBox"
+          class="leaders-table"
+        ></div>
       </section>
 
       <!-- DEFENSE -->
@@ -482,65 +470,133 @@
       >
         <div class="section-header">
           <div>
-            <p class="section-kicker">TEAM MATCHUP RATINGS</p>
-            <h2>🛡️ Defensive Team Rating</h2>
+            <p class="section-kicker">
+              TEAM MATCHUP RATINGS
+            </p>
+
+            <h2>
+              🛡️ Defensive Team Rating
+            </h2>
           </div>
         </div>
 
         <div class="defense-grid">
 
           <div class="defense-column">
-            <h3>Best Run Defenses</h3>
+            <h3>
+              Best Run Defenses
+            </h3>
 
             <div id="runDefenseBox">
-
               <article class="defense-row">
-                <span class="defense-rank">1</span>
-                <strong>Baltimore Ravens</strong>
+                <span class="defense-rank">
+                  1
+                </span>
+
+                <strong>
+                  Baltimore Ravens
+                </strong>
+
                 <span>78.4 YPG</span>
               </article>
 
               <article class="defense-row">
-                <span class="defense-rank">2</span>
-                <strong>San Francisco 49ers</strong>
+                <span class="defense-rank">
+                  2
+                </span>
+
+                <strong>
+                  San Francisco 49ers
+                </strong>
+
                 <span>85.2 YPG</span>
               </article>
 
               <article class="defense-row">
-                <span class="defense-rank">3</span>
-                <strong>Cleveland Browns</strong>
+                <span class="defense-rank">
+                  3
+                </span>
+
+                <strong>
+                  Cleveland Browns
+                </strong>
+
                 <span>86.7 YPG</span>
               </article>
-
             </div>
           </div>
 
           <div class="defense-column">
-            <h3>Best Pass Defenses</h3>
+            <h3>
+              Best Pass Defenses
+            </h3>
 
             <div id="passDefenseBox">
-
               <article class="defense-row">
-                <span class="defense-rank">1</span>
-                <strong>Denver Broncos</strong>
+                <span class="defense-rank">
+                  1
+                </span>
+
+                <strong>
+                  Denver Broncos
+                </strong>
+
                 <span>142.1 YPG</span>
               </article>
 
               <article class="defense-row">
-                <span class="defense-rank">2</span>
-                <strong>New York Jets</strong>
+                <span class="defense-rank">
+                  2
+                </span>
+
+                <strong>
+                  New York Jets
+                </strong>
+
                 <span>156.3 YPG</span>
               </article>
 
               <article class="defense-row">
-                <span class="defense-rank">3</span>
-                <strong>Baltimore Ravens</strong>
+                <span class="defense-rank">
+                  3
+                </span>
+
+                <strong>
+                  Baltimore Ravens
+                </strong>
+
                 <span>162.8 YPG</span>
               </article>
-
             </div>
           </div>
 
+        </div>
+      </section>
+
+      <!-- MONEYLINE PICKZ -->
+
+      <section
+        class="dashboard-card tab-section"
+        id="moneyline"
+      >
+        <div class="section-header">
+          <div>
+            <p class="section-kicker">
+              COMPLETE TEAM MATCHUP MODEL
+            </p>
+
+            <h2>
+              💰 POPS Moneyline Pickz
+            </h2>
+          </div>
+        </div>
+
+        <div id="moneylineBox">
+          <div class="moneyline-loading">
+            <p>
+              Calculating NFL moneyline picks...
+            </p>
+          </div>
         </div>
       </section>
 
@@ -552,8 +608,13 @@
       >
         <div class="section-header">
           <div>
-            <p class="section-kicker">REAL-TIME PLAYER RESULTS</p>
-            <h2>📡 Live Tracking</h2>
+            <p class="section-kicker">
+              REAL-TIME PLAYER RESULTS
+            </p>
+
+            <h2>
+              📡 Live Tracking
+            </h2>
           </div>
 
           <span class="live-badge">
@@ -561,8 +622,10 @@
           </span>
         </div>
 
-        <div id="liveTrackingBox" class="live-list">
-
+        <div
+          id="liveTrackingBox"
+          class="live-list"
+        >
           <article class="live-row">
             <span class="live-dot"></span>
 
@@ -573,12 +636,16 @@
 
             <div>
               <span>Current</span>
-              <strong>178 YDS • 2 TD</strong>
+              <strong>
+                178 YDS • 2 TD
+              </strong>
             </div>
 
             <div>
               <span>Projection</span>
-              <strong>312 PASS YDS</strong>
+              <strong>
+                312 PASS YDS
+              </strong>
             </div>
           </article>
 
@@ -592,15 +659,18 @@
 
             <div>
               <span>Current</span>
-              <strong>78 YDS • 1 TD</strong>
+              <strong>
+                78 YDS • 1 TD
+              </strong>
             </div>
 
             <div>
               <span>Projection</span>
-              <strong>96 RUSH YDS</strong>
+              <strong>
+                96 RUSH YDS
+              </strong>
             </div>
           </article>
-
         </div>
       </section>
 
@@ -613,33 +683,50 @@
     <section class="top-picks-card">
       <div class="section-header">
         <div>
-          <p class="section-kicker">POPS PICKZ MODEL</p>
-          <h2>Today's Top Overall Picks</h2>
+          <p class="section-kicker">
+            POPS PICKZ MODEL
+          </p>
+
+          <h2>
+            Today's Top Overall Picks
+          </h2>
         </div>
       </div>
 
       <div class="top-picks-grid">
 
         <article class="top-pick">
-          <div class="top-pick-avatar">JA</div>
+          <div class="top-pick-avatar">
+            JA
+          </div>
+
           <h3>Josh Allen</h3>
           <p>QB • BUF • vs ARI</p>
+
           <strong>68%</strong>
           <span>TD Probability</span>
         </article>
 
         <article class="top-pick">
-          <div class="top-pick-avatar">JG</div>
+          <div class="top-pick-avatar">
+            JG
+          </div>
+
           <h3>Jahmyr Gibbs</h3>
           <p>RB • DET • vs LAR</p>
+
           <strong>68%</strong>
           <span>TD Probability</span>
         </article>
 
         <article class="top-pick">
-          <div class="top-pick-avatar">TH</div>
+          <div class="top-pick-avatar">
+            TH
+          </div>
+
           <h3>Tyreek Hill</h3>
           <p>WR • MIA • vs JAX</p>
+
           <strong>59%</strong>
           <span>TD Probability</span>
         </article>
@@ -658,6 +745,11 @@
   </div>
 
   <script src="scoreboard.js"></script>
+
+  <script src="moneyline-formula.js"></script>
+  <script src="moneyline-data.js"></script>
+  <script src="moneyline.js"></script>
+
   <script src="app.js"></script>
-  </body>
-  </html>
+</body>
+</html>
