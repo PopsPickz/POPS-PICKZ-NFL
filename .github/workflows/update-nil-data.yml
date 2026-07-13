@@ -1,0 +1,70 @@
+name: Update POPS NFL Data
+
+on:
+  workflow_dispatch:
+
+  schedule:
+    - cron: "15 10 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-pops-nfl-data
+  cancel-in-progress: false
+
+jobs:
+  build-nfl-data:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Build upcoming NFL schedule
+        run: node scripts/build-nfl.js
+
+      - name: Verify generated schedule
+        run: |
+          test -f data/upcoming-games.json
+          node -e "
+            const fs = require('fs');
+            const data = JSON.parse(
+              fs.readFileSync(
+                'data/upcoming-games.json',
+                'utf8'
+              )
+            );
+
+            if (!Array.isArray(data.games)) {
+              throw new Error(
+                'upcoming-games.json does not contain a games array.'
+              );
+            }
+
+            console.log(
+              'Generated games:',
+              data.games.length
+            );
+          "
+
+      - name: Commit generated data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add data/upcoming-games.json
+
+          if git diff --cached --quiet; then
+            echo "No NFL schedule changes to commit."
+          else
+            git commit -m "Update upcoming NFL schedule"
+            git push
+          fi
