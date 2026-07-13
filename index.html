@@ -11,7 +11,6 @@
   <title>POPS PICKZ NFL</title>
 
   <link rel="stylesheet" href="style.css" />
- 
   <link rel="stylesheet" href="moneyline-style.css" />
 </head>
 
@@ -31,70 +30,69 @@
     </header>
 
     <!-- =========================================
-         MAIN NAVIGATION TABS
+         MAIN NAVIGATION
     ========================================== -->
 
     <nav class="main-tabs">
 
-  <button
-    type="button"
-    class="main-tab active-tab"
-    data-tab="td-scorers"
-  >
-    <span>🎯</span>
-    Predicted TD Scorers
-  </button>
+      <button
+        type="button"
+        class="main-tab active-tab"
+        data-tab="td-scorers"
+      >
+        <span>🎯</span>
+        Predicted TD Scorers
+      </button>
 
-  <button
-    type="button"
-    class="main-tab"
-    data-tab="passing"
-  >
-    <span>🏈</span>
-    Predicted Passing Yards
-  </button>
+      <button
+        type="button"
+        class="main-tab"
+        data-tab="passing"
+      >
+        <span>🏈</span>
+        Predicted Passing Yards
+      </button>
 
-  <button
-    type="button"
-    class="main-tab"
-    data-tab="rushing"
-  >
-    <span>🏃</span>
-    Predicted Rushing Yards
-  </button>
+      <button
+        type="button"
+        class="main-tab"
+        data-tab="rushing"
+      >
+        <span>🏃</span>
+        Predicted Rushing Yards
+      </button>
 
-  <button
-    type="button"
-    class="main-tab"
-    data-tab="receiving"
-  >
-    <span>🙌</span>
-    Predicted Receiving Yards
-  </button>
+      <button
+        type="button"
+        class="main-tab"
+        data-tab="receiving"
+      >
+        <span>🙌</span>
+        Predicted Receiving Yards
+      </button>
 
-  <button
-    type="button"
-    class="main-tab"
-    data-tab="moneyline"
-  >
-    <span>💰</span>
-    Moneyline Pickz
-  </button>
+      <button
+        type="button"
+        class="main-tab"
+        data-tab="moneyline"
+      >
+        <span>💰</span>
+        Moneyline Pickz
+      </button>
 
-  <button
-    type="button"
-    class="main-tab"
-    data-tab="live"
-  >
-    <span>📡</span>
-    Live Tracking
-  </button>
+      <button
+        type="button"
+        class="main-tab"
+        data-tab="live"
+      >
+        <span>📡</span>
+        Live Tracking
+      </button>
 
-</nav>
-
+    </nav>
 
     <!-- =========================================
-         CONTENT
+         MAIN CONTENT
     ========================================== -->
 
     <main class="dashboard-grid">
@@ -108,20 +106,13 @@
         <div class="section-header">
           <div>
             <p class="section-kicker">
-              TODAY'S EDGE
+              TOUCHDOWN MODEL
             </p>
 
             <h2>
               🎯 Predicted TD Scorers
             </h2>
           </div>
-
-          <button
-            type="button"
-            class="small-button"
-          >
-            View All
-          </button>
         </div>
 
         <div
@@ -196,7 +187,7 @@
         </div>
       </section>
 
-      <!-- PASSING -->
+      <!-- PREDICTED PASSING YARDS -->
 
       <section
         class="dashboard-card tab-section"
@@ -205,11 +196,11 @@
         <div class="section-header">
           <div>
             <p class="section-kicker">
-              PLAYER PROJECTIONS
+              QUARTERBACK PROJECTIONS
             </p>
 
             <h2>
-              🏈 Passing Yards / Attempts
+              🏈 Predicted Passing Yards
             </h2>
           </div>
         </div>
@@ -255,7 +246,7 @@
         </div>
       </section>
 
-      <!-- RUSHING -->
+      <!-- PREDICTED RUSHING YARDS -->
 
       <section
         class="dashboard-card tab-section"
@@ -264,11 +255,11 @@
         <div class="section-header">
           <div>
             <p class="section-kicker">
-              PLAYER PROJECTIONS
+              RUSHING PROJECTIONS
             </p>
 
             <h2>
-              🏃 Rushing Yards / Attempts
+              🏃 Predicted Rushing Yards
             </h2>
           </div>
         </div>
@@ -314,7 +305,7 @@
         </div>
       </section>
 
-      <!-- RECEIVING -->
+      <!-- PREDICTED RECEIVING YARDS -->
 
       <section
         class="dashboard-card tab-section"
@@ -323,11 +314,11 @@
         <div class="section-header">
           <div>
             <p class="section-kicker">
-              PLAYER PROJECTIONS
+              RECEIVING PROJECTIONS
             </p>
 
             <h2>
-              🙌 Receiving Yards / Receptions
+              🙌 Predicted Receiving Yards
             </h2>
           </div>
         </div>
@@ -373,167 +364,6 @@
         </div>
       </section>
 
-      <!-- SEASON LEADERS -->
-
-      <section
-        class="dashboard-card tab-section"
-        id="leaders"
-      >
-        <div class="section-header">
-          <div>
-            <p class="section-kicker">
-              2025 REGULAR SEASON
-            </p>
-
-            <h2>
-              🏆 Season Leaders
-            </h2>
-          </div>
-        </div>
-
-        <div class="sub-tabs">
-          <button
-            type="button"
-            class="sub-tab active-sub-tab"
-            data-leader-tab="qb"
-          >
-            QB
-          </button>
-
-          <button
-            type="button"
-            class="sub-tab"
-            data-leader-tab="rb"
-          >
-            RB
-          </button>
-
-          <button
-            type="button"
-            class="sub-tab"
-            data-leader-tab="wr"
-          >
-            WR / TE
-          </button>
-        </div>
-
-        <div
-          id="seasonLeadersBox"
-          class="leaders-table"
-        ></div>
-      </section>
-
-      <!-- DEFENSE -->
-
-      <section
-        class="dashboard-card tab-section"
-        id="defense"
-      >
-        <div class="section-header">
-          <div>
-            <p class="section-kicker">
-              TEAM MATCHUP RATINGS
-            </p>
-
-            <h2>
-              🛡️ Defensive Team Rating
-            </h2>
-          </div>
-        </div>
-
-        <div class="defense-grid">
-
-          <div class="defense-column">
-            <h3>
-              Best Run Defenses
-            </h3>
-
-            <div id="runDefenseBox">
-              <article class="defense-row">
-                <span class="defense-rank">
-                  1
-                </span>
-
-                <strong>
-                  Baltimore Ravens
-                </strong>
-
-                <span>78.4 YPG</span>
-              </article>
-
-              <article class="defense-row">
-                <span class="defense-rank">
-                  2
-                </span>
-
-                <strong>
-                  San Francisco 49ers
-                </strong>
-
-                <span>85.2 YPG</span>
-              </article>
-
-              <article class="defense-row">
-                <span class="defense-rank">
-                  3
-                </span>
-
-                <strong>
-                  Cleveland Browns
-                </strong>
-
-                <span>86.7 YPG</span>
-              </article>
-            </div>
-          </div>
-
-          <div class="defense-column">
-            <h3>
-              Best Pass Defenses
-            </h3>
-
-            <div id="passDefenseBox">
-              <article class="defense-row">
-                <span class="defense-rank">
-                  1
-                </span>
-
-                <strong>
-                  Denver Broncos
-                </strong>
-
-                <span>142.1 YPG</span>
-              </article>
-
-              <article class="defense-row">
-                <span class="defense-rank">
-                  2
-                </span>
-
-                <strong>
-                  New York Jets
-                </strong>
-
-                <span>156.3 YPG</span>
-              </article>
-
-              <article class="defense-row">
-                <span class="defense-rank">
-                  3
-                </span>
-
-                <strong>
-                  Baltimore Ravens
-                </strong>
-
-                <span>162.8 YPG</span>
-              </article>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
       <!-- MONEYLINE PICKZ -->
 
       <section
@@ -570,7 +400,7 @@
         <div class="section-header">
           <div>
             <p class="section-kicker">
-              REAL-TIME PLAYER RESULTS
+              TRACK ALL POPS PREDICTIONS
             </p>
 
             <h2>
@@ -592,20 +422,20 @@
 
             <div>
               <strong>Josh Allen</strong>
-              <span>BUF • vs ARI</span>
+              <span>Passing Prediction</span>
             </div>
 
             <div>
               <span>Current</span>
               <strong>
-                178 YDS • 2 TD
+                178 Passing Yards
               </strong>
             </div>
 
             <div>
-              <span>Projection</span>
+              <span>POPS Projection</span>
               <strong>
-                312 PASS YDS
+                312 Passing Yards
               </strong>
             </div>
           </article>
@@ -615,20 +445,66 @@
 
             <div>
               <strong>Jahmyr Gibbs</strong>
-              <span>DET • vs LAR</span>
+              <span>Rushing Prediction</span>
             </div>
 
             <div>
               <span>Current</span>
               <strong>
-                78 YDS • 1 TD
+                78 Rushing Yards
               </strong>
             </div>
 
             <div>
-              <span>Projection</span>
+              <span>POPS Projection</span>
               <strong>
-                96 RUSH YDS
+                96 Rushing Yards
+              </strong>
+            </div>
+          </article>
+
+          <article class="live-row">
+            <span class="live-dot"></span>
+
+            <div>
+              <strong>Tyreek Hill</strong>
+              <span>Receiving Prediction</span>
+            </div>
+
+            <div>
+              <span>Current</span>
+              <strong>
+                84 Receiving Yards
+              </strong>
+            </div>
+
+            <div>
+              <span>POPS Projection</span>
+              <strong>
+                112 Receiving Yards
+              </strong>
+            </div>
+          </article>
+
+          <article class="live-row">
+            <span class="live-dot"></span>
+
+            <div>
+              <strong>Jahmyr Gibbs</strong>
+              <span>Touchdown Prediction</span>
+            </div>
+
+            <div>
+              <span>Current</span>
+              <strong>
+                1 Touchdown
+              </strong>
+            </div>
+
+            <div>
+              <span>POPS Projection</span>
+              <strong>
+                Anytime TD
               </strong>
             </div>
           </article>
@@ -637,75 +513,15 @@
 
     </main>
 
-    <!-- =========================================
-         TOP PICKS
-    ========================================== -->
-
-    <section class="top-picks-card">
-      <div class="section-header">
-        <div>
-          <p class="section-kicker">
-            POPS PICKZ MODEL
-          </p>
-
-          <h2>
-            Today's Top Overall Picks
-          </h2>
-        </div>
-      </div>
-
-      <div class="top-picks-grid">
-
-        <article class="top-pick">
-          <div class="top-pick-avatar">
-            JA
-          </div>
-
-          <h3>Josh Allen</h3>
-          <p>QB • BUF • vs ARI</p>
-
-          <strong>68%</strong>
-          <span>TD Probability</span>
-        </article>
-
-        <article class="top-pick">
-          <div class="top-pick-avatar">
-            JG
-          </div>
-
-          <h3>Jahmyr Gibbs</h3>
-          <p>RB • DET • vs LAR</p>
-
-          <strong>68%</strong>
-          <span>TD Probability</span>
-        </article>
-
-        <article class="top-pick">
-          <div class="top-pick-avatar">
-            TH
-          </div>
-
-          <h3>Tyreek Hill</h3>
-          <p>WR • MIA • vs JAX</p>
-
-          <strong>59%</strong>
-          <span>TD Probability</span>
-        </article>
-
-      </div>
-    </section>
-
     <footer class="footer">
-      <span>📊 Real-Time Data</span>
-      <span>⚙️ Advanced Models</span>
-      <strong>POPS PICKZ</strong>
-      <span>🎯 Daily Edge</span>
-      <span>🏆 Win More</span>
+      <span>🎯 TD Predictions</span>
+      <span>🏈 Yard Projections</span>
+      <strong>POPS PICKZ NFL</strong>
+      <span>💰 Moneyline Pickz</span>
+      <span>📡 Live Tracking</span>
     </footer>
 
   </div>
-
-  
 
   <script src="moneyline-formula.js"></script>
   <script src="moneyline-data.js"></script>
