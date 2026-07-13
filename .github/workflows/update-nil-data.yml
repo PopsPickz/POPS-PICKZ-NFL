@@ -27,48 +27,23 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "22"
-          
-      - name: Build upcoming NFL schedule
+
+      - name: Build NFL data
         run: node scripts/build-nfl.js
 
-      - name: Verify generated schedule
-        run: |
-          test -f data/upcoming-games.json
-          node -e "
-            const fs = require('fs');
-            const data = JSON.parse(
-              fs.readFileSync(
-                'data/upcoming-games.json',
-                'utf8'
-              )
-            );
-
-            if (!Array.isArray(data.games)) {
-              throw new Error(
-                'upcoming-games.json does not contain a games array.'
-              );
-            }
-
-            console.log(
-              'Generated games:',
-              data.games.length
-            );
-          "
-
-     - name: Commit generated data
+      - name: Commit updated NFL data
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add data/upcoming-games.json
           git add data/teams.json
           git add data/team-stats.json
+          git add data/player-stats.json
+          git add data/upcoming-games.json
 
           if git diff --cached --quiet; then
             echo "No NFL data changes to commit."
           else
             git commit -m "Update POPS NFL data"
-
-            git pull --rebase origin main
-            git push origin main
+            git push
           fi
