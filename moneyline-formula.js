@@ -432,144 +432,56 @@ const NFLMoneylineFormula = {
   },
 
   /*
-  =======================================================
-  SPECIAL TEAMS SCORE
+=======================================================
+AVERAGE POINTS SCORED PER GAME SCORE
 
-  Factors:
-  - Field-goal percentage
-  - Extra-point percentage
-  - Net punt average
-  - Kick return average
-  - Punt return average
-  - Special-teams touchdowns
-  =======================================================
-  */
+Higher is better.
+=======================================================
+*/
 
-  calculateSpecialTeamsScore(stats = {}) {
-    const fieldGoalScore = this.normalize(
-      stats.fieldGoalPercentage,
-      68,
-      97,
+calculatePointsPerGameScore(stats = {}) {
+  const pointsPerGame =
+    this.number(
+      stats.pointsPerGame,
+      22
+    );
+
+  return this.round(
+    this.normalize(
+      pointsPerGame,
+      14,
+      34,
       true
+    )
+  );
+},
+
+/*
+=======================================================
+AVERAGE POINTS ALLOWED PER GAME SCORE
+
+Lower is better.
+=======================================================
+*/
+
+calculatePointsAllowedPerGameScore(
+  stats = {}
+) {
+  const pointsAllowedPerGame =
+    this.number(
+      stats.pointsAllowedPerGame,
+      22
     );
 
-    const extraPointScore = this.normalize(
-      stats.extraPointPercentage,
-      86,
-      100,
-      true
-    );
-
-    const puntScore = this.normalize(
-      stats.netPuntAverage,
-      35,
-      47,
-      true
-    );
-
-    const kickReturnScore = this.normalize(
-      stats.kickReturnAverage,
-      17,
-      30,
-      true
-    );
-
-    const puntReturnScore = this.normalize(
-      stats.puntReturnAverage,
-      4,
-      16,
-      true
-    );
-
-    const touchdownScore = this.normalize(
-      stats.specialTeamsTouchdowns,
-      0,
-      3,
-      true
-    );
-
-    const total =
-      fieldGoalScore * 0.30 +
-      extraPointScore * 0.10 +
-      puntScore * 0.20 +
-      kickReturnScore * 0.15 +
-      puntReturnScore * 0.15 +
-      touchdownScore * 0.10;
-
-    return this.round(
-      this.clamp(total)
-    );
-  },
-
-  /*
-  =======================================================
-  OFFENSIVE LINE SCORE
-
-  Factors:
-  - Sacks allowed per game
-  - Pressure percentage allowed
-  - QB hits allowed per game
-  - Rushing yards before contact
-  - Pass-block win rate
-  - Run-block win rate
-  =======================================================
-  */
-
-  calculateOffensiveLineScore(stats = {}) {
-    const sacksAllowedScore = this.normalize(
-      stats.sacksAllowedPerGame,
-      4.8,
-      0.6,
+  return this.round(
+    this.normalize(
+      pointsAllowedPerGame,
+      32,
+      14,
       false
-    );
-
-    const pressureAllowedScore = this.normalize(
-      stats.pressurePercentageAllowed,
-      44,
-      18,
-      false
-    );
-
-    const quarterbackHitsScore = this.normalize(
-      stats.quarterbackHitsAllowedPerGame,
-      10,
-      2.5,
-      false
-    );
-
-    const yardsBeforeContactScore = this.normalize(
-      stats.rushingYardsBeforeContact,
-      0.6,
-      2.5,
-      true
-    );
-
-    const passBlockScore = this.normalize(
-      stats.passBlockWinRate,
-      42,
-      78,
-      true
-    );
-
-    const runBlockScore = this.normalize(
-      stats.runBlockWinRate,
-      57,
-      80,
-      true
-    );
-
-    const total =
-      sacksAllowedScore * 0.25 +
-      pressureAllowedScore * 0.20 +
-      quarterbackHitsScore * 0.15 +
-      yardsBeforeContactScore * 0.15 +
-      passBlockScore * 0.15 +
-      runBlockScore * 0.10;
-
-    return this.round(
-      this.clamp(total)
-    );
-  },
+    )
+  );
+},
 
   /*
   =======================================================
@@ -578,85 +490,113 @@ const NFLMoneylineFormula = {
   */
 
   scoreTeam(team = {}) {
-    const passing = this.calculatePassingScore(
+  const passing =
+    this.calculatePassingScore(
       team.passing || {}
     );
 
-    const rushing = this.calculateRushingScore(
+  const rushing =
+    this.calculateRushingScore(
       team.rushing || {}
     );
 
-    const receiving =
-      this.calculateReceivingScore(
-        team.receiving || {}
-      );
+  const receiving =
+    this.calculateReceivingScore(
+      team.receiving || {}
+    );
 
-    const defense = this.calculateDefenseScore(
+  const defense =
+    this.calculateDefenseScore(
       team.defense || {}
     );
 
-    const specialTeams =
-      this.calculateSpecialTeamsScore(
-        team.specialTeams || {}
-      );
+  const scoring =
+    team.scoring || {};
 
-    const offensiveLine =
-      this.calculateOffensiveLineScore(
-        team.offensiveLine || {}
-      );
+  const pointsPerGame =
+    this.calculatePointsPerGameScore(
+      scoring
+    );
 
-    let overall =
-      passing * this.weights.passing +
-      rushing * this.weights.rushing +
-      receiving * this.weights.receiving +
-      defense * this.weights.defense +
-      specialTeams *
-        this.weights.specialTeams +
-      offensiveLine *
-        this.weights.offensiveLine;
+  const pointsAllowedPerGame =
+    this.calculatePointsAllowedPerGameScore(
+      scoring
+    );
 
-    const homeFieldBonus =
-      team.isHome === true
-        ? 1.5
-        : 0;
+  let overall =
+    passing *
+      this.weights.passing +
 
-    overall += homeFieldBonus;
+    rushing *
+      this.weights.rushing +
 
-    return {
-      teamId: String(
+    receiving *
+      this.weights.receiving +
+
+    defense *
+      this.weights.defense +
+
+    pointsPerGame *
+      this.weights.pointsPerGame +
+
+    pointsAllowedPerGame *
+      this.weights.pointsAllowedPerGame;
+
+  const homeFieldBonus =
+    team.isHome === true
+      ? 1.5
+      : 0;
+
+  overall += homeFieldBonus;
+
+  return {
+    teamId:
+      String(
         team.teamId || ""
       ),
 
-      teamName:
-        team.teamName ||
-        "NFL Team",
+    teamName:
+      team.teamName ||
+      "NFL Team",
 
-      abbreviation:
-        team.abbreviation ||
-        "NFL",
+    abbreviation:
+      team.abbreviation ||
+      "NFL",
 
-      logo:
-        team.logo || "",
+    logo:
+      team.logo || "",
 
-      isHome:
-        Boolean(team.isHome),
+    isHome:
+      Boolean(team.isHome),
 
-      passing,
-      rushing,
-      receiving,
-      defense,
-      specialTeams,
-      offensiveLine,
+    passing,
+    rushing,
+    receiving,
+    defense,
+    pointsPerGame,
+    pointsAllowedPerGame,
 
-      homeFieldBonus,
+    rawPointsPerGame:
+      this.round(
+        scoring.pointsPerGame,
+        1
+      ),
 
-      overall: this.round(
+    rawPointsAllowedPerGame:
+      this.round(
+        scoring.pointsAllowedPerGame,
+        1
+      ),
+
+    homeFieldBonus,
+
+    overall:
+      this.round(
         this.clamp(overall),
         1
       )
-    };
-  },
-
+  };
+},
   /*
   =======================================================
   COMPARE CATEGORY
