@@ -25,6 +25,7 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
+
   background:
     radial-gradient(
       circle at top,
@@ -36,7 +37,9 @@ body {
       #070707 0%,
       #020202 100%
     );
+
   color: var(--text);
+
   font-family:
     Arial,
     Helvetica,
@@ -60,21 +63,20 @@ button {
   padding: 14px;
 }
 
-/* =====================================
+/* =====================================================
    HERO BANNER
-===================================== */
-
-/* =====================================
-   FULL-WIDTH HERO BANNER
-===================================== */
+===================================================== */
 
 .hero {
   width: 100%;
   margin: 0 0 14px;
   overflow: hidden;
-  border: 2px solid #ff6a00;
+
+  border: 2px solid var(--orange);
   border-radius: 24px;
+
   background: #050505;
+
   box-shadow:
     0 0 28px rgba(255, 106, 0, 0.42);
 }
@@ -94,31 +96,42 @@ button {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 10px;
+
   margin-top: 14px;
   padding: 10px;
+
   overflow-x: auto;
+
   border: 1px solid var(--line);
   border-radius: 18px;
+
   background: #090909;
+
   box-shadow: var(--shadow);
 }
 
 .main-tab {
   min-width: 0;
   min-height: 88px;
+
   padding: 12px 10px;
+
   border: 1px solid #383838;
   border-radius: 12px;
+
   background:
     linear-gradient(
       180deg,
       #191919 0%,
       #101010 100%
     );
+
   color: #f4f4f4;
+
   font-weight: 800;
   line-height: 1.25;
   text-transform: uppercase;
+
   transition:
     transform 0.2s ease,
     border-color 0.2s ease,
@@ -139,102 +152,23 @@ button {
 
 .main-tab.active-tab {
   border-color: var(--orange-light);
+
   background:
     linear-gradient(
       180deg,
       #ff8d23 0%,
       #ff5a00 100%
     );
+
   color: #ffffff;
+
   box-shadow:
     0 0 22px rgba(255, 106, 0, 0.55),
     inset 0 0 16px rgba(255, 255, 255, 0.12);
 }
 
 /* =====================================================
-   SCOREBOARD
-===================================================== */
-
-.scoreboard-shell {
-  display: flex;
-  gap: 12px;
-  margin-top: 14px;
-  padding: 12px;
-  overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  background: #0a0a0a;
-}
-
-.scoreboard-label {
-  flex: 0 0 125px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 8px 14px;
-  border-right: 1px solid rgba(255, 106, 0, 0.32);
-  color: var(--orange-light);
-  text-transform: uppercase;
-}
-
-.scoreboard-label strong {
-  color: #ffffff;
-  font-size: 17px;
-}
-
-.scoreboard-label span {
-  margin-top: 5px;
-  font-size: 12px;
-  font-weight: 800;
-}
-
-.scoreboard-track {
-  display: flex;
-  gap: 10px;
-  width: 100%;
-  overflow-x: auto;
-  scrollbar-width: thin;
-}
-
-.score-card {
-  flex: 0 0 180px;
-  padding: 12px;
-  border: 1px solid #292929;
-  border-radius: 12px;
-  background:
-    linear-gradient(
-      180deg,
-      #171717,
-      #0e0e0e
-    );
-}
-
-.score-team {
-  display: flex;
-  justify-content: space-between;
-  gap: 18px;
-  padding: 4px 0;
-}
-
-.score-team span {
-  color: #ededed;
-  font-weight: 800;
-}
-
-.score-team strong {
-  color: #ffffff;
-  font-size: 18px;
-}
-
-.score-card small {
-  display: block;
-  margin-top: 8px;
-  color: var(--muted);
-  text-align: center;
-}
-
-/* =====================================================
-   DASHBOARD LAYOUT
+   DASHBOARD
 ===================================================== */
 
 .dashboard-grid {
@@ -244,17 +178,20 @@ button {
   margin-top: 16px;
 }
 
-.dashboard-card,
-.top-picks-card {
+.dashboard-card {
+  width: 100%;
   overflow: hidden;
+
   border: 1px solid var(--line);
   border-radius: 18px;
+
   background:
     linear-gradient(
       180deg,
       rgba(21, 21, 21, 0.98),
       rgba(8, 8, 8, 0.98)
     );
+
   box-shadow: var(--shadow);
 }
 
@@ -269,10 +206,13 @@ button {
 .section-header {
   display: flex;
   justify-content: space-between;
-  gap: 16px;
   align-items: center;
+  gap: 16px;
+
   padding: 18px 20px;
-  border-bottom: 1px solid rgba(255, 106, 0, 0.28);
+
+  border-bottom:
+    1px solid rgba(255, 106, 0, 0.28);
 }
 
 .section-header h2 {
@@ -282,27 +222,16 @@ button {
 
 .section-kicker {
   margin: 0;
+
   color: var(--orange-light);
+
   font-size: 12px;
   font-weight: 900;
   letter-spacing: 1.5px;
 }
 
-.small-button {
-  padding: 9px 14px;
-  border: 1px solid rgba(255, 106, 0, 0.5);
-  border-radius: 8px;
-  background: #111111;
-  color: #ffffff;
-  font-weight: 800;
-}
-
-.small-button:hover {
-  background: var(--orange);
-}
-
 /* =====================================================
-   TD LEADER LIST
+   TD SCORERS
 ===================================================== */
 
 .leader-list {
@@ -311,10 +240,17 @@ button {
 
 .leader-row {
   display: grid;
-  grid-template-columns: 42px 48px minmax(160px, 1fr) minmax(150px, 220px);
+  grid-template-columns:
+    42px
+    48px
+    minmax(160px, 1fr)
+    minmax(150px, 220px);
+
   gap: 12px;
   align-items: center;
+
   padding: 14px 18px;
+
   border-bottom: 1px solid #242424;
 }
 
@@ -324,30 +260,32 @@ button {
 
 .rank {
   color: var(--gold);
+
   font-size: 24px;
   font-weight: 900;
   text-align: center;
 }
 
-.player-avatar,
-.top-pick-avatar {
+.player-avatar {
   display: grid;
   place-items: center;
+
+  width: 44px;
+  height: 44px;
+
   border: 1px solid var(--orange);
   border-radius: 50%;
+
   background:
     radial-gradient(
       circle,
       #313131,
       #111111
     );
-  color: var(--orange-light);
-  font-weight: 900;
-}
 
-.player-avatar {
-  width: 44px;
-  height: 44px;
+  color: var(--orange-light);
+
+  font-weight: 900;
 }
 
 .player-details {
@@ -375,21 +313,27 @@ button {
 .probability-bar {
   height: 9px;
   overflow: hidden;
+
   border-radius: 99px;
+
   background: #2b2b2b;
 }
 
 .probability-bar span {
   display: block;
   height: 100%;
+
   border-radius: inherit;
+
   background:
     linear-gradient(
       90deg,
       #ff8b24,
       #ff5b00
     );
-  box-shadow: 0 0 12px rgba(255, 106, 0, 0.45);
+
+  box-shadow:
+    0 0 12px rgba(255, 106, 0, 0.45);
 }
 
 .probability strong {
@@ -397,24 +341,30 @@ button {
 }
 
 /* =====================================================
-   PREDICTION CARDS
+   YARDAGE PREDICTION CARDS
 ===================================================== */
 
 .prediction-grid {
   display: grid;
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(250px, 1fr)
-  );
+
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(250px, 1fr)
+    );
+
   gap: 14px;
   padding: 18px;
 }
 
 .prediction-card {
   position: relative;
+
   padding: 20px;
+
   border: 1px solid #313131;
   border-radius: 16px;
+
   background:
     radial-gradient(
       circle at top right,
@@ -428,7 +378,9 @@ button {
   position: absolute;
   top: 12px;
   right: 12px;
+
   color: var(--orange-light);
+
   font-weight: 900;
 }
 
@@ -449,7 +401,9 @@ button {
 
 .projection-main strong {
   display: block;
+
   color: var(--orange-light);
+
   font-size: 48px;
   line-height: 1;
 }
@@ -467,16 +421,21 @@ button {
 
 .projection-stats div {
   padding: 10px 8px;
+
   border: 1px solid #292929;
   border-radius: 10px;
+
   background: #0b0b0b;
+
   text-align: center;
 }
 
 .projection-stats span {
   display: block;
   margin-bottom: 5px;
+
   color: var(--muted);
+
   font-size: 11px;
 }
 
@@ -486,129 +445,17 @@ button {
 }
 
 /* =====================================================
-   SEASON LEADERS
-===================================================== */
-
-.sub-tabs {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  margin: 14px 18px 0;
-  overflow: hidden;
-  border: 1px solid #333333;
-  border-radius: 10px;
-}
-
-.sub-tab {
-  padding: 12px;
-  border: 0;
-  border-right: 1px solid #333333;
-  background: #111111;
-  color: #eeeeee;
-  font-weight: 900;
-}
-
-.sub-tab:last-child {
-  border-right: 0;
-}
-
-.sub-tab.active-sub-tab {
-  background:
-    linear-gradient(
-      180deg,
-      #ff8b23,
-      #ff5b00
-    );
-  color: #ffffff;
-}
-
-.leaders-table {
-  padding: 14px 18px 18px;
-}
-
-.leaders-table-head,
-.leaders-table-row {
-  display: grid;
-  grid-template-columns: 70px 1.5fr 0.7fr 0.8fr 0.5fr;
-  gap: 10px;
-  align-items: center;
-  padding: 12px;
-}
-
-.leaders-table-head {
-  color: var(--orange-light);
-  font-size: 12px;
-  font-weight: 900;
-  text-transform: uppercase;
-}
-
-.leaders-table-row {
-  border-top: 1px solid #292929;
-}
-
-.leaders-table-row strong {
-  color: #ffffff;
-}
-
-/* =====================================================
-   DEFENSE
-===================================================== */
-
-.defense-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
-  padding: 18px;
-}
-
-.defense-column {
-  overflow: hidden;
-  border: 1px solid #2d2d2d;
-  border-radius: 14px;
-  background: #0d0d0d;
-}
-
-.defense-column h3 {
-  margin: 0;
-  padding: 14px;
-  border-bottom: 1px solid #292929;
-  color: var(--success);
-  font-size: 16px;
-  text-align: center;
-  text-transform: uppercase;
-}
-
-.defense-row {
-  display: grid;
-  grid-template-columns: 38px 1fr auto;
-  gap: 10px;
-  align-items: center;
-  padding: 13px 14px;
-  border-bottom: 1px solid #252525;
-}
-
-.defense-row:last-child {
-  border-bottom: 0;
-}
-
-.defense-rank {
-  color: var(--gold);
-  font-weight: 900;
-}
-
-.defense-row span:last-child {
-  color: var(--muted);
-  font-size: 13px;
-}
-
-/* =====================================================
    LIVE TRACKING
 ===================================================== */
 
 .live-badge {
   padding: 8px 11px;
+
   border-radius: 8px;
+
   background: var(--danger);
   color: #ffffff;
+
   font-size: 12px;
   font-weight: 900;
 }
@@ -619,10 +466,17 @@ button {
 
 .live-row {
   display: grid;
-  grid-template-columns: 16px 1.2fr 1fr 1fr;
+  grid-template-columns:
+    16px
+    1.2fr
+    1fr
+    1fr;
+
   gap: 14px;
   align-items: center;
+
   padding: 16px 18px;
+
   border-bottom: 1px solid #272727;
 }
 
@@ -633,9 +487,13 @@ button {
 .live-dot {
   width: 10px;
   height: 10px;
+
   border-radius: 50%;
+
   background: var(--success);
-  box-shadow: 0 0 12px rgba(86, 227, 108, 0.8);
+
+  box-shadow:
+    0 0 12px rgba(86, 227, 108, 0.8);
 }
 
 .live-row div {
@@ -650,80 +508,30 @@ button {
 }
 
 /* =====================================================
-   TOP PICKS
-===================================================== */
-
-.top-picks-card {
-  margin-top: 16px;
-}
-
-.top-picks-grid {
-  display: grid;
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(190px, 1fr)
-  );
-  gap: 12px;
-  padding: 18px;
-}
-
-.top-pick {
-  padding: 18px;
-  border: 1px solid rgba(255, 106, 0, 0.65);
-  border-radius: 14px;
-  background: #0c0c0c;
-  text-align: center;
-}
-
-.top-pick-avatar {
-  width: 68px;
-  height: 68px;
-  margin: 0 auto 12px;
-  font-size: 20px;
-}
-
-.top-pick h3 {
-  margin: 0 0 6px;
-}
-
-.top-pick p {
-  margin: 0;
-  color: var(--muted);
-}
-
-.top-pick > strong {
-  display: block;
-  margin-top: 16px;
-  color: var(--orange-light);
-  font-size: 34px;
-}
-
-.top-pick > span {
-  color: var(--gold);
-  font-size: 11px;
-  font-weight: 900;
-  text-transform: uppercase;
-}
-
-/* =====================================================
    FOOTER
 ===================================================== */
 
 .footer {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
+
   gap: 1px;
+
   margin-top: 16px;
   overflow: hidden;
+
   border: 1px solid #242424;
   border-radius: 14px;
+
   background: #242424;
 }
 
 .footer span,
 .footer strong {
   padding: 18px 10px;
+
   background: #0b0b0b;
+
   text-align: center;
 }
 
@@ -732,23 +540,32 @@ button {
 }
 
 /* =====================================================
-   RESPONSIVE
+   DESKTOP
+===================================================== */
+
+@media (min-width: 1101px) {
+  .main-tab {
+    font-size: clamp(11px, 0.85vw, 15px);
+  }
+}
+
+/* =====================================================
+   TABLET
 ===================================================== */
 
 @media (max-width: 1100px) {
-  .hero-overlay {
-    grid-template-columns: 0.7fr 2fr 0.7fr;
-    padding: 24px;
-  }
-
   .dashboard-grid {
     grid-template-columns: 1fr;
   }
 
   .main-tabs {
-    grid-template-columns: repeat(8, 160px);
+    grid-template-columns: repeat(6, 175px);
   }
 }
+
+/* =====================================================
+   MOBILE
+===================================================== */
 
 @media (max-width: 760px) {
   .app {
@@ -756,75 +573,42 @@ button {
   }
 
   .hero {
-    min-height: 230px;
+    min-height: 0;
     border-radius: 20px;
   }
 
-  .hero-overlay {
-    grid-template-columns: 1fr;
-    min-height: 230px;
-    padding: 24px 16px;
-  }
-
-  .hero-ball,
-  .hero-player {
-    display: none;
-  }
-
-  .hero-brand h1 {
-    font-size: 68px;
-  }
-
-  .hero-brand h2 {
-    font-size: 22px;
-    letter-spacing: 7px;
-  }
-
-  .hero-brand p {
-    font-size: 11px;
-    line-height: 1.6;
-  }
-
   .main-tabs {
+    grid-template-columns: repeat(6, 165px);
     padding: 8px;
   }
 
-  .scoreboard-shell {
-    display: block;
+  .main-tab {
+    min-height: 78px;
+    font-size: 11px;
   }
 
-  .scoreboard-label {
-    border-right: 0;
-    border-bottom: 1px solid rgba(255, 106, 0, 0.32);
-  }
-
-  .scoreboard-track {
-    margin-top: 10px;
+  .main-tab span {
+    font-size: 20px;
   }
 
   .leader-row {
-    grid-template-columns: 32px 42px 1fr;
+    grid-template-columns:
+      32px
+      42px
+      1fr;
   }
 
   .probability {
     grid-column: 2 / -1;
   }
 
+  .projection-grid {
+    grid-template-columns: 1fr;
+    padding: 12px;
+  }
+
   .projection-stats {
     grid-template-columns: 1fr;
-  }
-
-  .defense-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .leaders-table {
-    overflow-x: auto;
-  }
-
-  .leaders-table-head,
-  .leaders-table-row {
-    min-width: 620px;
   }
 
   .live-row {
@@ -838,19 +622,5 @@ button {
 
   .footer {
     grid-template-columns: 1fr;
-  }
-}
-
-@media (min-width: 1101px) {
-  .main-tab {
-    font-size: clamp(11px, 0.85vw, 15px);
-  }
-
-  .dashboard-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .dashboard-card {
-    width: 100%;
   }
 }
