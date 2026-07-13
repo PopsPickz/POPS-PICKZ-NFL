@@ -154,6 +154,58 @@ const NFLMoneylineData = {
         17
       ) || 17;
 
+const totalPointsScored =
+  this.findStat(
+    stats,
+    [
+      "pointsFor",
+      "pointsScored",
+      "totalPoints",
+      "teamPoints"
+    ]
+  );
+
+const totalPointsAllowed =
+  this.findStat(
+    stats,
+    [
+      "pointsAllowed",
+      "opponentPoints",
+      "totalPointsAllowed"
+    ]
+  );
+
+const pointsPerGame =
+  this.findStat(
+    stats,
+    [
+      "pointsPerGame",
+      "pointsScoredPerGame",
+      "teamPointsPerGame",
+      "scoringAverage"
+    ],
+    this.divide(
+      totalPointsScored,
+      gamesPlayed,
+      22
+    )
+  );
+
+const pointsAllowedPerGame =
+  this.findStat(
+    stats,
+    [
+      "pointsAllowedPerGame",
+      "opponentPointsPerGame",
+      "averagePointsAllowed"
+    ],
+    this.divide(
+      totalPointsAllowed,
+      gamesPlayed,
+      22
+    )
+  );
+    
     const passingAttempts =
       this.findStat(
         stats,
