@@ -1675,9 +1675,14 @@ const playerStatistics =
   );
 
    writeJSON(
-    FILES.upcomingGames,
-    upcomingGamesOutput
-  );
+    FILES.playerStats,
+    playerStatsOutput
+ );
+
+  writeJSON(
+   FILES.upcomingGames,
+   upcomingGamesOutput
+ );
 
     console.log("");
     console.log(
