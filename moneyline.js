@@ -635,6 +635,75 @@ const NFLMoneyline = {
         ? `+${difference}`
         : `${difference}`;
 
+const isPointsPerGame =
+  category === "pointsPerGame";
+
+const isPointsAllowed =
+  category === "pointsAllowedPerGame";
+
+let displayedValue =
+  teamScore;
+
+let displayedDifference =
+  advantageText;
+
+if (isPointsPerGame) {
+  const teamRaw =
+    this.number(
+      team?.rawPointsPerGame
+    );
+
+  const opponentRaw =
+    this.number(
+      opponent?.rawPointsPerGame
+    );
+
+  displayedValue =
+    this.round(teamRaw, 1);
+
+  const rawDifference =
+    this.round(
+      teamRaw - opponentRaw,
+      1
+    );
+
+  displayedDifference =
+    rawDifference > 0
+      ? `+${rawDifference}`
+      : `${rawDifference}`;
+}
+
+if (isPointsAllowed) {
+  const teamRaw =
+    this.number(
+      team?.rawPointsAllowedPerGame
+    );
+
+  const opponentRaw =
+    this.number(
+      opponent?.rawPointsAllowedPerGame
+    );
+
+  displayedValue =
+    this.round(teamRaw, 1);
+
+  /*
+  For points allowed, a lower number is better.
+  This displays how many fewer points the team allows.
+  */
+
+  const rawAdvantage =
+    this.round(
+      opponentRaw - teamRaw,
+      1
+    );
+
+  displayedDifference =
+    rawAdvantage > 0
+      ? `-${rawAdvantage} allowed`
+      : `${Math.abs(rawAdvantage)} more allowed`;
+}    
+    
     return `
       <div
         class="
