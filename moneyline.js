@@ -32,23 +32,23 @@ const NFLMoneyline = {
     maximumGames: 16
   },
 
-  categoryLabels: {
-    passing: "Passing",
-    rushing: "Rushing",
-    receiving: "Receiving",
-    defense: "Defense",
-    specialTeams: "Special Teams",
-    offensiveLine: "Offensive Line"
-  },
+ categoryLabels: {
+  passing: "Passing",
+  rushing: "Rushing",
+  receiving: "Receiving",
+  defense: "Defense",
+  pointsPerGame: "Avg Points/Game",
+  pointsAllowedPerGame: "Avg Points Allowed"
+},
 
   categoryIcons: {
-    passing: "🏈",
-    rushing: "🏃",
-    receiving: "🙌",
-    defense: "🛡️",
-    specialTeams: "🦵",
-    offensiveLine: "🧱"
-  },
+   passing: "🏈",
+   rushing: "🏃",
+   receiving: "🙌",
+   defense: "🛡️",
+   pointsPerGame: "🔥",
+   pointsAllowedPerGame: "🚫"
+},
 
   /*
   =======================================================
