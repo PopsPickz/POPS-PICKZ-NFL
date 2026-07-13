@@ -1483,6 +1483,36 @@ function createPlayerStatsOutput(
 
 /*
 =========================================================
+CREATE PLAYER STATISTICS OUTPUT
+=========================================================
+*/
+
+function createPlayerStatsOutput(
+  scheduleSeason,
+  statisticsSeason,
+  playerStatistics
+) {
+  return {
+    generatedAt:
+      new Date().toISOString(),
+
+    scheduleSeason,
+
+    statisticsSeason,
+
+    playerCount:
+      playerStatistics.length,
+
+    source:
+      "ESPN roster and player statistics feeds",
+
+    players:
+      playerStatistics
+  };
+}
+
+/*
+=========================================================
 LOAD NFL SEASON SCHEDULE
 =========================================================
 */
