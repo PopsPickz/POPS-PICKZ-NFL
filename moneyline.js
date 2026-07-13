@@ -736,13 +736,13 @@ if (isPointsAllowed) {
             ${statusIcon}
           </span>
 
-          <strong>
-            ${teamScore}
-          </strong>
+        <strong>
+          ${displayedValue}
+        </strong>
 
-          <small>
-            ${advantageText}
-          </small>
+       <small>
+         ${displayedDifference}
+      </small>
         </div>
 
       </div>
