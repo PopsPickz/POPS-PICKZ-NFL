@@ -1647,11 +1647,18 @@ const playerStatistics =
       );
     
     const teamStatsOutput =
-     createTeamStatsOutput(
-      season,
-      statisticsSeason,
-      teamStatistics
-    );    
+      createTeamStatsOutput(
+       season,
+       statisticsSeason,
+       teamStatistics
+    );
+
+    const playerStatsOutput =
+     createPlayerStatsOutput(
+     season,
+     statisticsSeason,
+     playerStatistics
+   );
 
     /*
     Write files.
