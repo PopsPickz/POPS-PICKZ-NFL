@@ -1,177 +1,811 @@
 /*
 =========================================================
-POPS PICKZ NFL — MONEYLINE TEST DATA
+POPS PICKZ NFL — AUTOMATIC MONEYLINE DATA
 File: moneyline-data.js
 =========================================================
 
-This file temporarily uses local matchup data so we can
-prove the formula and card design work before reconnecting
-automatic NFL data.
+Loads:
+
+- data/upcoming-games.json
+- data/team-stats.json
+
+Then connects every official upcoming matchup to the
+team statistics used by moneyline-formula.js.
 =========================================================
 */
 
 const NFLMoneylineData = {
-  matchups: [
-    {
-      gameId: "kc-buf-test",
+  cache: {
+    schedule: null,
+    teamStats: null
+  },
 
-      name:
-        "Kansas City Chiefs vs Buffalo Bills",
+  /*
+  =======================================================
+  NETWORK
+  =======================================================
+  */
 
-      startTime:
-        new Date(
-          "2026-09-13T20:20:00"
-        ).getTime(),
+  async fetchJSON(filePath) {
+    const separator =
+      filePath.includes("?")
+        ? "&"
+        : "?";
 
-      state: "pre",
-      completed: false,
-      week: 1,
+    const response = await fetch(
+      `${filePath}${separator}v=${Date.now()}`,
+      {
+        cache: "no-store"
+      }
+    );
 
-      away: {
-        teamId: "buf",
-        teamName: "Buffalo Bills",
-        abbreviation: "BUF",
-        logo: "",
-        isHome: false
-      },
+    if (!response.ok) {
+      throw new Error(
+        `Could not load ${filePath}: ${response.status}`
+      );
+    }
 
-      home: {
-        teamId: "kc",
-        teamName: "Kansas City Chiefs",
-        abbreviation: "KC",
-        logo: "",
-        isHome: true
-      },
+    return response.json();
+  },
 
-      awayTeamData: {
-        teamId: "buf",
-        teamName: "Buffalo Bills",
-        abbreviation: "BUF",
-        logo: "",
-        isHome: false,
+  number(value, fallback = 0) {
+    const parsed = Number(value);
 
-        passing: {
-          passingYardsPerGame: 258,
-          completionPercentage: 66.4,
-          passingTouchdownsPerGame: 2.1,
-          interceptionsPerGame: 0.7,
-          passerRating: 99,
-          passingYardsPerAttempt: 7.4
-        },
+    return Number.isFinite(parsed)
+      ? parsed
+      : fallback;
+  },
 
-        rushing: {
-          rushingYardsPerGame: 138,
-          rushingYardsPerAttempt: 4.7,
-          rushingTouchdownsPerGame: 1.2,
-          rushingFirstDownsPerGame: 7.1,
-          explosiveRushPercentage: 12
-        },
+  divide(value, divisor, fallback = 0) {
+    const top = this.number(value);
+    const bottom = this.number(divisor);
 
-        receiving: {
-          receivingYardsPerGame: 258,
-          receptionsPerGame: 23,
-          catchPercentage: 66,
-          receivingTouchdownsPerGame: 2.1,
-          yardsAfterCatchPerGame: 116,
-          yardsPerReception: 11.2
-        },
+    if (bottom <= 0) {
+      return fallback;
+    }
 
-        defense: {
-          pointsAllowedPerGame: 21.4,
-          totalYardsAllowedPerGame: 326,
-          passingYardsAllowedPerGame: 214,
-          rushingYardsAllowedPerGame: 112,
-          sacksPerGame: 2.7,
-          takeawaysPerGame: 1.4,
-          thirdDownPercentageAllowed: 38
-        },
+    return top / bottom;
+  },
 
-        specialTeams: {
-          fieldGoalPercentage: 87,
-          extraPointPercentage: 97,
-          netPuntAverage: 42,
-          kickReturnAverage: 24,
-          puntReturnAverage: 9,
-          specialTeamsTouchdowns: 1
-        },
+  normalizeKey(value) {
+    return String(value || "")
+      .toLowerCase()
+      .replace(/%/g, "percentage")
+      .replace(/[^a-z0-9]/g, "");
+  },
 
-        offensiveLine: {
-          sacksAllowedPerGame: 2.1,
-          pressurePercentageAllowed: 29,
-          quarterbackHitsAllowedPerGame: 5,
-          rushingYardsBeforeContact: 1.7,
-          passBlockWinRate: 66,
-          runBlockWinRate: 71
-        }
-      },
+  findStat(
+    statistics = {},
+    aliases = [],
+    fallback = 0
+  ) {
+    for (const alias of aliases) {
+      const key =
+        this.normalizeKey(alias);
 
-      homeTeamData: {
-        teamId: "kc",
-        teamName: "Kansas City Chiefs",
-        abbreviation: "KC",
-        logo: "",
-        isHome: true,
-
-        passing: {
-          passingYardsPerGame: 276,
-          completionPercentage: 68.2,
-          passingTouchdownsPerGame: 2.3,
-          interceptionsPerGame: 0.6,
-          passerRating: 104,
-          passingYardsPerAttempt: 7.8
-        },
-
-        rushing: {
-          rushingYardsPerGame: 118,
-          rushingYardsPerAttempt: 4.2,
-          rushingTouchdownsPerGame: 0.9,
-          rushingFirstDownsPerGame: 6,
-          explosiveRushPercentage: 9
-        },
-
-        receiving: {
-          receivingYardsPerGame: 276,
-          receptionsPerGame: 25,
-          catchPercentage: 68,
-          receivingTouchdownsPerGame: 2.3,
-          yardsAfterCatchPerGame: 125,
-          yardsPerReception: 11
-        },
-
-        defense: {
-          pointsAllowedPerGame: 18.8,
-          totalYardsAllowedPerGame: 304,
-          passingYardsAllowedPerGame: 198,
-          rushingYardsAllowedPerGame: 106,
-          sacksPerGame: 3.1,
-          takeawaysPerGame: 1.5,
-          thirdDownPercentageAllowed: 34
-        },
-
-        specialTeams: {
-          fieldGoalPercentage: 91,
-          extraPointPercentage: 99,
-          netPuntAverage: 44,
-          kickReturnAverage: 23,
-          puntReturnAverage: 11,
-          specialTeamsTouchdowns: 1
-        },
-
-        offensiveLine: {
-          sacksAllowedPerGame: 1.7,
-          pressurePercentageAllowed: 25,
-          quarterbackHitsAllowedPerGame: 4.2,
-          rushingYardsBeforeContact: 1.6,
-          passBlockWinRate: 71,
-          runBlockWinRate: 69
-        }
+      if (
+        statistics[key] !== undefined
+      ) {
+        return this.number(
+          statistics[key],
+          fallback
+        );
       }
     }
-  ],
+
+    return fallback;
+  },
+
+  /*
+  =======================================================
+  LOAD GENERATED FILES
+  =======================================================
+  */
+
+  async loadSchedule() {
+    if (this.cache.schedule) {
+      return this.cache.schedule;
+    }
+
+    const data = await this.fetchJSON(
+      "data/upcoming-games.json"
+    );
+
+    this.cache.schedule = data;
+
+    return data;
+  },
+
+  async loadTeamStats() {
+    if (this.cache.teamStats) {
+      return this.cache.teamStats;
+    }
+
+    const data = await this.fetchJSON(
+      "data/team-stats.json"
+    );
+
+    this.cache.teamStats = data;
+
+    return data;
+  },
+
+  /*
+  =======================================================
+  BUILD FORMULA-READY TEAM DATA
+  =======================================================
+  */
+
+  buildFormulaTeamData(
+    gameTeam = {},
+    storedTeam = {}
+  ) {
+    const stats =
+      storedTeam.rawStatistics || {};
+
+    const gamesPlayed =
+      this.findStat(
+        stats,
+        [
+          "gamesPlayed",
+          "games",
+          "teamGamesPlayed"
+        ],
+        17
+      ) || 17;
+
+    const passingAttempts =
+      this.findStat(
+        stats,
+        [
+          "passingAttempts",
+          "passAttempts",
+          "attempts"
+        ]
+      );
+
+    const completions =
+      this.findStat(
+        stats,
+        [
+          "completions",
+          "passingCompletions"
+        ]
+      );
+
+    const passingYards =
+      this.findStat(
+        stats,
+        [
+          "passingYards",
+          "netPassingYards"
+        ]
+      );
+
+    const passingTouchdowns =
+      this.findStat(
+        stats,
+        [
+          "passingTouchdowns",
+          "passingTDs",
+          "passTouchdowns"
+        ]
+      );
+
+    const interceptions =
+      this.findStat(
+        stats,
+        [
+          "interceptionsThrown",
+          "passingInterceptions",
+          "interceptions"
+        ]
+      );
+
+    const rushingAttempts =
+      this.findStat(
+        stats,
+        [
+          "rushingAttempts",
+          "rushAttempts"
+        ]
+      );
+
+    const rushingYards =
+      this.findStat(
+        stats,
+        [
+          "rushingYards",
+          "rushYards"
+        ]
+      );
+
+    const rushingTouchdowns =
+      this.findStat(
+        stats,
+        [
+          "rushingTouchdowns",
+          "rushingTDs"
+        ]
+      );
+
+    const receptions =
+      this.findStat(
+        stats,
+        [
+          "receptions",
+          "teamReceptions"
+        ],
+        completions
+      );
+
+    const receivingYards =
+      this.findStat(
+        stats,
+        [
+          "receivingYards",
+          "teamReceivingYards"
+        ],
+        passingYards
+      );
+
+    const receivingTouchdowns =
+      this.findStat(
+        stats,
+        [
+          "receivingTouchdowns",
+          "receivingTDs"
+        ],
+        passingTouchdowns
+      );
+
+    const sacksAllowed =
+      this.findStat(
+        stats,
+        [
+          "sacksAllowed",
+          "timesSacked"
+        ]
+      );
+
+    const fieldGoalsMade =
+      this.findStat(
+        stats,
+        [
+          "fieldGoalsMade",
+          "fieldGoalMade"
+        ]
+      );
+
+    const fieldGoalsAttempted =
+      this.findStat(
+        stats,
+        [
+          "fieldGoalsAttempted",
+          "fieldGoalAttempts"
+        ]
+      );
+
+    const extraPointsMade =
+      this.findStat(
+        stats,
+        [
+          "extraPointsMade",
+          "extraPointMade"
+        ]
+      );
+
+    const extraPointsAttempted =
+      this.findStat(
+        stats,
+        [
+          "extraPointsAttempted",
+          "extraPointAttempts"
+        ]
+      );
+
+    return {
+      teamId:
+        String(
+          gameTeam.teamId ||
+          storedTeam.teamId ||
+          ""
+        ),
+
+      teamName:
+        gameTeam.teamName ||
+        storedTeam.teamName ||
+        "NFL Team",
+
+      abbreviation:
+        gameTeam.abbreviation ||
+        storedTeam.abbreviation ||
+        "NFL",
+
+      logo:
+        gameTeam.logo ||
+        storedTeam.logo ||
+        "",
+
+      isHome:
+        Boolean(gameTeam.isHome),
+
+      passing: {
+        passingYardsPerGame:
+          this.divide(
+            passingYards,
+            gamesPlayed,
+            210
+          ),
+
+        completionPercentage:
+          passingAttempts > 0
+            ? (
+                completions /
+                passingAttempts
+              ) * 100
+            : 62,
+
+        passingTouchdownsPerGame:
+          this.divide(
+            passingTouchdowns,
+            gamesPlayed,
+            1.4
+          ),
+
+        interceptionsPerGame:
+          this.divide(
+            interceptions,
+            gamesPlayed,
+            0.8
+          ),
+
+        passerRating:
+          this.findStat(
+            stats,
+            [
+              "quarterbackRating",
+              "passerRating",
+              "teamPasserRating"
+            ],
+            88
+          ),
+
+        passingYardsPerAttempt:
+          this.divide(
+            passingYards,
+            passingAttempts,
+            6.8
+          )
+      },
+
+      rushing: {
+        rushingYardsPerGame:
+          this.divide(
+            rushingYards,
+            gamesPlayed,
+            110
+          ),
+
+        rushingYardsPerAttempt:
+          this.divide(
+            rushingYards,
+            rushingAttempts,
+            4.1
+          ),
+
+        rushingTouchdownsPerGame:
+          this.divide(
+            rushingTouchdowns,
+            gamesPlayed,
+            0.8
+          ),
+
+        rushingFirstDownsPerGame:
+          this.divide(
+            this.findStat(
+              stats,
+              [
+                "rushingFirstDowns",
+                "rushFirstDowns"
+              ]
+            ),
+            gamesPlayed,
+            6
+          ),
+
+        explosiveRushPercentage:
+          this.findStat(
+            stats,
+            [
+              "explosiveRushPercentage",
+              "bigRushPlayPercentage"
+            ],
+            10
+          )
+      },
+
+      receiving: {
+        receivingYardsPerGame:
+          this.divide(
+            receivingYards,
+            gamesPlayed,
+            210
+          ),
+
+        receptionsPerGame:
+          this.divide(
+            receptions,
+            gamesPlayed,
+            20
+          ),
+
+        catchPercentage:
+          passingAttempts > 0
+            ? (
+                receptions /
+                passingAttempts
+              ) * 100
+            : 62,
+
+        receivingTouchdownsPerGame:
+          this.divide(
+            receivingTouchdowns,
+            gamesPlayed,
+            1.4
+          ),
+
+        yardsAfterCatchPerGame:
+          this.divide(
+            this.findStat(
+              stats,
+              [
+                "yardsAfterCatch",
+                "receivingYardsAfterCatch"
+              ]
+            ),
+            gamesPlayed,
+            95
+          ),
+
+        yardsPerReception:
+          this.divide(
+            receivingYards,
+            receptions,
+            10.5
+          )
+      },
+
+      defense: {
+        pointsAllowedPerGame:
+          this.findStat(
+            stats,
+            [
+              "pointsAllowedPerGame",
+              "opponentPointsPerGame"
+            ],
+            this.divide(
+              this.findStat(
+                stats,
+                [
+                  "pointsAllowed",
+                  "opponentPoints"
+                ]
+              ),
+              gamesPlayed,
+              22
+            )
+          ),
+
+        totalYardsAllowedPerGame:
+          this.findStat(
+            stats,
+            [
+              "totalYardsAllowedPerGame",
+              "yardsAllowedPerGame"
+            ],
+            340
+          ),
+
+        passingYardsAllowedPerGame:
+          this.findStat(
+            stats,
+            [
+              "passingYardsAllowedPerGame",
+              "opponentPassingYardsPerGame"
+            ],
+            220
+          ),
+
+        rushingYardsAllowedPerGame:
+          this.findStat(
+            stats,
+            [
+              "rushingYardsAllowedPerGame",
+              "opponentRushingYardsPerGame"
+            ],
+            115
+          ),
+
+        sacksPerGame:
+          this.divide(
+            this.findStat(
+              stats,
+              [
+                "defensiveSacks",
+                "totalSacks",
+                "sacks"
+              ]
+            ),
+            gamesPlayed,
+            2.4
+          ),
+
+        takeawaysPerGame:
+          this.divide(
+            this.findStat(
+              stats,
+              [
+                "takeaways",
+                "totalTakeaways"
+              ]
+            ),
+            gamesPlayed,
+            1.2
+          ),
+
+        thirdDownPercentageAllowed:
+          this.findStat(
+            stats,
+            [
+              "thirdDownPercentageAllowed",
+              "opponentThirdDownConversionPercentage"
+            ],
+            39
+          )
+      },
+
+      specialTeams: {
+        fieldGoalPercentage:
+          fieldGoalsAttempted > 0
+            ? (
+                fieldGoalsMade /
+                fieldGoalsAttempted
+              ) * 100
+            : 82,
+
+        extraPointPercentage:
+          extraPointsAttempted > 0
+            ? (
+                extraPointsMade /
+                extraPointsAttempted
+              ) * 100
+            : 94,
+
+        netPuntAverage:
+          this.findStat(
+            stats,
+            [
+              "netPuntAverage",
+              "netPuntingAverage"
+            ],
+            41
+          ),
+
+        kickReturnAverage:
+          this.findStat(
+            stats,
+            [
+              "kickReturnAverage",
+              "kickoffReturnAverage"
+            ],
+            22
+          ),
+
+        puntReturnAverage:
+          this.findStat(
+            stats,
+            ["puntReturnAverage"],
+            9
+          ),
+
+        specialTeamsTouchdowns:
+          this.findStat(
+            stats,
+            [
+              "specialTeamsTouchdowns",
+              "returnTouchdowns"
+            ],
+            0
+          )
+      },
+
+      offensiveLine: {
+        sacksAllowedPerGame:
+          this.divide(
+            sacksAllowed,
+            gamesPlayed,
+            2.5
+          ),
+
+        pressurePercentageAllowed:
+          this.findStat(
+            stats,
+            [
+              "pressurePercentageAllowed",
+              "pressureRateAllowed"
+            ],
+            30
+          ),
+
+        quarterbackHitsAllowedPerGame:
+          this.divide(
+            this.findStat(
+              stats,
+              [
+                "quarterbackHitsAllowed",
+                "qbHitsAllowed"
+              ]
+            ),
+            gamesPlayed,
+            5.5
+          ),
+
+        rushingYardsBeforeContact:
+          this.findStat(
+            stats,
+            [
+              "rushingYardsBeforeContact",
+              "yardsBeforeContactPerRush"
+            ],
+            1.4
+          ),
+
+        passBlockWinRate:
+          this.findStat(
+            stats,
+            [
+              "passBlockWinRate",
+              "passBlockingWinRate"
+            ],
+            60
+          ),
+
+        runBlockWinRate:
+          this.findStat(
+            stats,
+            [
+              "runBlockWinRate",
+              "runBlockingWinRate"
+            ],
+            68
+          )
+      }
+    };
+  },
+
+  /*
+  =======================================================
+  LOAD ALL OFFICIAL MATCHUPS
+  =======================================================
+  */
 
   async loadMoneylineMatchups() {
-    return this.matchups;
+    const [
+      scheduleData,
+      teamStatsData
+    ] = await Promise.all([
+      this.loadSchedule(),
+      this.loadTeamStats()
+    ]);
+
+    const games =
+      Array.isArray(scheduleData.games)
+        ? scheduleData.games
+        : [];
+
+    const storedTeams =
+      Array.isArray(teamStatsData.teams)
+        ? teamStatsData.teams
+        : [];
+
+    const statsByTeamId =
+      new Map(
+        storedTeams.map(team => [
+          String(team.teamId),
+          team
+        ])
+      );
+
+    const matchups = games
+      .map(game => {
+        const awayStored =
+          statsByTeamId.get(
+            String(game.away?.teamId)
+          );
+
+        const homeStored =
+          statsByTeamId.get(
+            String(game.home?.teamId)
+          );
+
+        if (
+          !awayStored ||
+          !homeStored
+        ) {
+          console.warn(
+            "POPS NFL missing team stats:",
+            game.name
+          );
+
+          return null;
+        }
+
+        return {
+          gameId: game.gameId,
+          name: game.name,
+          shortName: game.shortName,
+
+          week:
+            game.week ||
+            scheduleData.week,
+
+          season:
+            game.season ||
+            scheduleData.season,
+
+          startTime:
+            game.startTime ||
+            new Date(game.date).getTime(),
+
+          date: game.date,
+
+          state: game.state,
+          completed: game.completed,
+          statusText: game.status,
+
+          away: game.away,
+          home: game.home,
+
+          awayTeamData:
+            this.buildFormulaTeamData(
+              {
+                ...game.away,
+                isHome: false
+              },
+              awayStored
+            ),
+
+          homeTeamData:
+            this.buildFormulaTeamData(
+              {
+                ...game.home,
+                isHome: true
+              },
+              homeStored
+            )
+        };
+      })
+      .filter(Boolean);
+
+    console.log(
+      `POPS NFL loaded ${matchups.length} moneyline matchups.`
+    );
+
+    if (!matchups.length) {
+      throw new Error(
+        "No official NFL matchups could be connected to team statistics."
+      );
+    }
+
+    return matchups;
   },
+
+  /*
+  =======================================================
+  FORMAT GAME TIME
+  =======================================================
+  */
 
   formatGameTime(timestamp) {
     const date = new Date(timestamp);
