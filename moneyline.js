@@ -811,11 +811,11 @@ const NFLMoneyline = {
           Calculating NFL moneyline picks...
         </h3>
 
-        <p>
-          Comparing passing, rushing,
-          receiving, defense, special teams
-          and offensive lines.
-        </p>
+       <p>
+         Comparing passing, rushing,
+         receiving, defense, average points
+         scored and average points allowed.
+       </p>
 
       </div>
     `;
