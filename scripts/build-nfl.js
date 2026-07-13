@@ -1100,6 +1100,11 @@ async function build() {
     );
 
     console.log(
+  `✓ data/team-stats.json ` +
+  `(${teamStatistics.length} teams)`
+);
+    
+    console.log(
       `✓ data/upcoming-games.json ` +
       `(${upcomingSelection.games.length} games)`
     );
