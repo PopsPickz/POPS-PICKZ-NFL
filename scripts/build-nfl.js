@@ -1601,10 +1601,16 @@ async function build() {
       getStatisticsSeason(season);
 
    const teamStatistics =
-      await loadAllTeamStatistics(
-       teams,
-       statisticsSeason
-     );
+     await loadAllTeamStatistics(
+      teams,
+      statisticsSeason
+    );
+
+const playerStatistics =
+  await loadAllPlayerStatistics(
+    teams,
+    statisticsSeason
+  );
 
     /*
     Select the next week.
