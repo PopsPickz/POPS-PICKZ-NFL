@@ -853,6 +853,304 @@ function flattenPlayerStatistics(
   return result;
 }
 
+
+/*
+=========================================================
+LOAD ONE TEAM ROSTER
+=========================================================
+*/
+
+async function loadTeamRoster(
+  team,
+  statisticsSeason
+) {
+  const url =
+    "https://site.api.espn.com/" +
+    "apis/site/v2/sports/" +
+    "football/nfl/teams/" +
+    `${team.teamId}/roster` +
+    `?season=${statisticsSeason}`;
+
+  const data =
+    await fetchJSON(url);
+
+  const athletes = [];
+
+  const groups =
+    Array.isArray(
+      data?.athletes
+    )
+      ? data.athletes
+      : [];
+
+  groups.forEach(group => {
+    const items =
+      Array.isArray(group?.items)
+        ? group.items
+        : Array.isArray(group)
+          ? group
+          : [];
+
+    items.forEach(athlete => {
+      if (
+        athlete &&
+        isOffensiveSkillPlayer(
+          athlete
+        )
+      ) {
+        athletes.push({
+          ...athlete,
+
+          teamId:
+            team.teamId,
+
+          teamName:
+            team.teamName,
+
+          teamAbbreviation:
+            team.abbreviation,
+
+          teamLogo:
+            team.logo
+        });
+      }
+    });
+  });
+
+  return athletes;
+}
+
+
+/*
+=========================================================
+LOAD ONE PLAYER'S SEASON STATISTICS
+=========================================================
+*/
+
+async function loadSinglePlayerStatistics(
+  athlete,
+  statisticsSeason
+) {
+  const playerId =
+    text(athlete.id);
+
+  if (!playerId) {
+    return null;
+  }
+
+  const url =
+    "https://sports.core.api.espn.com/v2/" +
+    "sports/football/leagues/nfl/" +
+    `seasons/${statisticsSeason}/types/2/` +
+    `athletes/${playerId}/statistics`;
+
+  const data =
+    await fetchJSON(url);
+
+  const stats =
+    flattenPlayerStatistics(
+      data
+    );
+
+  const gamesPlayed =
+    findTeamStat(
+      stats,
+      [
+        "gamesPlayed",
+        "games",
+        "gamesStarted"
+      ],
+      0
+    );
+
+  const rushingAttempts =
+    findTeamStat(
+      stats,
+      [
+        "rushingAttempts",
+        "rushAttempts"
+      ]
+    );
+
+  const rushingYards =
+    findTeamStat(
+      stats,
+      [
+        "rushingYards",
+        "rushYards"
+      ]
+    );
+
+  const rushingTouchdowns =
+    findTeamStat(
+      stats,
+      [
+        "rushingTouchdowns",
+        "rushingTDs"
+      ]
+    );
+
+  const receptions =
+    findTeamStat(
+      stats,
+      [
+        "receptions"
+      ]
+    );
+
+  const receivingYards =
+    findTeamStat(
+      stats,
+      [
+        "receivingYards"
+      ]
+    );
+
+  const receivingTouchdowns =
+    findTeamStat(
+      stats,
+      [
+        "receivingTouchdowns",
+        "receivingTDs"
+      ]
+    );
+
+  const targets =
+    findTeamStat(
+      stats,
+      [
+        "receivingTargets",
+        "targets"
+      ]
+    );
+
+  const passingTouchdowns =
+    findTeamStat(
+      stats,
+      [
+        "passingTouchdowns",
+        "passingTDs"
+      ]
+    );
+
+  return {
+    playerId,
+
+    playerName:
+      text(
+        athlete.fullName,
+        text(
+          athlete.displayName,
+          "NFL Player"
+        )
+      ),
+
+    shortName:
+      text(
+        athlete.shortName
+      ),
+
+    position:
+      normalizePlayerPosition(
+        athlete
+      ),
+
+    jersey:
+      text(
+        athlete.jersey
+      ),
+
+    headshot:
+      text(
+        athlete.headshot?.href
+      ),
+
+    teamId:
+      text(
+        athlete.teamId
+      ),
+
+    teamName:
+      text(
+        athlete.teamName
+      ),
+
+    teamAbbreviation:
+      text(
+        athlete.teamAbbreviation
+      ),
+
+    teamLogo:
+      text(
+        athlete.teamLogo
+      ),
+
+    statisticsSeason,
+
+    gamesPlayed,
+
+    rushingAttempts,
+    rushingYards,
+    rushingTouchdowns,
+
+    receptions,
+    receivingYards,
+    receivingTouchdowns,
+    targets,
+
+    passingTouchdowns,
+
+    totalTouchdowns:
+      rushingTouchdowns +
+      receivingTouchdowns,
+
+    carriesPerGame:
+      gamesPlayed > 0
+        ? Number(
+            (
+              rushingAttempts /
+              gamesPlayed
+            ).toFixed(2)
+          )
+        : 0,
+
+    targetsPerGame:
+      gamesPlayed > 0
+        ? Number(
+            (
+              targets /
+              gamesPlayed
+            ).toFixed(2)
+          )
+        : 0,
+
+    receptionsPerGame:
+      gamesPlayed > 0
+        ? Number(
+            (
+              receptions /
+              gamesPlayed
+            ).toFixed(2)
+          )
+        : 0,
+
+    touchdownsPerGame:
+      gamesPlayed > 0
+        ? Number(
+            (
+              (
+                rushingTouchdowns +
+                receivingTouchdowns
+              ) /
+              gamesPlayed
+            ).toFixed(3)
+          )
+        : 0,
+
+    rawStatistics:
+      stats
+  };
+}
 /*
 =========================================================
 CREATE TEAM STATISTICS OUTPUT
