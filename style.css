@@ -54,30 +54,36 @@ button {
 }
 
 .app {
-  width: min(1500px, 100%);
+  width: 100%;
+  max-width: 1920px;
   margin: 0 auto;
-  padding: 18px;
+  padding: 14px;
 }
 
 /* =====================================
    HERO BANNER
 ===================================== */
 
+/* =====================================
+   FULL-WIDTH HERO BANNER
+===================================== */
+
 .hero {
   width: 100%;
-  margin-bottom: 20px;
+  margin: 0 0 14px;
+  overflow: hidden;
+  border: 2px solid #ff6a00;
+  border-radius: 24px;
+  background: #050505;
+  box-shadow:
+    0 0 28px rgba(255, 106, 0, 0.42);
 }
 
 .hero-image {
-  width: 100%;
   display: block;
-
-  border-radius: 24px;
-
-  border: 3px solid #ff6a00;
-
-  box-shadow:
-    0 0 25px rgba(255,106,0,.45);
+  width: 100%;
+  height: auto;
+  object-fit: contain;
 }
 
 /* =====================================================
@@ -86,7 +92,7 @@ button {
 
 .main-tabs {
   display: grid;
-  grid-template-columns: repeat(7, minmax(140px, 1fr));
+  grid-template-columns: repeat(7, minmax(0, 1fr));
   gap: 10px;
   margin-top: 14px;
   padding: 10px;
@@ -98,7 +104,7 @@ button {
 }
 
 .main-tab {
-  min-width: 145px;
+  min-width: 0;
   min-height: 88px;
   padding: 12px 10px;
   border: 1px solid #383838;
@@ -832,5 +838,19 @@ button {
 
   .footer {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 1101px) {
+  .main-tab {
+    font-size: clamp(11px, 0.85vw, 15px);
+  }
+
+  .dashboard-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dashboard-card {
+    width: 100%;
   }
 }
