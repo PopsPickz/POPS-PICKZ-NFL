@@ -1016,6 +1016,11 @@ async function build() {
       SETTINGS.requestDelayMilliseconds
     );
 
+    const schedule =
+     await loadSeasonSchedule(
+      season
+    );
+    
     const statisticsSeason =
       getStatisticsSeason(season);
 
@@ -1058,20 +1063,32 @@ async function build() {
         season,
         upcomingSelection
       );
+    
+    const teamStatsOutput =
+     createTeamStatsOutput(
+      season,
+      statisticsSeason,
+      teamStatistics
+    );    
 
     /*
     Write files.
     */
 
     writeJSON(
-      FILES.teams,
-      teamsOutput
-    );
+     FILES.teams,
+     teamsOutput
+  );
 
-    writeJSON(
-      FILES.upcomingGames,
-      upcomingGamesOutput
-    );
+   writeJSON(
+    FILES.teamStats,
+    teamStatsOutput
+  );
+
+   writeJSON(
+    FILES.upcomingGames,
+    upcomingGamesOutput
+  );
 
     console.log("");
     console.log(
