@@ -74,6 +74,11 @@ const FILES = {
   teams: path.join(
     DATA_DIRECTORY,
     "teams.json"
+  ),
+
+  teamStats: path.join(
+    DATA_DIRECTORY,
+    "team-stats.json"
   )
 };
 
