@@ -1016,10 +1016,14 @@ async function build() {
       SETTINGS.requestDelayMilliseconds
     );
 
-    const schedule =
-      await loadSeasonSchedule(
-        season
-      );
+    const statisticsSeason =
+      getStatisticsSeason(season);
+
+   const teamStatistics =
+      await loadAllTeamStatistics(
+       teams,
+       statisticsSeason
+     );
 
     /*
     Select the next week.
