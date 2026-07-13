@@ -542,6 +542,249 @@ async function loadNFLTeams() {
 
 /*
 =========================================================
+TEAM STATISTICS HELPERS
+=========================================================
+*/
+
+function getStatisticsSeason(scheduleSeason) {
+  /*
+  Before the current regular season has produced stats,
+  use the previous completed season as the model baseline.
+  */
+
+  return scheduleSeason - 1;
+}
+
+function normalizeStatKey(value) {
+  return String(value || "")
+    .toLowerCase()
+    .replace(/%/g, "percentage")
+    .replace(/[^a-z0-9]/g, "");
+}
+
+function parseStatValue(value) {
+  if (typeof value === "number") {
+    return value;
+  }
+
+  const cleaned = String(value ?? "")
+    .replace(/,/g, "")
+    .replace(/%/g, "")
+    .trim();
+
+  const parsed = Number(cleaned);
+
+  return Number.isFinite(parsed)
+    ? parsed
+    : 0;
+}
+
+function flattenTeamStatistics(data = {}) {
+  const result = {};
+
+  const categories =
+    Array.isArray(
+      data?.splits?.categories
+    )
+      ? data.splits.categories
+      : Array.isArray(data?.categories)
+        ? data.categories
+        : [];
+
+  categories.forEach(category => {
+    const stats = Array.isArray(
+      category?.stats
+    )
+      ? category.stats
+      : [];
+
+    stats.forEach(stat => {
+      const possibleNames = [
+        stat.name,
+        stat.displayName,
+        stat.shortDisplayName,
+        stat.abbreviation
+      ]
+        .filter(Boolean)
+        .map(normalizeStatKey);
+
+      const rawValue =
+        stat.value ??
+        stat.displayValue ??
+        stat.perGameValue ??
+        0;
+
+      possibleNames.forEach(key => {
+        if (
+          key &&
+          result[key] === undefined
+        ) {
+          result[key] =
+            parseStatValue(rawValue);
+        }
+      });
+    });
+  });
+
+  return result;
+}
+
+function findTeamStat(
+  statistics,
+  aliases,
+  fallback = 0
+) {
+  for (const alias of aliases) {
+    const key =
+      normalizeStatKey(alias);
+
+    if (
+      statistics[key] !== undefined
+    ) {
+      return number(
+        statistics[key],
+        fallback
+      );
+    }
+  }
+
+  return fallback;
+}
+
+/*
+=========================================================
+LOAD ONE TEAM'S STATISTICS
+=========================================================
+*/
+
+async function loadSingleTeamStatistics(
+  team,
+  statisticsSeason
+) {
+  const url =
+    "https://sports.core.api.espn.com/v2/" +
+    "sports/football/leagues/nfl/" +
+    `seasons/${statisticsSeason}/types/2/` +
+    `teams/${team.teamId}/statistics`;
+
+  const data = await fetchJSON(url);
+
+  const statistics =
+    flattenTeamStatistics(data);
+
+  return {
+    teamId: team.teamId,
+    teamName: team.teamName,
+    abbreviation: team.abbreviation,
+    logo: team.logo,
+
+    statisticsSeason,
+
+    rawStatistics: statistics
+  };
+}
+
+/*
+=========================================================
+LOAD ALL TEAM STATISTICS
+=========================================================
+*/
+
+async function loadAllTeamStatistics(
+  teams,
+  statisticsSeason
+) {
+  const teamStatistics = [];
+
+  console.log(
+    `Loading ${statisticsSeason} team statistics...`
+  );
+
+  for (
+    let index = 0;
+    index < teams.length;
+    index += 1
+  ) {
+    const team = teams[index];
+
+    try {
+      const result =
+        await loadSingleTeamStatistics(
+          team,
+          statisticsSeason
+        );
+
+      teamStatistics.push(result);
+
+      console.log(
+        `Loaded stats ${index + 1}/${teams.length}: ` +
+        team.teamName
+      );
+    } catch (error) {
+      console.warn(
+        `Stats failed for ${team.teamName}:`,
+        error?.message || error
+      );
+
+      teamStatistics.push({
+        teamId: team.teamId,
+        teamName: team.teamName,
+        abbreviation:
+          team.abbreviation,
+        logo: team.logo,
+        statisticsSeason,
+        rawStatistics: {},
+        loadError:
+          error?.message ||
+          "Statistics request failed"
+      });
+    }
+
+    await wait(
+      SETTINGS.requestDelayMilliseconds
+    );
+  }
+
+  console.log(
+    `Finished loading statistics for ` +
+    `${teamStatistics.length} teams.`
+  );
+
+  return teamStatistics;
+}
+
+/*
+=========================================================
+CREATE TEAM STATISTICS OUTPUT
+=========================================================
+*/
+
+function createTeamStatsOutput(
+  scheduleSeason,
+  statisticsSeason,
+  teamStatistics
+) {
+  return {
+    generatedAt:
+      new Date().toISOString(),
+
+    scheduleSeason,
+
+    statisticsSeason,
+
+    teamCount:
+      teamStatistics.length,
+
+    source:
+      "ESPN team statistics feed",
+
+    teams:
+      teamStatistics
+  };
+}
+
+/*
+=========================================================
 LOAD NFL SEASON SCHEDULE
 =========================================================
 */
