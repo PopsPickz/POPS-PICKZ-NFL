@@ -599,7 +599,76 @@ const pointsAllowedPerGame =
           )
       },
 
-      
+      defense: {
+        pointsAllowedPerGame,
+
+        totalYardsAllowedPerGame:
+          this.findStat(
+            stats,
+            [
+              "totalYardsAllowedPerGame",
+              "yardsAllowedPerGame"
+            ],
+            340
+          ),
+
+        passingYardsAllowedPerGame:
+          this.findStat(
+            stats,
+            [
+              "passingYardsAllowedPerGame",
+              "opponentPassingYardsPerGame"
+            ],
+            220
+          ),
+
+        rushingYardsAllowedPerGame:
+          this.findStat(
+            stats,
+            [
+              "rushingYardsAllowedPerGame",
+              "opponentRushingYardsPerGame"
+            ],
+            115
+          ),
+
+        sacksPerGame:
+          this.divide(
+            this.findStat(
+              stats,
+              [
+                "defensiveSacks",
+                "totalSacks",
+                "sacks"
+              ]
+            ),
+            gamesPlayed,
+            2.4
+          ),
+
+        takeawaysPerGame:
+          this.divide(
+            this.findStat(
+              stats,
+              [
+                "takeaways",
+                "totalTakeaways"
+              ]
+            ),
+            gamesPlayed,
+            1.2
+          ),
+
+        thirdDownPercentageAllowed:
+          this.findStat(
+            stats,
+            [
+              "thirdDownPercentageAllowed",
+              "opponentThirdDownConversionPercentage"
+            ],
+            39
+          )
+      },      
 
   /*
   =======================================================
