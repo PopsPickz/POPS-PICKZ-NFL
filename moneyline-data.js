@@ -311,50 +311,7 @@ const pointsAllowedPerGame =
         passingTouchdowns
       );
 
-    const sacksAllowed =
-      this.findStat(
-        stats,
-        [
-          "sacksAllowed",
-          "timesSacked"
-        ]
-      );
-
-    const fieldGoalsMade =
-      this.findStat(
-        stats,
-        [
-          "fieldGoalsMade",
-          "fieldGoalMade"
-        ]
-      );
-
-    const fieldGoalsAttempted =
-      this.findStat(
-        stats,
-        [
-          "fieldGoalsAttempted",
-          "fieldGoalAttempts"
-        ]
-      );
-
-    const extraPointsMade =
-      this.findStat(
-        stats,
-        [
-          "extraPointsMade",
-          "extraPointMade"
-        ]
-      );
-
-    const extraPointsAttempted =
-      this.findStat(
-        stats,
-        [
-          "extraPointsAttempted",
-          "extraPointAttempts"
-        ]
-      );
+    
 
     return {
       teamId:
