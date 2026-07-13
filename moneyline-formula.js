@@ -41,22 +41,22 @@ const NFLMoneylineFormula = {
   */
 
   weights: {
-    passing: 0.22,
-    rushing: 0.14,
-    receiving: 0.14,
-    defense: 0.22,
-    specialTeams: 0.10,
-    offensiveLine: 0.18
-  },
+   passing: 0.20,
+   rushing: 0.15,
+   receiving: 0.15,
+   defense: 0.20,
+   pointsPerGame: 0.15,
+   pointsAllowedPerGame: 0.15
+ },
 
   categoryKeys: [
-    "passing",
-    "rushing",
-    "receiving",
-    "defense",
-    "specialTeams",
-    "offensiveLine"
-  ],
+   "passing",
+   "rushing",
+   "receiving",
+   "defense",
+   "pointsPerGame",
+   "pointsAllowedPerGame"
+ ],
 
   /*
   =======================================================
