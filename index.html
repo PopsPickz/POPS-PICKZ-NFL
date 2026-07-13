@@ -11,7 +11,7 @@
   <title>POPS PICKZ NFL</title>
 
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="scoreboard.css" />
+ 
   <link rel="stylesheet" href="moneyline-style.css" />
 </head>
 
@@ -36,101 +36,62 @@
 
     <nav class="main-tabs">
 
-      <button
-        type="button"
-        class="main-tab active-tab"
-        data-tab="td-scorers"
-      >
-        <span>🎯</span>
-        Predicted TD Scorers
-      </button>
+  <button
+    type="button"
+    class="main-tab active-tab"
+    data-tab="td-scorers"
+  >
+    <span>🎯</span>
+    Predicted TD Scorers
+  </button>
 
-      <button
-        type="button"
-        class="main-tab"
-        data-tab="passing"
-      >
-        <span>🏈</span>
-        Passing Yards / Attempts
-      </button>
+  <button
+    type="button"
+    class="main-tab"
+    data-tab="passing"
+  >
+    <span>🏈</span>
+    Predicted Passing Yards
+  </button>
 
-      <button
-        type="button"
-        class="main-tab"
-        data-tab="rushing"
-      >
-        <span>🏃</span>
-        Rushing Yards / Attempts
-      </button>
+  <button
+    type="button"
+    class="main-tab"
+    data-tab="rushing"
+  >
+    <span>🏃</span>
+    Predicted Rushing Yards
+  </button>
 
-      <button
-        type="button"
-        class="main-tab"
-        data-tab="receiving"
-      >
-        <span>🙌</span>
-        Receiving Yards / Receptions
-      </button>
+  <button
+    type="button"
+    class="main-tab"
+    data-tab="receiving"
+  >
+    <span>🙌</span>
+    Predicted Receiving Yards
+  </button>
 
-      <button
-        type="button"
-        class="main-tab"
-        data-tab="leaders"
-      >
-        <span>🏆</span>
-        Season Leaders
-      </button>
+  <button
+    type="button"
+    class="main-tab"
+    data-tab="moneyline"
+  >
+    <span>💰</span>
+    Moneyline Pickz
+  </button>
 
-      <button
-        type="button"
-        class="main-tab"
-        data-tab="defense"
-      >
-        <span>🛡️</span>
-        Defensive Team Rating
-      </button>
+  <button
+    type="button"
+    class="main-tab"
+    data-tab="live"
+  >
+    <span>📡</span>
+    Live Tracking
+  </button>
 
-      <button
-        type="button"
-        class="main-tab"
-        data-tab="moneyline"
-      >
-        <span>💰</span>
-        Moneyline Pickz
-      </button>
+</nav>
 
-      <button
-        type="button"
-        class="main-tab"
-        data-tab="live"
-      >
-        <span>📡</span>
-        Live Tracking
-      </button>
-
-    </nav>
-
-    <!-- =========================================
-         SCOREBOARD
-    ========================================== -->
-
-    <section class="scoreboard-shell">
-      <div class="scoreboard-label">
-        <strong id="scoreboardWeek">NFL</strong>
-        <span>Live Scoreboard</span>
-      </div>
-
-      <div class="scoreboard-window">
-        <div
-          class="scoreboard-track"
-          id="scoreboardTrack"
-        >
-          <div class="ticker-message">
-            Loading NFL games...
-          </div>
-        </div>
-      </div>
-    </section>
 
     <!-- =========================================
          CONTENT
@@ -744,7 +705,7 @@
 
   </div>
 
-  <script src="scoreboard.js"></script>
+  
 
   <script src="moneyline-formula.js"></script>
   <script src="moneyline-data.js"></script>
