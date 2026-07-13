@@ -546,7 +546,6 @@ const pointsPerGame =
 
       scoring: {
         pointsPerGame,
-        pointsAllowedPerGame
       }
     };
   },
