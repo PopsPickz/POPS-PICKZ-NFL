@@ -12,12 +12,12 @@ CATEGORIES
 3. Receiving
 4. Defense
 5. Average Points Per Game
-6. Average Points Allowed Per Game
+
 
 PURPOSE
 
 - Scores every team from 0–100
-- Compares both teams in six categories
+- Compares both teams in five categories
 - Calculates an overall rating
 - Selects the POPS moneyline pick
 - Calculates confidence
