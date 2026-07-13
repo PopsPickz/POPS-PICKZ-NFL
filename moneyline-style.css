@@ -2,6 +2,10 @@
 =========================================================
 POPS PICKZ NFL — MONEYLINE STYLES
 File: moneyline-style.css
+Version: 2.0
+
+AWAY AND HOME TEAM PANELS REMAIN SIDE BY SIDE
+ON DESKTOP, TABLET, AND MOBILE.
 =========================================================
 */
 
@@ -10,7 +14,9 @@ File: moneyline-style.css
 }
 
 #moneylineBox {
+  width: 100%;
   padding: 18px;
+  overflow: hidden;
 }
 
 /* =====================================================
@@ -19,12 +25,13 @@ File: moneyline-style.css
 
 .moneyline-summary-bar {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
   margin-bottom: 18px;
 }
 
 .moneyline-summary-bar > div {
+  min-width: 0;
   padding: 16px;
   border: 1px solid rgba(255, 106, 0, 0.42);
   border-radius: 13px;
@@ -50,6 +57,7 @@ File: moneyline-style.css
   color: var(--muted, #a8a8a8);
   font-size: 11px;
   font-weight: 800;
+  line-height: 1.35;
   text-transform: uppercase;
 }
 
@@ -64,6 +72,8 @@ File: moneyline-style.css
 }
 
 .moneyline-card {
+  width: 100%;
+  min-width: 0;
   overflow: hidden;
   border: 1px solid rgba(255, 106, 0, 0.58);
   border-radius: 18px;
@@ -90,6 +100,10 @@ File: moneyline-style.css
   border-bottom: 1px solid rgba(255, 106, 0, 0.27);
 }
 
+.moneyline-card-header > div:first-child {
+  min-width: 0;
+}
+
 .moneyline-game-label {
   margin: 0 0 5px;
   color: var(--orange-light, #ff9a2f);
@@ -101,7 +115,9 @@ File: moneyline-style.css
 
 .moneyline-card-header h3 {
   margin: 0;
+  overflow-wrap: anywhere;
   font-size: clamp(20px, 2vw, 30px);
+  line-height: 1.2;
 }
 
 .moneyline-card-header h3 span {
@@ -146,17 +162,17 @@ File: moneyline-style.css
 
 .moneyline-pick-banner {
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto minmax(0, 1fr) auto;
   gap: 14px;
   align-items: center;
   padding: 14px 20px;
+  border-bottom: 1px solid rgba(255, 106, 0, 0.25);
   background:
     linear-gradient(
       90deg,
       rgba(255, 106, 0, 0.2),
       rgba(255, 106, 0, 0.07)
     );
-  border-bottom: 1px solid rgba(255, 106, 0, 0.25);
 }
 
 .moneyline-pick-banner span {
@@ -167,6 +183,8 @@ File: moneyline-style.css
 }
 
 .moneyline-pick-banner strong {
+  min-width: 0;
+  overflow-wrap: anywhere;
   color: #ffffff;
   font-size: 22px;
 }
@@ -186,7 +204,11 @@ File: moneyline-style.css
 
 .moneyline-checklist-summary {
   display: grid;
-  grid-template-columns: auto auto auto auto;
+  grid-template-columns:
+    minmax(0, 1fr)
+    auto
+    minmax(0, 1fr)
+    auto;
   gap: 10px;
   align-items: center;
   padding: 12px 20px;
@@ -202,29 +224,46 @@ File: moneyline-style.css
 
 /* =====================================================
    TEAM COMPARISON
+
+   IMPORTANT:
+   This always remains:
+   AWAY | VS | HOME
 ===================================================== */
 
 .moneyline-team-comparison {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 54px minmax(0, 1fr);
-  gap: 12px;
+  grid-template-columns:
+    minmax(0, 1fr)
+    42px
+    minmax(0, 1fr);
+  gap: 10px;
   align-items: stretch;
+  width: 100%;
   padding: 18px;
 }
 
 .moneyline-versus-divider {
   display: grid;
   place-items: center;
+  min-width: 0;
   color: var(--orange-light, #ff9a2f);
   font-size: 18px;
   font-weight: 900;
 }
 
 .moneyline-team-panel {
+  width: 100%;
+  min-width: 0;
   padding: 16px;
+  overflow: hidden;
   border: 1px solid #303030;
   border-radius: 15px;
-  background: #0d0d0d;
+  background:
+    linear-gradient(
+      180deg,
+      #101010,
+      #0a0a0a
+    );
 }
 
 .moneyline-selected-team {
@@ -233,11 +272,19 @@ File: moneyline-style.css
     0 0 18px rgba(255, 106, 0, 0.18);
 }
 
+/* =====================================================
+   TEAM HEADING
+===================================================== */
+
 .moneyline-team-heading {
   display: grid;
-  grid-template-columns: 52px 1fr auto;
+  grid-template-columns: 52px minmax(0, 1fr) auto;
   gap: 11px;
   align-items: center;
+}
+
+.moneyline-team-heading > div:nth-child(2) {
+  min-width: 0;
 }
 
 .moneyline-team-logo-wrap {
@@ -251,6 +298,7 @@ File: moneyline-style.css
 }
 
 .moneyline-team-logo {
+  display: block;
   width: 36px;
   height: 36px;
   object-fit: contain;
@@ -262,7 +310,9 @@ File: moneyline-style.css
 
 .moneyline-team-heading h4 {
   margin: 0;
+  overflow-wrap: anywhere;
   font-size: 18px;
+  line-height: 1.18;
 }
 
 .moneyline-team-heading p {
@@ -278,6 +328,7 @@ File: moneyline-style.css
   color: #ffffff;
   font-size: 9px;
   font-weight: 900;
+  white-space: nowrap;
 }
 
 /* =====================================================
@@ -335,10 +386,13 @@ File: moneyline-style.css
 }
 
 .moneyline-category-row {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr)
+    auto;
+  gap: 8px;
   align-items: center;
+  min-width: 0;
   padding: 10px 0;
   border-bottom: 1px solid #252525;
 }
@@ -351,15 +405,24 @@ File: moneyline-style.css
   display: flex;
   gap: 8px;
   align-items: center;
+  min-width: 0;
+}
+
+.moneyline-category-name > span {
+  flex: 0 0 auto;
 }
 
 .moneyline-category-name strong {
+  min-width: 0;
+  overflow-wrap: anywhere;
   font-size: 13px;
+  line-height: 1.2;
 }
 
 .moneyline-category-result {
-  display: flex;
-  gap: 7px;
+  display: grid;
+  grid-template-columns: auto 30px 40px;
+  gap: 6px;
   align-items: center;
 }
 
@@ -433,6 +496,7 @@ File: moneyline-style.css
   display: flex;
   gap: 9px;
   align-items: center;
+  min-width: 0;
   padding: 11px;
   border: 1px solid #2d2d2d;
   border-radius: 10px;
@@ -440,6 +504,7 @@ File: moneyline-style.css
 }
 
 .moneyline-reason > span {
+  flex: 0 0 auto;
   font-size: 20px;
 }
 
@@ -447,9 +512,11 @@ File: moneyline-style.css
   display: flex;
   flex-direction: column;
   gap: 3px;
+  min-width: 0;
 }
 
 .moneyline-reason strong {
+  overflow-wrap: anywhere;
   font-size: 12px;
 }
 
@@ -515,62 +582,42 @@ File: moneyline-style.css
 
 /* =====================================================
    TABLET
+
+   TEAM CARDS STILL REMAIN SIDE BY SIDE.
 ===================================================== */
 
 @media (max-width: 1000px) {
   .moneyline-team-comparison {
-    grid-template-columns: 1fr;
+    grid-template-columns:
+      minmax(0, 1fr)
+      34px
+      minmax(0, 1fr);
+    gap: 8px;
+    padding: 14px;
+  }
+
+  .moneyline-team-panel {
+    padding: 13px;
   }
 
   .moneyline-versus-divider {
-    min-height: 28px;
-  }
-
-  .moneyline-reason-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-/* =====================================================
-   MOBILE
-===================================================== */
-
-@media (max-width: 650px) {
-  #moneylineBox {
-    padding: 10px;
-  }
-
-  .moneyline-summary-bar {
-    grid-template-columns: 1fr;
-  }
-
-  .moneyline-card-header {
-    align-items: flex-start;
-    padding: 15px;
-  }
-
-  .moneyline-confidence-badge {
-    flex-basis: 88px;
-  }
-
-  .moneyline-pick-banner {
-    grid-template-columns: 1fr auto;
-  }
-
-  .moneyline-pick-banner span {
-    grid-column: 1 / -1;
-  }
-
-  .moneyline-checklist-summary {
-    grid-template-columns: 1fr auto;
-  }
-
-  .moneyline-team-comparison {
-    padding: 10px;
+    min-height: 0;
+    font-size: 15px;
   }
 
   .moneyline-team-heading {
-    grid-template-columns: 46px 1fr;
+    grid-template-columns: 44px minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .moneyline-team-logo-wrap {
+    width: 42px;
+    height: 42px;
+  }
+
+  .moneyline-team-logo {
+    width: 32px;
+    height: 32px;
   }
 
   .moneyline-pick-tag {
@@ -579,6 +626,342 @@ File: moneyline-style.css
   }
 
   .moneyline-reason-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* =====================================================
+   MOBILE
+
+   AWAY AND HOME REMAIN SIDE BY SIDE.
+===================================================== */
+
+@media (max-width: 650px) {
+  #moneylineBox {
+    padding: 8px;
+  }
+
+  .moneyline-summary-bar {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 5px;
+    margin-bottom: 10px;
+  }
+
+  .moneyline-summary-bar > div {
+    padding: 10px 4px;
+    border-radius: 9px;
+  }
+
+  .moneyline-summary-bar strong {
+    font-size: 20px;
+  }
+
+  .moneyline-summary-bar span {
+    font-size: 7px;
+    line-height: 1.25;
+  }
+
+  .moneyline-card {
+    border-radius: 14px;
+  }
+
+  .moneyline-card-header {
+    gap: 8px;
+    align-items: flex-start;
+    padding: 13px 12px;
+  }
+
+  .moneyline-card-header h3 {
+    font-size: 18px;
+  }
+
+  .moneyline-card-header h3 span {
+    margin: 0 3px;
+  }
+
+  .moneyline-game-label {
+    font-size: 9px;
+  }
+
+  .moneyline-game-time {
+    margin-top: 6px;
+    font-size: 11px;
+  }
+
+  .moneyline-confidence-badge {
+    flex: 0 0 75px;
+    padding: 9px 5px;
+  }
+
+  .moneyline-confidence-badge strong {
+    font-size: 23px;
+  }
+
+  .moneyline-confidence-badge span {
+    font-size: 8px;
+  }
+
+  .moneyline-pick-banner {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 7px;
+    padding: 11px 12px;
+  }
+
+  .moneyline-pick-banner span {
+    grid-column: 1 / -1;
+    font-size: 9px;
+  }
+
+  .moneyline-pick-banner strong {
+    font-size: 18px;
+    line-height: 1.15;
+  }
+
+  .moneyline-pick-banner small {
+    padding: 5px 7px;
+    font-size: 8px;
+  }
+
+  .moneyline-checklist-summary {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 6px;
+    padding: 10px 12px;
+    font-size: 10px;
+  }
+
+  .moneyline-checklist-summary strong {
+    font-size: 13px;
+    text-align: right;
+  }
+
+  /*
+  The comparison remains:
+  AWAY | VS | HOME
+  */
+
+  .moneyline-team-comparison {
+    grid-template-columns:
+      minmax(0, 1fr)
+      22px
+      minmax(0, 1fr);
+    gap: 4px;
+    padding: 8px 5px;
+  }
+
+  .moneyline-versus-divider {
+    font-size: 11px;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+  }
+
+  .moneyline-team-panel {
+    min-width: 0;
+    padding: 8px 6px;
+    border-radius: 11px;
+  }
+
+  .moneyline-team-heading {
+    grid-template-columns: 32px minmax(0, 1fr);
+    gap: 5px;
+  }
+
+  .moneyline-team-logo-wrap {
+    width: 31px;
+    height: 31px;
+  }
+
+  .moneyline-team-logo {
+    width: 25px;
+    height: 25px;
+  }
+
+  .moneyline-logo-fallback {
+    font-size: 17px;
+  }
+
+  .moneyline-team-heading h4 {
+    font-size: 12px;
+    line-height: 1.15;
+  }
+
+  .moneyline-team-heading p {
+    margin-top: 2px;
+    font-size: 8px;
+  }
+
+  .moneyline-pick-tag {
+    grid-column: 1 / -1;
+    padding: 4px 5px;
+    font-size: 7px;
+  }
+
+  .moneyline-overall-score {
+    margin-top: 9px;
+    padding: 8px 6px;
+    border-radius: 8px;
+  }
+
+  .moneyline-overall-score > span {
+    font-size: 7px;
+  }
+
+  .moneyline-overall-score > strong {
+    margin-top: 2px;
+    font-size: 22px;
+  }
+
+  .moneyline-score-bar {
+    height: 5px;
+    margin-top: 6px;
+  }
+
+  .moneyline-category-list {
+    margin-top: 7px;
+  }
+
+  .moneyline-category-row {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 3px;
+    min-height: 38px;
+    padding: 6px 0;
+  }
+
+  .moneyline-category-name {
+    gap: 3px;
+  }
+
+  .moneyline-category-name > span {
+    font-size: 12px;
+  }
+
+  .moneyline-category-name strong {
+    font-size: 8px;
+    line-height: 1.05;
+  }
+
+  .moneyline-category-result {
+    grid-template-columns: 15px 18px;
+    gap: 2px;
+  }
+
+  .moneyline-result-icon {
+    font-size: 11px;
+  }
+
+  .moneyline-category-result > strong {
+    min-width: 18px;
+    font-size: 11px;
+  }
+
+  /*
+  Hide only the edge number on very small screens.
+  The score and check/X remain visible.
+  */
+
+  .moneyline-category-result small {
+    display: none;
+  }
+
+  .moneyline-home-bonus {
+    margin-top: 7px;
+    padding: 6px 5px;
+    font-size: 7px;
+    line-height: 1.25;
+  }
+
+  .moneyline-reasons {
+    padding: 13px 11px 15px;
+  }
+
+  .moneyline-reasons h4 {
+    margin-bottom: 9px;
+    font-size: 14px;
+  }
+
+  .moneyline-reason-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
+  }
+
+  .moneyline-reason {
+    gap: 5px;
+    padding: 8px 6px;
+  }
+
+  .moneyline-reason > span {
+    font-size: 15px;
+  }
+
+  .moneyline-reason strong {
+    font-size: 9px;
+  }
+
+  .moneyline-reason small {
+    font-size: 7px;
+  }
+}
+
+/* =====================================================
+   VERY SMALL PHONES
+
+   STILL SIDE BY SIDE.
+===================================================== */
+
+@media (max-width: 390px) {
+  .moneyline-team-comparison {
+    grid-template-columns:
+      minmax(0, 1fr)
+      16px
+      minmax(0, 1fr);
+    gap: 2px;
+    padding-inline: 3px;
+  }
+
+  .moneyline-versus-divider {
+    font-size: 9px;
+  }
+
+  .moneyline-team-panel {
+    padding-inline: 5px;
+  }
+
+  .moneyline-team-heading {
+    grid-template-columns: 27px minmax(0, 1fr);
+    gap: 4px;
+  }
+
+  .moneyline-team-logo-wrap {
+    width: 27px;
+    height: 27px;
+  }
+
+  .moneyline-team-logo {
+    width: 22px;
+    height: 22px;
+  }
+
+  .moneyline-team-heading h4 {
+    font-size: 10px;
+  }
+
+  .moneyline-category-name strong {
+    font-size: 7px;
+  }
+
+  .moneyline-category-name > span {
+    font-size: 10px;
+  }
+
+  .moneyline-category-result {
+    grid-template-columns: 13px 16px;
+  }
+
+  .moneyline-result-icon {
+    font-size: 9px;
+  }
+
+  .moneyline-category-result > strong {
+    min-width: 16px;
+    font-size: 10px;
   }
 }
