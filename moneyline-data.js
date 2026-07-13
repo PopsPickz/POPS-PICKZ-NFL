@@ -165,15 +165,7 @@ const totalPointsScored =
     ]
   );
 
-const totalPointsAllowed =
-  this.findStat(
-    stats,
-    [
-      "pointsAllowed",
-      "opponentPoints",
-      "totalPointsAllowed"
-    ]
-  );
+
 
 const pointsPerGame =
   this.findStat(
@@ -191,20 +183,7 @@ const pointsPerGame =
     )
   );
 
-const pointsAllowedPerGame =
-  this.findStat(
-    stats,
-    [
-      "pointsAllowedPerGame",
-      "opponentPointsPerGame",
-      "averagePointsAllowed"
-    ],
-    this.divide(
-      totalPointsAllowed,
-      gamesPlayed,
-      22
-    )
-  );
+
     
     const passingAttempts =
       this.findStat(
@@ -486,7 +465,16 @@ const pointsAllowedPerGame =
       },
 
       defense: {
-        pointsAllowedPerGame,
+        pointsAllowedPerGame:
+         this.findStat(
+          stats,
+       [
+        "pointsAllowedPerGame",
+        "opponentPointsPerGame",
+        "averagePointsAllowed"
+      ],
+      22
+    ),
 
         totalYardsAllowedPerGame:
           this.findStat(
