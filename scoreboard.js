@@ -1,22 +1,24 @@
 /*
 =========================================================
-POPS PICKZ NFL — LIVE SCOREBOARD
+POPS PICKZ NFL — COMPACT SCOREBOARD
 File: scoreboard.js
 =========================================================
 
-Displays:
+Loads NFL games and displays:
 
-- Live NFL games first
-- Today's scheduled games
-- Next upcoming NFL games when none are live
-- Recent final scores as a fallback
+- Team logos
+- Team abbreviations
+- Scores
+- Game date and kickoff time
+- Live quarter and clock
+- Final status
 - Automatic refresh every 60 seconds
 =========================================================
 */
 
 const NFLScoreboard = {
   refreshInterval: 60 * 1000,
-  maximumGames: 10,
+  maximumGames: 16,
 
   box: null,
   weekLabel: null,
@@ -24,12 +26,14 @@ const NFLScoreboard = {
 
   /*
   =======================================================
-  START SCOREBOARD
+  START
   =======================================================
   */
 
   async init() {
-    this.box = document.getElementById("scoreboardTrack");
+    this.box = document.getElementById(
+      "scoreboardTrack"
+    );
 
     this.weekLabel = document.getElementById(
       "scoreboardWeek"
@@ -43,18 +47,17 @@ const NFLScoreboard = {
       return;
     }
 
-    await this.load();
-
-    this.startAutomaticRefresh();
+    await this.loadGames();
+    this.startRefresh();
   },
 
   /*
   =======================================================
-  LOAD NFL GAMES
+  LOAD GAMES
   =======================================================
   */
 
-  async load() {
+  async loadGames() {
     this.showLoading();
 
     try {
@@ -81,13 +84,18 @@ const NFLScoreboard = {
         ? data.events
         : [];
 
-      const selectedGames = this.selectGames(events);
+      const games = events
+        .map(event => this.normalizeGame(event))
+        .filter(Boolean);
+
+      const selectedGames =
+        this.selectRelevantGames(games);
 
       this.updateWeekLabel(data, selectedGames);
       this.render(selectedGames);
     } catch (error) {
       console.error(
-        "POPS NFL Scoreboard loading error:",
+        "POPS NFL scoreboard error:",
         error
       );
 
@@ -97,45 +105,54 @@ const NFLScoreboard = {
 
   /*
   =======================================================
-  CHOOSE THE MOST RELEVANT GAMES
+  CHOOSE RELEVANT GAMES
   =======================================================
   */
 
-  selectGames(events) {
-    const normalizedGames = events
-      .map(event => this.normalizeGame(event))
-      .filter(Boolean);
-
-    const liveGames = normalizedGames.filter(
-      game => game.state === "in"
-    );
-
-    if (liveGames.length) {
-      return liveGames
-        .sort((a, b) => a.startTime - b.startTime)
-        .slice(0, this.maximumGames);
-    }
-
+  selectRelevantGames(games) {
     const now = Date.now();
 
-    const todaysGames = normalizedGames.filter(game =>
-      this.isSameLocalDate(game.startTime, now)
-    );
+    const liveGames = games
+      .filter(game => game.state === "in")
+      .sort(
+        (first, second) =>
+          first.startTime - second.startTime
+      );
 
-    if (todaysGames.length) {
-      return todaysGames
-        .sort((a, b) => a.startTime - b.startTime)
-        .slice(0, this.maximumGames);
+    if (liveGames.length) {
+      return liveGames.slice(
+        0,
+        this.maximumGames
+      );
     }
 
-    const upcomingGames = normalizedGames
+    const todayGames = games
+      .filter(game =>
+        this.isSameDate(game.startTime, now)
+      )
+      .sort(
+        (first, second) =>
+          first.startTime - second.startTime
+      );
+
+    if (todayGames.length) {
+      return todayGames.slice(
+        0,
+        this.maximumGames
+      );
+    }
+
+    const upcomingGames = games
       .filter(game => {
         return (
           game.state === "pre" &&
           game.startTime >= now
         );
       })
-      .sort((a, b) => a.startTime - b.startTime);
+      .sort(
+        (first, second) =>
+          first.startTime - second.startTime
+      );
 
     if (upcomingGames.length) {
       return upcomingGames.slice(
@@ -144,20 +161,24 @@ const NFLScoreboard = {
       );
     }
 
-    return normalizedGames
+    return games
       .filter(game => game.state === "post")
-      .sort((a, b) => b.startTime - a.startTime)
+      .sort(
+        (first, second) =>
+          second.startTime - first.startTime
+      )
       .slice(0, this.maximumGames);
   },
 
   /*
   =======================================================
-  NORMALIZE ESPN GAME DATA
+  NORMALIZE GAME
   =======================================================
   */
 
   normalizeGame(event) {
-    const competition = event?.competitions?.[0];
+    const competition =
+      event?.competitions?.[0];
 
     if (!competition) {
       return null;
@@ -169,33 +190,49 @@ const NFLScoreboard = {
       ? competition.competitors
       : [];
 
-    const home = competitors.find(
-      competitor => competitor.homeAway === "home"
-    );
+    const awayCompetitor =
+      competitors.find(
+        competitor =>
+          competitor.homeAway === "away"
+      );
 
-    const away = competitors.find(
-      competitor => competitor.homeAway === "away"
-    );
+    const homeCompetitor =
+      competitors.find(
+        competitor =>
+          competitor.homeAway === "home"
+      );
 
-    if (!home || !away) {
+    if (
+      !awayCompetitor ||
+      !homeCompetitor
+    ) {
       return null;
     }
 
-    const statusType =
-      competition.status?.type ||
-      event.status?.type ||
+    const status =
+      competition.status ||
+      event.status ||
       {};
+
+    const statusType =
+      status.type || {};
+
+    const eventDate =
+      new Date(event.date);
 
     return {
       id: event.id || "",
 
-      name: event.name || "",
+      startTime:
+        Number.isNaN(eventDate.getTime())
+          ? 0
+          : eventDate.getTime(),
 
-      startTime: new Date(event.date).getTime(),
+      state:
+        statusType.state || "pre",
 
-      state: statusType.state || "pre",
-
-      completed: Boolean(statusType.completed),
+      completed:
+        Boolean(statusType.completed),
 
       statusText:
         statusType.shortDetail ||
@@ -204,15 +241,10 @@ const NFLScoreboard = {
         "Scheduled",
 
       period:
-        Number(
-          competition.status?.period ||
-          event.status?.period
-        ) || 0,
+        Number(status.period) || 0,
 
       clock:
-        competition.status?.displayClock ||
-        event.status?.displayClock ||
-        "",
+        status.displayClock || "",
 
       week:
         event.week?.number ||
@@ -220,22 +252,25 @@ const NFLScoreboard = {
         "",
 
       seasonType:
-        event.season?.type ||
-        competition.type?.abbreviation ||
-        "",
+        event.season?.type || "",
 
-      home: this.normalizeTeam(home),
+      away:
+        this.normalizeTeam(
+          awayCompetitor
+        ),
 
-      away: this.normalizeTeam(away)
+      home:
+        this.normalizeTeam(
+          homeCompetitor
+        )
     };
   },
 
   normalizeTeam(competitor) {
-    const team = competitor.team || {};
+    const team =
+      competitor.team || {};
 
     return {
-      id: team.id || "",
-
       abbreviation:
         team.abbreviation ||
         team.shortDisplayName ||
@@ -246,12 +281,6 @@ const NFLScoreboard = {
         team.name ||
         "NFL Team",
 
-      shortName:
-        team.shortDisplayName ||
-        team.abbreviation ||
-        team.name ||
-        "NFL",
-
       logo:
         team.logo ||
         team.logos?.[0]?.href ||
@@ -260,15 +289,13 @@ const NFLScoreboard = {
       score:
         competitor.score !== undefined
           ? String(competitor.score)
-          : "0",
-
-      winner: Boolean(competitor.winner)
+          : "0"
     };
   },
 
   /*
   =======================================================
-  RENDER SCOREBOARD
+  RENDER
   =======================================================
   */
 
@@ -283,125 +310,126 @@ const NFLScoreboard = {
       return;
     }
 
-    const gameCards = games
-      .map(game => this.renderGameCard(game))
+    this.box.innerHTML = games
+      .map(game =>
+        this.renderGameCard(game)
+      )
       .join("");
-
-    /*
-    Duplicate the cards when multiple games exist.
-    This creates a seamless continuous scrolling loop.
-    */
-
-    const duplicatedCards =
-      games.length > 2
-        ? gameCards + gameCards
-        : gameCards;
-
-    this.box.innerHTML = duplicatedCards;
-
-    this.box.classList.toggle(
-      "scoreboard-animate",
-      games.length > 2
-    );
   },
 
   renderGameCard(game) {
-    const gameStatus = this.getGameStatus(game);
-
-    const liveClass =
-      game.state === "in"
-        ? " score-card-live"
-        : "";
-
-    const finalClass =
-      game.completed
-        ? " score-card-final"
-        : "";
-
     return `
-      <article
-        class="score-card${liveClass}${finalClass}"
-        data-game-id="${this.escapeHTML(game.id)}"
-      >
-        <div class="score-card-status">
-          ${game.state === "in"
-            ? `<span class="score-live-dot"></span>`
-            : ""
-          }
+      <article class="score-card">
 
-          <span>
-            ${this.escapeHTML(gameStatus)}
-          </span>
+        <div class="game-time">
+          ${this.escapeHTML(
+            this.getTopStatus(game)
+          )}
         </div>
 
         ${this.renderTeamRow(game.away)}
 
         ${this.renderTeamRow(game.home)}
 
-        <div class="score-card-footer">
+        <div class="game-status">
           ${this.escapeHTML(
-            this.formatGameDate(game.startTime)
+            this.getBottomStatus(game)
           )}
         </div>
+
       </article>
     `;
   },
 
   renderTeamRow(team) {
     return `
-      <div class="score-team-row">
-        <div class="score-team-identity">
+      <div class="team-row">
+
+        <div class="team-left">
+
           ${
             team.logo
               ? `
                 <img
-                  src="${this.escapeHTML(team.logo)}"
-                  alt="${this.escapeHTML(team.name)}"
-                  class="score-team-logo"
+                  src="${this.escapeHTML(
+                    team.logo
+                  )}"
+                  alt="${this.escapeHTML(
+                    team.name
+                  )}"
+                  class="team-logo"
                   loading="lazy"
                 />
               `
               : `
-                <span class="score-team-fallback">
+                <span class="team-logo">
                   🏈
                 </span>
               `
           }
 
-          <span class="score-team-name">
-            ${this.escapeHTML(team.abbreviation)}
+          <span class="team-abbr">
+            ${this.escapeHTML(
+              team.abbreviation
+            )}
           </span>
+
         </div>
 
-        <strong class="score-team-score">
+        <strong class="team-score">
           ${this.escapeHTML(team.score)}
         </strong>
+
       </div>
     `;
   },
 
   /*
   =======================================================
-  GAME STATUS
+  STATUS TEXT
   =======================================================
   */
 
-  getGameStatus(game) {
+  getTopStatus(game) {
     if (game.completed) {
       return "FINAL";
     }
 
     if (game.state === "in") {
-      const quarter = this.formatQuarter(game.period);
+      return "● LIVE";
+    }
 
-      if (quarter && game.clock) {
+    return this.formatTime(
+      game.startTime
+    );
+  },
+
+  getBottomStatus(game) {
+    if (game.completed) {
+      return this.formatDate(
+        game.startTime
+      );
+    }
+
+    if (game.state === "in") {
+      const quarter =
+        this.formatQuarter(
+          game.period
+        );
+
+      if (
+        quarter &&
+        game.clock
+      ) {
         return `${quarter} • ${game.clock}`;
       }
 
       return game.statusText || "LIVE";
     }
 
-    return this.formatGameTime(game.startTime);
+    return this.formatDate(
+      game.startTime
+    );
   },
 
   formatQuarter(period) {
@@ -414,10 +442,15 @@ const NFLScoreboard = {
     return "";
   },
 
-  formatGameTime(timestamp) {
-    const date = new Date(timestamp);
+  formatTime(timestamp) {
+    const date =
+      new Date(timestamp);
 
-    if (Number.isNaN(date.getTime())) {
+    if (
+      Number.isNaN(
+        date.getTime()
+      )
+    ) {
       return "TIME TBD";
     }
 
@@ -429,23 +462,31 @@ const NFLScoreboard = {
       .toUpperCase();
   },
 
-  formatGameDate(timestamp) {
-    const date = new Date(timestamp);
+  formatDate(timestamp) {
+    const date =
+      new Date(timestamp);
 
-    if (Number.isNaN(date.getTime())) {
+    if (
+      Number.isNaN(
+        date.getTime()
+      )
+    ) {
       return "";
     }
 
-    return date.toLocaleDateString([], {
-      weekday: "short",
-      month: "short",
-      day: "numeric"
-    });
+    return date.toLocaleDateString(
+      [],
+      {
+        weekday: "short",
+        month: "short",
+        day: "numeric"
+      }
+    );
   },
 
   /*
   =======================================================
-  SCOREBOARD LABEL
+  WEEK LABEL
   =======================================================
   */
 
@@ -454,50 +495,60 @@ const NFLScoreboard = {
       return;
     }
 
-    const firstGame = games[0];
+    const firstGame =
+      games[0];
 
-    const apiWeek =
+    const week =
       data?.week?.number ||
       firstGame?.week ||
       "";
 
-    if (apiWeek) {
+    if (week) {
       this.weekLabel.textContent =
-        `WEEK ${apiWeek}`;
+        `WEEK ${week}`;
 
       return;
     }
 
-    const seasonType =
-      firstGame?.seasonType;
+    if (
+      firstGame?.seasonType === 1
+    ) {
+      this.weekLabel.textContent =
+        "PRESEASON";
 
-    if (seasonType === 1) {
-      this.weekLabel.textContent = "PRESEASON";
       return;
     }
 
-    if (seasonType === 3) {
-      this.weekLabel.textContent = "PLAYOFFS";
+    if (
+      firstGame?.seasonType === 3
+    ) {
+      this.weekLabel.textContent =
+        "PLAYOFFS";
+
       return;
     }
 
-    this.weekLabel.textContent = "NFL";
+    this.weekLabel.textContent =
+      "NFL";
   },
 
   /*
   =======================================================
-  AUTOMATIC REFRESH
+  REFRESH
   =======================================================
   */
 
-  startAutomaticRefresh() {
+  startRefresh() {
     if (this.refreshTimer) {
-      clearInterval(this.refreshTimer);
+      clearInterval(
+        this.refreshTimer
+      );
     }
 
-    this.refreshTimer = setInterval(() => {
-      this.load();
-    }, this.refreshInterval);
+    this.refreshTimer =
+      setInterval(() => {
+        this.loadGames();
+      }, this.refreshInterval);
   },
 
   /*
@@ -507,10 +558,6 @@ const NFLScoreboard = {
   */
 
   showLoading() {
-    this.box.classList.remove(
-      "scoreboard-animate"
-    );
-
     this.box.innerHTML = `
       <div class="scoreboard-loading">
         Loading NFL games...
@@ -519,13 +566,12 @@ const NFLScoreboard = {
   },
 
   showError(error) {
-    this.box.classList.remove(
-      "scoreboard-animate"
-    );
-
     this.box.innerHTML = `
       <div class="scoreboard-message scoreboard-error">
-        <strong>Scoreboard unavailable</strong>
+
+        <strong>
+          Scoreboard unavailable
+        </strong>
 
         <span>
           ${this.escapeHTML(
@@ -540,6 +586,7 @@ const NFLScoreboard = {
         >
           Try Again
         </button>
+
       </div>
     `;
 
@@ -551,7 +598,7 @@ const NFLScoreboard = {
     if (retryButton) {
       retryButton.addEventListener(
         "click",
-        () => this.load()
+        () => this.loadGames()
       );
     }
   },
@@ -564,27 +611,35 @@ const NFLScoreboard = {
 
   getNFLSeason() {
     const now = new Date();
-    const year = now.getFullYear();
-    const month = now.getMonth();
 
-    /*
-    January and February belong to the NFL season
-    that began during the previous calendar year.
-    */
+    const year =
+      now.getFullYear();
+
+    const month =
+      now.getMonth();
 
     return month <= 1
       ? year - 1
       : year;
   },
 
-  isSameLocalDate(firstTimestamp, secondTimestamp) {
-    const first = new Date(firstTimestamp);
-    const second = new Date(secondTimestamp);
+  isSameDate(
+    firstTimestamp,
+    secondTimestamp
+  ) {
+    const first =
+      new Date(firstTimestamp);
+
+    const second =
+      new Date(secondTimestamp);
 
     return (
-      first.getFullYear() === second.getFullYear() &&
-      first.getMonth() === second.getMonth() &&
-      first.getDate() === second.getDate()
+      first.getFullYear() ===
+        second.getFullYear() &&
+      first.getMonth() ===
+        second.getMonth() &&
+      first.getDate() ===
+        second.getDate()
     );
   },
 
