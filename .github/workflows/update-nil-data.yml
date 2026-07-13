@@ -61,7 +61,9 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
           git add data/upcoming-games.json
-
+          git add data/teams.json
+          git add data/team-stats.json
+          
           if git diff --cached --quiet; then
             echo "No NFL schedule changes to commit."
           else
