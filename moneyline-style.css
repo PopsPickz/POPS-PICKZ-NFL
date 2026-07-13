@@ -1,1 +1,584 @@
+/*
+=========================================================
+POPS PICKZ NFL — MONEYLINE STYLES
+File: moneyline-style.css
+=========================================================
+*/
 
+#moneyline {
+  grid-column: 1 / -1;
+}
+
+#moneylineBox {
+  padding: 18px;
+}
+
+/* =====================================================
+   SUMMARY BAR
+===================================================== */
+
+.moneyline-summary-bar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.moneyline-summary-bar > div {
+  padding: 16px;
+  border: 1px solid rgba(255, 106, 0, 0.42);
+  border-radius: 13px;
+  background:
+    linear-gradient(
+      180deg,
+      #171717,
+      #0d0d0d
+    );
+  text-align: center;
+}
+
+.moneyline-summary-bar strong {
+  display: block;
+  color: var(--orange-light, #ff9a2f);
+  font-size: 28px;
+  font-weight: 900;
+}
+
+.moneyline-summary-bar span {
+  display: block;
+  margin-top: 5px;
+  color: var(--muted, #a8a8a8);
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+/* =====================================================
+   CARD GRID
+===================================================== */
+
+.moneyline-card-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+
+.moneyline-card {
+  overflow: hidden;
+  border: 1px solid rgba(255, 106, 0, 0.58);
+  border-radius: 18px;
+  background:
+    linear-gradient(
+      180deg,
+      #151515 0%,
+      #090909 100%
+    );
+  box-shadow:
+    0 0 22px rgba(255, 106, 0, 0.14);
+}
+
+/* =====================================================
+   CARD HEADER
+===================================================== */
+
+.moneyline-card-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: center;
+  padding: 18px 20px;
+  border-bottom: 1px solid rgba(255, 106, 0, 0.27);
+}
+
+.moneyline-game-label {
+  margin: 0 0 5px;
+  color: var(--orange-light, #ff9a2f);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.moneyline-card-header h3 {
+  margin: 0;
+  font-size: clamp(20px, 2vw, 30px);
+}
+
+.moneyline-card-header h3 span {
+  margin: 0 6px;
+  color: var(--muted, #a8a8a8);
+  font-size: 0.72em;
+  font-weight: 700;
+}
+
+.moneyline-game-time {
+  margin: 8px 0 0;
+  color: var(--muted, #a8a8a8);
+  font-size: 13px;
+}
+
+.moneyline-confidence-badge {
+  flex: 0 0 110px;
+  padding: 12px;
+  border: 1px solid rgba(255, 106, 0, 0.65);
+  border-radius: 13px;
+  background: #0c0c0c;
+  text-align: center;
+}
+
+.moneyline-confidence-badge strong {
+  display: block;
+  color: var(--gold, #ffc15a);
+  font-size: 27px;
+  font-weight: 900;
+}
+
+.moneyline-confidence-badge span {
+  color: var(--muted, #a8a8a8);
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+/* =====================================================
+   PICK BANNER
+===================================================== */
+
+.moneyline-pick-banner {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 14px;
+  align-items: center;
+  padding: 14px 20px;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255, 106, 0, 0.2),
+      rgba(255, 106, 0, 0.07)
+    );
+  border-bottom: 1px solid rgba(255, 106, 0, 0.25);
+}
+
+.moneyline-pick-banner span {
+  color: var(--orange-light, #ff9a2f);
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.moneyline-pick-banner strong {
+  color: #ffffff;
+  font-size: 22px;
+}
+
+.moneyline-pick-banner small {
+  padding: 6px 9px;
+  border-radius: 7px;
+  background: var(--orange, #ff6a00);
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 900;
+}
+
+/* =====================================================
+   CHECKLIST SUMMARY
+===================================================== */
+
+.moneyline-checklist-summary {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  gap: 10px;
+  align-items: center;
+  padding: 12px 20px;
+  border-bottom: 1px solid #242424;
+  color: var(--muted, #a8a8a8);
+  font-size: 12px;
+}
+
+.moneyline-checklist-summary strong {
+  color: #ffffff;
+  font-size: 16px;
+}
+
+/* =====================================================
+   TEAM COMPARISON
+===================================================== */
+
+.moneyline-team-comparison {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 54px minmax(0, 1fr);
+  gap: 12px;
+  align-items: stretch;
+  padding: 18px;
+}
+
+.moneyline-versus-divider {
+  display: grid;
+  place-items: center;
+  color: var(--orange-light, #ff9a2f);
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.moneyline-team-panel {
+  padding: 16px;
+  border: 1px solid #303030;
+  border-radius: 15px;
+  background: #0d0d0d;
+}
+
+.moneyline-selected-team {
+  border-color: rgba(255, 106, 0, 0.9);
+  box-shadow:
+    0 0 18px rgba(255, 106, 0, 0.18);
+}
+
+.moneyline-team-heading {
+  display: grid;
+  grid-template-columns: 52px 1fr auto;
+  gap: 11px;
+  align-items: center;
+}
+
+.moneyline-team-logo-wrap {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid #343434;
+  border-radius: 50%;
+  background: #151515;
+}
+
+.moneyline-team-logo {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
+
+.moneyline-logo-fallback {
+  font-size: 24px;
+}
+
+.moneyline-team-heading h4 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.moneyline-team-heading p {
+  margin: 4px 0 0;
+  color: var(--muted, #a8a8a8);
+  font-size: 11px;
+}
+
+.moneyline-pick-tag {
+  padding: 5px 8px;
+  border-radius: 7px;
+  background: var(--orange, #ff6a00);
+  color: #ffffff;
+  font-size: 9px;
+  font-weight: 900;
+}
+
+/* =====================================================
+   OVERALL SCORE
+===================================================== */
+
+.moneyline-overall-score {
+  margin-top: 15px;
+  padding: 12px;
+  border: 1px solid #282828;
+  border-radius: 11px;
+  background: #090909;
+}
+
+.moneyline-overall-score > span {
+  color: var(--muted, #a8a8a8);
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.moneyline-overall-score > strong {
+  display: block;
+  margin-top: 3px;
+  color: var(--orange-light, #ff9a2f);
+  font-size: 28px;
+}
+
+.moneyline-score-bar {
+  height: 7px;
+  margin-top: 9px;
+  overflow: hidden;
+  border-radius: 99px;
+  background: #252525;
+}
+
+.moneyline-score-bar span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background:
+    linear-gradient(
+      90deg,
+      #ff9a2f,
+      #ff5b00
+    );
+}
+
+/* =====================================================
+   CATEGORY LIST
+===================================================== */
+
+.moneyline-category-list {
+  margin-top: 12px;
+}
+
+.moneyline-category-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #252525;
+}
+
+.moneyline-category-row:last-child {
+  border-bottom: 0;
+}
+
+.moneyline-category-name {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.moneyline-category-name strong {
+  font-size: 13px;
+}
+
+.moneyline-category-result {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+
+.moneyline-category-result > strong {
+  min-width: 26px;
+  font-size: 15px;
+  text-align: right;
+}
+
+.moneyline-category-result small {
+  min-width: 38px;
+  color: var(--muted, #a8a8a8);
+  font-size: 10px;
+  text-align: right;
+}
+
+.moneyline-category-win {
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(86, 227, 108, 0.035)
+    );
+}
+
+.moneyline-category-loss {
+  opacity: 0.76;
+}
+
+.moneyline-result-icon {
+  font-size: 14px;
+}
+
+/* =====================================================
+   HOME BONUS
+===================================================== */
+
+.moneyline-home-bonus {
+  margin-top: 12px;
+  padding: 8px 10px;
+  border: 1px solid rgba(255, 193, 90, 0.25);
+  border-radius: 9px;
+  background: rgba(255, 193, 90, 0.05);
+  color: var(--gold, #ffc15a);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+/* =====================================================
+   REASONS
+===================================================== */
+
+.moneyline-reasons {
+  padding: 17px 20px 20px;
+  border-top: 1px solid #242424;
+}
+
+.moneyline-reasons h4 {
+  margin: 0 0 13px;
+  color: var(--orange-light, #ff9a2f);
+  font-size: 17px;
+}
+
+.moneyline-reason-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.moneyline-reason {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+  padding: 11px;
+  border: 1px solid #2d2d2d;
+  border-radius: 10px;
+  background: #0d0d0d;
+}
+
+.moneyline-reason > span {
+  font-size: 20px;
+}
+
+.moneyline-reason div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.moneyline-reason strong {
+  font-size: 12px;
+}
+
+.moneyline-reason small {
+  color: var(--muted, #a8a8a8);
+  font-size: 10px;
+}
+
+/* =====================================================
+   LOADING AND ERROR
+===================================================== */
+
+.moneyline-loading,
+.moneyline-error {
+  display: grid;
+  place-items: center;
+  min-height: 230px;
+  padding: 28px;
+  text-align: center;
+}
+
+.moneyline-loading h3,
+.moneyline-error h3 {
+  margin: 13px 0 6px;
+}
+
+.moneyline-loading p,
+.moneyline-error p {
+  max-width: 620px;
+  margin: 0;
+  color: var(--muted, #a8a8a8);
+  line-height: 1.6;
+}
+
+.moneyline-spinner {
+  width: 42px;
+  height: 42px;
+  border: 4px solid #2a2a2a;
+  border-top-color: var(--orange, #ff6a00);
+  border-radius: 50%;
+  animation: moneylineSpin 0.9s linear infinite;
+}
+
+@keyframes moneylineSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+#moneylineRetryButton {
+  margin-top: 15px;
+  padding: 9px 15px;
+  border: 1px solid rgba(255, 106, 0, 0.75);
+  border-radius: 8px;
+  background: #111111;
+  color: #ffffff;
+  font-weight: 900;
+}
+
+#moneylineRetryButton:hover {
+  background: var(--orange, #ff6a00);
+}
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 1000px) {
+  .moneyline-team-comparison {
+    grid-template-columns: 1fr;
+  }
+
+  .moneyline-versus-divider {
+    min-height: 28px;
+  }
+
+  .moneyline-reason-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 650px) {
+  #moneylineBox {
+    padding: 10px;
+  }
+
+  .moneyline-summary-bar {
+    grid-template-columns: 1fr;
+  }
+
+  .moneyline-card-header {
+    align-items: flex-start;
+    padding: 15px;
+  }
+
+  .moneyline-confidence-badge {
+    flex-basis: 88px;
+  }
+
+  .moneyline-pick-banner {
+    grid-template-columns: 1fr auto;
+  }
+
+  .moneyline-pick-banner span {
+    grid-column: 1 / -1;
+  }
+
+  .moneyline-checklist-summary {
+    grid-template-columns: 1fr auto;
+  }
+
+  .moneyline-team-comparison {
+    padding: 10px;
+  }
+
+  .moneyline-team-heading {
+    grid-template-columns: 46px 1fr;
+  }
+
+  .moneyline-pick-tag {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+
+  .moneyline-reason-grid {
+    grid-template-columns: 1fr;
+  }
+}
