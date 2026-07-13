@@ -746,7 +746,7 @@ button {
   }
 
   .main-tabs {
-    grid-template-columns: repeat(7, 160px);
+    grid-template-columns: repeat(8, 160px);
   }
 }
 
