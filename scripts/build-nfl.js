@@ -768,6 +768,91 @@ async function loadAllTeamStatistics(
   return teamStatistics;
 }
 
+
+/*
+=========================================================
+PLAYER STATISTICS HELPERS
+=========================================================
+*/
+
+function normalizePlayerPosition(athlete = {}) {
+  return text(
+    athlete.position?.abbreviation,
+    text(
+      athlete.position?.name
+    )
+  ).toUpperCase();
+}
+
+function isOffensiveSkillPlayer(
+  athlete = {}
+) {
+  const position =
+    normalizePlayerPosition(
+      athlete
+    );
+
+  return SETTINGS.playerPositions
+    .includes(position);
+}
+
+function flattenPlayerStatistics(
+  data = {}
+) {
+  const result = {};
+
+  const categories =
+    Array.isArray(
+      data?.splits?.categories
+    )
+      ? data.splits.categories
+      : Array.isArray(
+          data?.categories
+        )
+        ? data.categories
+        : [];
+
+  categories.forEach(category => {
+    const stats =
+      Array.isArray(
+        category?.stats
+      )
+        ? category.stats
+        : [];
+
+    stats.forEach(stat => {
+      const possibleNames = [
+        stat.name,
+        stat.displayName,
+        stat.shortDisplayName,
+        stat.abbreviation
+      ]
+        .filter(Boolean)
+        .map(normalizeStatKey);
+
+      const rawValue =
+        stat.value ??
+        stat.displayValue ??
+        stat.perGameValue ??
+        0;
+
+      possibleNames.forEach(key => {
+        if (
+          key &&
+          result[key] === undefined
+        ) {
+          result[key] =
+            parseStatValue(
+              rawValue
+            );
+        }
+      });
+    });
+  });
+
+  return result;
+}
+
 /*
 =========================================================
 CREATE TEAM STATISTICS OUTPUT
