@@ -990,3 +990,76 @@ ON DESKTOP, TABLET, AND MOBILE.
 }
 
 }
+
+/* =====================================================
+   MONEYLINE TEAM GRID — SIDE BY SIDE EVERYWHERE
+===================================================== */
+
+.moneyline-team-comparison {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 12px;
+}
+
+.moneyline-team-grid {
+  display: grid !important;
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(0, 1fr) !important;
+  gap: 12px;
+  width: 100%;
+  min-width: 0;
+  align-items: stretch;
+}
+
+.moneyline-team-grid > .moneyline-team-panel {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+}
+
+.moneyline-versus-badge {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  z-index: 5;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid #ff6a00;
+  border-radius: 50%;
+  background: #090909;
+  color: #ff9a2f;
+  font-size: 11px;
+  font-weight: 900;
+  transform: translateX(-50%);
+}
+
+/* PHONE — STILL SIDE BY SIDE */
+
+@media (max-width: 650px) {
+  .moneyline-team-comparison {
+    padding: 7px 3px;
+  }
+
+  .moneyline-team-grid {
+    grid-template-columns:
+      minmax(0, 1fr)
+      minmax(0, 1fr) !important;
+    gap: 6px;
+  }
+
+  .moneyline-team-grid > .moneyline-team-panel {
+    min-width: 0;
+    padding: 8px 5px;
+  }
+
+  .moneyline-versus-badge {
+    top: 10px;
+    width: 22px;
+    height: 22px;
+    font-size: 7px;
+  }
+}
