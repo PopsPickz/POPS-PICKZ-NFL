@@ -38,7 +38,7 @@ const NFLMoneyline = {
   receiving: "Receiving",
   defense: "Defense",
   pointsPerGame: "Avg Points/Game",
-  pointsAllowedPerGame: "Avg Points Allowed"
+  
 },
 
   categoryIcons: {
@@ -47,7 +47,7 @@ const NFLMoneyline = {
    receiving: "🙌",
    defense: "🛡️",
    pointsPerGame: "🔥",
-   pointsAllowedPerGame: "🚫"
+ 
 },
 
   /*
