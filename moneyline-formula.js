@@ -2,7 +2,7 @@
 =========================================================
 POPS PICKZ NFL — MONEYLINE FORMULA
 File: moneyline-formula.js
-Version: 2.0
+Version: 2.1
 =========================================================
 
 CATEGORIES
@@ -13,6 +13,12 @@ CATEGORIES
 4. Defense
 5. Average Points Per Game
 
+POPS PICK RULE
+
+1. The team with more checklist wins is the POPS Pick.
+2. If checklist wins are tied, use the higher overall rating.
+3. If the checklist and overall rating are tied, select
+   the home team.
 
 PURPOSE
 
@@ -35,20 +41,20 @@ const NFLMoneylineFormula = {
   */
 
   weights: {
-  passing: 0.24,
-  rushing: 0.18,
-  receiving: 0.18,
-  defense: 0.24,
-  pointsPerGame: 0.16
-},
+    passing: 0.24,
+    rushing: 0.18,
+    receiving: 0.18,
+    defense: 0.24,
+    pointsPerGame: 0.16
+  },
 
   categoryKeys: [
-  "passing",
-  "rushing",
-  "receiving",
-  "defense",
-  "pointsPerGame"
-],
+    "passing",
+    "rushing",
+    "receiving",
+    "defense",
+    "pointsPerGame"
+  ],
 
   /*
   =======================================================
@@ -426,33 +432,6 @@ const NFLMoneylineFormula = {
 
   /*
   =======================================================
-  AVERAGE POINTS ALLOWED PER GAME
-
-  Lower is better.
-  =======================================================
-  */
-
-  calculatePointsAllowedPerGameScore(
-    stats = {}
-  ) {
-    const pointsAllowedPerGame =
-      this.number(
-        stats.pointsAllowedPerGame,
-        22
-      );
-
-    return this.round(
-      this.normalize(
-        pointsAllowedPerGame,
-        32,
-        14,
-        false
-      )
-    );
-  },
-
-  /*
-  =======================================================
   SCORE COMPLETE TEAM
   =======================================================
   */
@@ -486,10 +465,15 @@ const NFLMoneylineFormula = {
         scoring
       );
 
-    const pointsAllowedPerGame =
-      this.calculatePointsAllowedPerGameScore(
-        scoring
-      );
+    /*
+    The five category weights total 100%.
+
+    Passing:        24%
+    Rushing:        18%
+    Receiving:      18%
+    Defense:        24%
+    Points scored:  16%
+    */
 
     let overall =
       passing *
@@ -505,10 +489,14 @@ const NFLMoneylineFormula = {
         this.weights.defense +
 
       pointsPerGame *
-        this.weights.pointsPerGame +
+        this.weights.pointsPerGame;
 
-      pointsAllowedPerGame *
-        this.weights.pointsAllowedPerGame;
+    /*
+    Home-field bonus affects the overall rating only.
+
+    It does not override a team that wins more checklist
+    categories.
+    */
 
     const homeFieldBonus =
       team.isHome === true
@@ -542,7 +530,6 @@ const NFLMoneylineFormula = {
       receiving,
       defense,
       pointsPerGame,
-      pointsAllowedPerGame,
 
       rawPointsPerGame:
         this.round(
@@ -570,7 +557,7 @@ const NFLMoneylineFormula = {
   =======================================================
   COMPARE CATEGORY
 
-  Exact ties go to the home team.
+  Exact category ties go to the home team.
   =======================================================
   */
 
@@ -589,6 +576,15 @@ const NFLMoneylineFormula = {
         homeTeam[category]
       );
 
+    const difference =
+      this.round(
+        Math.abs(
+          awayScore -
+          homeScore
+        ),
+        1
+      );
+
     const winner =
       awayScore > homeScore
         ? "away"
@@ -599,16 +595,48 @@ const NFLMoneylineFormula = {
       winner,
       awayScore,
       homeScore,
-
-      difference:
-        this.round(
-          Math.abs(
-            awayScore -
-            homeScore
-          ),
-          1
-        )
+      difference
     };
+  },
+
+  /*
+  =======================================================
+  SELECT POPS PICK
+
+  Rule 1:
+  More checklist wins always determines the pick.
+
+  Rule 2:
+  If checklist totals are tied, use overall rating.
+
+  Rule 3:
+  If everything is tied, use the home team.
+  =======================================================
+  */
+
+  selectPickSide(
+    awayTeam,
+    homeTeam,
+    awayChecklist,
+    homeChecklist
+  ) {
+    if (awayChecklist > homeChecklist) {
+      return "away";
+    }
+
+    if (homeChecklist > awayChecklist) {
+      return "home";
+    }
+
+    if (awayTeam.overall > homeTeam.overall) {
+      return "away";
+    }
+
+    if (homeTeam.overall > awayTeam.overall) {
+      return "home";
+    }
+
+    return "home";
   },
 
   /*
@@ -643,7 +671,8 @@ const NFLMoneylineFormula = {
 
     const checklistDifference =
       Math.abs(
-        awayWins - homeWins
+        awayWins -
+        homeWins
       );
 
     const strongAdvantages =
@@ -682,14 +711,6 @@ const NFLMoneylineFormula = {
           item.winner === pickSide
       );
 
-    const pointsAllowedEdge =
-      comparisons.some(
-        item =>
-          item.category ===
-            "pointsAllowedPerGame" &&
-          item.winner === pickSide
-      );
-
     let confidence =
       52 +
       overallDifference * 1.5 +
@@ -706,10 +727,6 @@ const NFLMoneylineFormula = {
     }
 
     if (scoringEdge) {
-      confidence += 1.5;
-    }
-
-    if (pointsAllowedEdge) {
       confidence += 1.5;
     }
 
@@ -768,11 +785,20 @@ const NFLMoneylineFormula = {
           "home"
       ).length;
 
+    /*
+    IMPORTANT:
+
+    The POPS Pick is now determined by checklist wins
+    before looking at the overall rating.
+    */
+
     const pickSide =
-      awayTeam.overall >
-      homeTeam.overall
-        ? "away"
-        : "home";
+      this.selectPickSide(
+        awayTeam,
+        homeTeam,
+        awayChecklist,
+        homeChecklist
+      );
 
     const pick =
       pickSide === "away"
