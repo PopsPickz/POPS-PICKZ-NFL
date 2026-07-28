@@ -1066,10 +1066,11 @@ ON DESKTOP, TABLET, AND MOBILE.
 
 
 /* =====================================================
-   FIX OVERSIZED H2H LOGOS
+   H2H SECTION — FORCE LOGOS TO HALF SIZE
 ===================================================== */
 
 .moneyline-h2h {
+  width: auto;
   margin: 12px 18px 4px;
   overflow: hidden;
 }
@@ -1100,23 +1101,36 @@ ON DESKTOP, TABLET, AND MOBILE.
   text-align: right;
 }
 
-.moneyline-h2h-logo-wrap {
-  display: grid;
-  place-items: center;
-  width: 18px;
-  height: 18px;
-  min-width: 18px;
-  min-height: 18px;
-  overflow: hidden;
+/* Logo container */
+
+.moneyline-h2h .moneyline-h2h-logo-wrap {
+  display: grid !important;
+  place-items: center !important;
+  width: 18px !important;
+  height: 18px !important;
+  min-width: 18px !important;
+  min-height: 18px !important;
+  max-width: 18px !important;
+  max-height: 18px !important;
+  overflow: hidden !important;
 }
 
-.moneyline-h2h-logo {
+/* Force every image inside H2H to stay small */
+
+.moneyline-h2h img,
+.moneyline-h2h .moneyline-h2h-logo,
+.moneyline-h2h-team img {
   display: block !important;
   width: 16px !important;
   height: 16px !important;
+  min-width: 16px !important;
+  min-height: 16px !important;
   max-width: 16px !important;
   max-height: 16px !important;
   object-fit: contain !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  transform: none !important;
 }
 
 .moneyline-h2h-score {
@@ -1129,7 +1143,9 @@ ON DESKTOP, TABLET, AND MOBILE.
   line-height: 1.2;
 }
 
-/* PHONE FIX */
+/* =====================================================
+   H2H PHONE FIX
+===================================================== */
 
 @media (max-width: 650px) {
   .moneyline-h2h {
@@ -1158,16 +1174,22 @@ ON DESKTOP, TABLET, AND MOBILE.
       14px;
   }
 
-  .moneyline-h2h-logo-wrap {
-    width: 14px;
-    height: 14px;
-    min-width: 14px;
-    min-height: 14px;
+  .moneyline-h2h .moneyline-h2h-logo-wrap {
+    width: 14px !important;
+    height: 14px !important;
+    min-width: 14px !important;
+    min-height: 14px !important;
+    max-width: 14px !important;
+    max-height: 14px !important;
   }
 
-  .moneyline-h2h-logo {
+  .moneyline-h2h img,
+  .moneyline-h2h .moneyline-h2h-logo,
+  .moneyline-h2h-team img {
     width: 12px !important;
     height: 12px !important;
+    min-width: 12px !important;
+    min-height: 12px !important;
     max-width: 12px !important;
     max-height: 12px !important;
   }
