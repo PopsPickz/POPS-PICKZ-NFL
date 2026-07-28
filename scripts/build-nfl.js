@@ -2006,9 +2006,15 @@ const playerStatistics =
     */
 
     const upcomingSelection =
-      selectUpcomingWeek(
-        schedule
-      );
+  selectUpcomingWeek(
+    schedule
+  );
+
+upcomingSelection.games =
+  attachHeadToHeadHistory(
+    upcomingSelection.games,
+    headToHeadHistory
+  );
 
     if (
       !upcomingSelection.games.length
