@@ -1406,6 +1406,387 @@ async function loadSeasonSchedule(
   return games;
 }
 
+
+/*
+=========================================================
+NFL HEAD-TO-HEAD HISTORY
+=========================================================
+*/
+
+function isSameNFLMatchup(
+  game = {},
+  firstTeamId = "",
+  secondTeamId = ""
+) {
+  const awayTeamId =
+    text(game.away?.teamId);
+
+  const homeTeamId =
+    text(game.home?.teamId);
+
+  const firstId =
+    text(firstTeamId);
+
+  const secondId =
+    text(secondTeamId);
+
+  return (
+    (
+      awayTeamId === firstId &&
+      homeTeamId === secondId
+    ) ||
+    (
+      awayTeamId === secondId &&
+      homeTeamId === firstId
+    )
+  );
+}
+
+function buildLastHeadToHead(
+  upcomingGame = {},
+  historicalGames = []
+) {
+  const awayTeamId =
+    text(
+      upcomingGame.away?.teamId
+    );
+
+  const homeTeamId =
+    text(
+      upcomingGame.home?.teamId
+    );
+
+  const upcomingStartTime =
+    number(
+      upcomingGame.startTime,
+      Number.MAX_SAFE_INTEGER
+    );
+
+  const previousMeetings =
+    historicalGames
+      .filter(game => {
+        if (!game?.completed) {
+          return false;
+        }
+
+        if (
+          number(game.startTime) >=
+          upcomingStartTime
+        ) {
+          return false;
+        }
+
+        return isSameNFLMatchup(
+          game,
+          awayTeamId,
+          homeTeamId
+        );
+      })
+      .sort(
+        (first, second) =>
+          number(
+            second.startTime
+          ) -
+          number(
+            first.startTime
+          )
+      );
+
+  const lastMeeting =
+    previousMeetings[0];
+
+  if (!lastMeeting) {
+    return {
+      found: false,
+      games: [],
+      meetingCount: 0
+    };
+  }
+
+  const awayScore =
+    number(
+      lastMeeting.away?.score
+    );
+
+  const homeScore =
+    number(
+      lastMeeting.home?.score
+    );
+
+  let winnerTeamId = null;
+  let winnerTeamName = "";
+  let loserTeamId = null;
+  let loserTeamName = "";
+
+  if (awayScore > homeScore) {
+    winnerTeamId =
+      text(
+        lastMeeting.away?.teamId
+      );
+
+    winnerTeamName =
+      text(
+        lastMeeting.away?.teamName
+      );
+
+    loserTeamId =
+      text(
+        lastMeeting.home?.teamId
+      );
+
+    loserTeamName =
+      text(
+        lastMeeting.home?.teamName
+      );
+  } else if (
+    homeScore > awayScore
+  ) {
+    winnerTeamId =
+      text(
+        lastMeeting.home?.teamId
+      );
+
+    winnerTeamName =
+      text(
+        lastMeeting.home?.teamName
+      );
+
+    loserTeamId =
+      text(
+        lastMeeting.away?.teamId
+      );
+
+    loserTeamName =
+      text(
+        lastMeeting.away?.teamName
+      );
+  }
+
+  return {
+    found: true,
+
+    meetingCount:
+      previousMeetings.length,
+
+    lastMeeting: {
+      gameId:
+        text(
+          lastMeeting.gameId
+        ),
+
+      date:
+        text(
+          lastMeeting.date
+        ),
+
+      season:
+        number(
+          lastMeeting.season
+        ),
+
+      week:
+        number(
+          lastMeeting.week
+        ),
+
+      status:
+        "Final",
+
+      away: {
+        teamId:
+          text(
+            lastMeeting.away
+              ?.teamId
+          ),
+
+        teamName:
+          text(
+            lastMeeting.away
+              ?.teamName,
+            "Away Team"
+          ),
+
+        abbreviation:
+          text(
+            lastMeeting.away
+              ?.abbreviation,
+            "NFL"
+          ),
+
+        logo:
+          text(
+            lastMeeting.away
+              ?.logo
+          ),
+
+        score:
+          awayScore
+      },
+
+      home: {
+        teamId:
+          text(
+            lastMeeting.home
+              ?.teamId
+          ),
+
+        teamName:
+          text(
+            lastMeeting.home
+              ?.teamName,
+            "Home Team"
+          ),
+
+        abbreviation:
+          text(
+            lastMeeting.home
+              ?.abbreviation,
+            "NFL"
+          ),
+
+        logo:
+          text(
+            lastMeeting.home
+              ?.logo
+          ),
+
+        score:
+          homeScore
+      },
+
+      winnerTeamId,
+      winnerTeamName,
+      loserTeamId,
+      loserTeamName,
+
+      tied:
+        awayScore === homeScore
+    },
+
+    games: [
+      {
+        gameId:
+          text(
+            lastMeeting.gameId
+          ),
+
+        date:
+          text(
+            lastMeeting.date
+          ),
+
+        awayTeamId:
+          text(
+            lastMeeting.away
+              ?.teamId
+          ),
+
+        awayTeam:
+          text(
+            lastMeeting.away
+              ?.teamName
+          ),
+
+        awayLogo:
+          text(
+            lastMeeting.away
+              ?.logo
+          ),
+
+        awayScore,
+
+        homeTeamId:
+          text(
+            lastMeeting.home
+              ?.teamId
+          ),
+
+        homeTeam:
+          text(
+            lastMeeting.home
+              ?.teamName
+          ),
+
+        homeLogo:
+          text(
+            lastMeeting.home
+              ?.logo
+          ),
+
+        homeScore,
+
+        winnerTeamId
+      }
+    ]
+  };
+}
+
+async function loadHeadToHeadHistory(
+  currentSeason,
+  currentSchedule = []
+) {
+  const historicalGames = [
+    ...currentSchedule
+  ];
+
+  for (
+    let seasonsBack = 1;
+    seasonsBack <=
+      SETTINGS.headToHeadSeasonsBack;
+    seasonsBack += 1
+  ) {
+    const historicalSeason =
+      currentSeason -
+      seasonsBack;
+
+    try {
+      const seasonGames =
+        await loadSeasonSchedule(
+          historicalSeason
+        );
+
+      historicalGames.push(
+        ...seasonGames
+      );
+
+      console.log(
+        `Loaded ${historicalSeason} ` +
+        `for NFL H2H history.`
+      );
+    } catch (error) {
+      console.warn(
+        `H2H season ${historicalSeason} failed:`,
+        error?.message ||
+        error
+      );
+    }
+
+    await wait(
+      SETTINGS
+        .requestDelayMilliseconds
+    );
+  }
+
+  return historicalGames;
+}
+
+function attachHeadToHeadHistory(
+  upcomingGames = [],
+  historicalGames = []
+) {
+  return upcomingGames.map(
+    game => ({
+      ...game,
+
+      headToHead:
+        buildLastHeadToHead(
+          game,
+          historicalGames
+        )
+    })
+  );
+}
+
 /*
 =========================================================
 SELECT THE NEXT REGULAR-SEASON SLATE
