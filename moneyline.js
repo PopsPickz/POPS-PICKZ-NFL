@@ -384,41 +384,45 @@ const NFLMoneyline = {
           </small>
         </div>
 
-        <div class="moneyline-checklist-summary">
+     <div class="moneyline-checklist-summary">
 
-          <span>
-            Checklist
-          </span>
+  <span>
+    Checklist
+  </span>
 
-          <strong>
-            ${checklistText}
-          </strong>
+  <strong>
+    ${checklistText}
+  </strong>
 
-          <span>
-            Overall Edge
-          </span>
+  <span>
+    Overall Edge
+  </span>
 
-          <strong>
-            ${edgeText}
-          </strong>
+  <strong>
+    ${edgeText}
+  </strong>
 
-          ${
-            tiedCategories > 0
-              ? `
-                <span>
-                  Tied Rankings
-                </span>
+  ${
+    tiedCategories > 0
+      ? `
+        <span>
+          Tied Rankings
+        </span>
 
-                <strong>
-                  ${tiedCategories}
-                </strong>
-              `
-              : ""
-          }
+        <strong>
+          ${tiedCategories}
+        </strong>
+      `
+      : ""
+  }
 
-        </div>
+</div>
 
-        <div class="moneyline-team-comparison">
+${this.renderHeadToHead(
+  matchup
+)}
+
+<div class="moneyline-team-comparison">
 
           <div class="moneyline-team-grid">
 
