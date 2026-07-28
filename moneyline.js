@@ -463,6 +463,264 @@ ${this.renderHeadToHead(
     `;
   },
 
+
+  /*
+=======================================================
+LAST HEAD-TO-HEAD MATCHUP
+=======================================================
+*/
+
+formatHeadToHeadDate(value) {
+  const date =
+    new Date(value);
+
+  if (
+    Number.isNaN(
+      date.getTime()
+    )
+  ) {
+    return "Date unavailable";
+  }
+
+  return date.toLocaleDateString(
+    "en-US",
+    {
+      month: "short",
+      day: "numeric",
+      year: "numeric"
+    }
+  );
+},
+
+renderHeadToHead(matchup = {}) {
+  const headToHead =
+    matchup.headToHead || {};
+
+  const lastMeeting =
+    headToHead.lastMeeting ||
+    headToHead.games?.[0] ||
+    null;
+
+  if (!lastMeeting) {
+    return `
+      <section class="moneyline-h2h">
+
+        <div class="moneyline-h2h-title">
+          <span>👥</span>
+
+          <strong>
+            Last Head-to-Head Matchup
+          </strong>
+        </div>
+
+        <div class="moneyline-h2h-empty">
+          No previous matchup was found.
+        </div>
+
+      </section>
+    `;
+  }
+
+  const away =
+    lastMeeting.away || {
+      teamId:
+        lastMeeting.awayTeamId,
+
+      teamName:
+        lastMeeting.awayTeam,
+
+      logo:
+        lastMeeting.awayLogo,
+
+      score:
+        lastMeeting.awayScore
+    };
+
+  const home =
+    lastMeeting.home || {
+      teamId:
+        lastMeeting.homeTeamId,
+
+      teamName:
+        lastMeeting.homeTeam,
+
+      logo:
+        lastMeeting.homeLogo,
+
+      score:
+        lastMeeting.homeScore
+    };
+
+  const awayScore =
+    this.number(
+      away.score
+    );
+
+  const homeScore =
+    this.number(
+      home.score
+    );
+
+  const awayWon =
+    awayScore >
+    homeScore;
+
+  const homeWon =
+    homeScore >
+    awayScore;
+
+  let resultText =
+    "Previous matchup ended in a tie.";
+
+  if (awayWon) {
+    resultText =
+      `${
+        away.teamName ||
+        "Away team"
+      } won the previous matchup`;
+  } else if (homeWon) {
+    resultText =
+      `${
+        home.teamName ||
+        "Home team"
+      } won the previous matchup`;
+  }
+
+  return `
+    <section class="moneyline-h2h">
+
+      <div class="moneyline-h2h-title">
+
+        <span>👥</span>
+
+        <strong>
+          Last Head-to-Head Matchup
+        </strong>
+
+      </div>
+
+      <div class="moneyline-h2h-game">
+
+        <div
+          class="
+            moneyline-h2h-team
+            ${
+              awayWon
+                ? "moneyline-h2h-winner"
+                : ""
+            }
+          "
+        >
+
+          <div class="moneyline-h2h-logo-wrap">
+            ${
+              away.logo
+                ? `
+                  <img
+                    src="${this.escapeHTML(
+                      away.logo
+                    )}"
+                    alt="${this.escapeHTML(
+                      away.teamName ||
+                      "Away Team"
+                    )}"
+                    class="moneyline-h2h-logo"
+                    loading="lazy"
+                  />
+                `
+                : `
+                  <span>🏈</span>
+                `
+            }
+          </div>
+
+          <strong class="moneyline-h2h-score">
+            ${awayScore}
+          </strong>
+
+          <span class="moneyline-h2h-team-name">
+            ${this.escapeHTML(
+              away.teamName ||
+              "Away Team"
+            )}
+          </span>
+
+        </div>
+
+        <div class="moneyline-h2h-details">
+
+          <strong>
+            ${this.escapeHTML(
+              this.formatHeadToHeadDate(
+                lastMeeting.date
+              )
+            )}
+          </strong>
+
+          <span>
+            Final
+          </span>
+
+        </div>
+
+        <div
+          class="
+            moneyline-h2h-team
+            ${
+              homeWon
+                ? "moneyline-h2h-winner"
+                : ""
+            }
+          "
+        >
+
+          <div class="moneyline-h2h-logo-wrap">
+            ${
+              home.logo
+                ? `
+                  <img
+                    src="${this.escapeHTML(
+                      home.logo
+                    )}"
+                    alt="${this.escapeHTML(
+                      home.teamName ||
+                      "Home Team"
+                    )}"
+                    class="moneyline-h2h-logo"
+                    loading="lazy"
+                  />
+                `
+                : `
+                  <span>🏈</span>
+                `
+            }
+          </div>
+
+          <strong class="moneyline-h2h-score">
+            ${homeScore}
+          </strong>
+
+          <span class="moneyline-h2h-team-name">
+            ${this.escapeHTML(
+              home.teamName ||
+              "Home Team"
+            )}
+          </span>
+
+        </div>
+
+      </div>
+
+      <div class="moneyline-h2h-result">
+        🏆
+        ${this.escapeHTML(
+          resultText
+        )}
+      </div>
+
+    </section>
+  `;
+},
   /*
   =======================================================
   TEAM PANEL
