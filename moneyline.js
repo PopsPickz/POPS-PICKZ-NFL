@@ -2,22 +2,24 @@
 =========================================================
 POPS PICKZ NFL — MONEYLINE CARDS
 File: moneyline.js
-Version: 2.0
+Version: 3.0 — RANKING DISPLAY
 =========================================================
 
 UPDATES
 
-- Away and home panels remain side by side
-- Dedicated two-column team grid
-- Centered VS badge no longer affects card widths
-- Improved team-logo matching
-- Safer handling for ties and missing data
-- Desktop, tablet, and phone compatible
+- Displays NFL team ranks instead of old category scores
+- Rank #1 is the best
+- Lower ranking receives the ✅
+- Equal rankings receive ➖
+- More checklist wins determines the POPS Pick
+- Displays the actual statistic behind every ranking
+- Displays ranking-position advantages
+- Uses five total categories
 
 REQUIRED SCRIPT ORDER
 
-<script src="moneyline-formula.js"></script>
 <script src="moneyline-data.js"></script>
+<script src="moneyline-formula.js"></script>
 <script src="moneyline.js"></script>
 =========================================================
 */
@@ -28,27 +30,46 @@ const NFLMoneyline = {
   refreshTimer: null,
 
   settings: {
-    refreshInterval: 15 * 60 * 1000,
-    maximumGames: 16
+    refreshInterval:
+      15 * 60 * 1000,
+
+    maximumGames:
+      16
   },
 
- categoryLabels: {
-  passing: "Passing",
-  rushing: "Rushing",
-  receiving: "Receiving",
-  defense: "Defense",
-  pointsPerGame: "Avg Points/Game",
-  
-},
+  categoryLabels: {
+    passing:
+      "Passing",
+
+    rushing:
+      "Rushing",
+
+    receiving:
+      "Receiving",
+
+    defense:
+      "Defense",
+
+    pointsPerGame:
+      "Avg Points/Game"
+  },
 
   categoryIcons: {
-   passing: "🏈",
-   rushing: "🏃",
-   receiving: "🙌",
-   defense: "🛡️",
-   pointsPerGame: "🔥",
- 
-},
+    passing:
+      "🏈",
+
+    rushing:
+      "🏃",
+
+    receiving:
+      "🙌",
+
+    defense:
+      "🛡️",
+
+    pointsPerGame:
+      "🔥"
+  },
 
   /*
   =======================================================
@@ -57,9 +78,10 @@ const NFLMoneyline = {
   */
 
   async init() {
-    this.box = document.getElementById(
-      "moneylineBox"
-    );
+    this.box =
+      document.getElementById(
+        "moneylineBox"
+      );
 
     if (!this.box) {
       console.warn(
@@ -70,7 +92,8 @@ const NFLMoneyline = {
     }
 
     if (
-      typeof window.NFLMoneylineFormula ===
+      typeof window
+        .NFLMoneylineFormula ===
       "undefined"
     ) {
       this.showError(
@@ -81,7 +104,8 @@ const NFLMoneyline = {
     }
 
     if (
-      typeof window.NFLMoneylineData ===
+      typeof window
+        .NFLMoneylineData ===
       "undefined"
     ) {
       this.showError(
@@ -92,6 +116,7 @@ const NFLMoneyline = {
     }
 
     await this.load();
+
     this.startAutomaticRefresh();
   },
 
@@ -106,20 +131,27 @@ const NFLMoneyline = {
 
     try {
       const loadedMatchups =
-        await window.NFLMoneylineData
+        await window
+          .NFLMoneylineData
           .loadMoneylineMatchups();
 
-      this.matchups = loadedMatchups
-        .slice(
-          0,
-          this.settings.maximumGames
-        )
-        .map(matchup =>
-          this.evaluateMatchup(matchup)
-        )
-        .filter(Boolean);
+      this.matchups =
+        loadedMatchups
+          .slice(
+            0,
+            this.settings
+              .maximumGames
+          )
+          .map(matchup =>
+            this.evaluateMatchup(
+              matchup
+            )
+          )
+          .filter(Boolean);
 
-      if (!this.matchups.length) {
+      if (
+        !this.matchups.length
+      ) {
         throw new Error(
           "No NFL moneyline matchups are currently available."
         );
@@ -142,7 +174,8 @@ const NFLMoneyline = {
   evaluateMatchup(matchup) {
     try {
       const result =
-        window.NFLMoneylineFormula
+        window
+          .NFLMoneylineFormula
           .evaluateMatchup(
             matchup.awayTeamData,
             matchup.homeTeamData
@@ -175,6 +208,7 @@ const NFLMoneyline = {
 
     this.box.innerHTML = `
       <div class="moneyline-summary-bar">
+
         <div>
           <strong>
             ${this.matchups.length}
@@ -197,19 +231,22 @@ const NFLMoneyline = {
 
         <div>
           <strong>
-            6
+            5
           </strong>
 
           <span>
-            Categories Compared
+            Rankings Compared
           </span>
         </div>
+
       </div>
 
       <div class="moneyline-card-grid">
         ${this.matchups
           .map(matchup =>
-            this.renderMatchupCard(matchup)
+            this.renderMatchupCard(
+              matchup
+            )
           )
           .join("")}
       </div>
@@ -219,45 +256,54 @@ const NFLMoneyline = {
   /*
   =======================================================
   MATCHUP CARD
-
-  Important layout:
-
-  moneyline-team-comparison
-      moneyline-team-grid
-          away team
-          home team
-      centered VS badge
   =======================================================
   */
 
   renderMatchupCard(matchup) {
-    const result = matchup.result;
+    const result =
+      matchup.result;
 
     if (!result) {
       return "";
     }
 
-    const away = result.awayTeam;
-    const home = result.homeTeam;
-    const pick = result.pick;
+    const away =
+      result.awayTeam;
+
+    const home =
+      result.homeTeam;
+
+    const pick =
+      result.pick;
 
     const awayChecklist =
-      this.number(result.awayChecklist);
+      this.number(
+        result.awayChecklist
+      );
 
     const homeChecklist =
-      this.number(result.homeChecklist);
+      this.number(
+        result.homeChecklist
+      );
+
+    const tiedCategories =
+      this.number(
+        result.tiedCategories
+      );
 
     const checklistText =
       `${awayChecklist} - ${homeChecklist}`;
 
     const pickSideLabel =
-      result.pickSide === "home"
+      result.pickSide ===
+      "home"
         ? "HOME"
         : "AWAY";
 
     const overallDifference =
-      this.number(
-        result.overallDifference
+      this.round(
+        result.overallDifference,
+        1
       );
 
     const edgeText =
@@ -271,9 +317,12 @@ const NFLMoneyline = {
         <div class="moneyline-card-header">
 
           <div class="moneyline-matchup-info">
+
             <p class="moneyline-game-label">
               ${this.escapeHTML(
-                this.getGameStatus(matchup)
+                this.getGameStatus(
+                  matchup
+                )
               )}
             </p>
 
@@ -282,7 +331,9 @@ const NFLMoneyline = {
                 away.teamName
               )}
 
-              <span>vs</span>
+              <span>
+                vs
+              </span>
 
               ${this.escapeHTML(
                 home.teamName
@@ -292,12 +343,14 @@ const NFLMoneyline = {
             <p class="moneyline-game-time">
               ⏰
               ${this.escapeHTML(
-                window.NFLMoneylineData
+                window
+                  .NFLMoneylineData
                   .formatGameTime(
                     matchup.startTime
                   )
               )}
             </p>
+
           </div>
 
           <div class="moneyline-confidence-badge">
@@ -332,6 +385,7 @@ const NFLMoneyline = {
         </div>
 
         <div class="moneyline-checklist-summary">
+
           <span>
             Checklist
           </span>
@@ -347,6 +401,21 @@ const NFLMoneyline = {
           <strong>
             ${edgeText}
           </strong>
+
+          ${
+            tiedCategories > 0
+              ? `
+                <span>
+                  Tied Rankings
+                </span>
+
+                <strong>
+                  ${tiedCategories}
+                </strong>
+              `
+              : ""
+          }
+
         </div>
 
         <div class="moneyline-team-comparison">
@@ -382,7 +451,9 @@ const NFLMoneyline = {
 
         </div>
 
-        ${this.renderReasons(result)}
+        ${this.renderReasons(
+          result
+        )}
 
       </article>
     `;
@@ -406,12 +477,24 @@ const NFLMoneyline = {
       side === pickSide;
 
     const validComparisons =
-      Array.isArray(comparisons)
+      Array.isArray(
+        comparisons
+      )
         ? comparisons
         : [];
 
     const overall =
-      this.number(team?.overall);
+      this.round(
+        team?.overall,
+        1
+      );
+
+    const checklistWins =
+      validComparisons.filter(
+        comparison =>
+          comparison.winner ===
+          side
+      ).length;
 
     return `
       <section
@@ -437,6 +520,7 @@ const NFLMoneyline = {
           </div>
 
           <div class="moneyline-team-heading-text">
+
             <h4>
               ${this.escapeHTML(
                 team?.teamName ||
@@ -451,6 +535,7 @@ const NFLMoneyline = {
                   : "Away Team"
               }
             </p>
+
           </div>
 
           ${
@@ -466,13 +551,23 @@ const NFLMoneyline = {
         </div>
 
         <div class="moneyline-overall-score">
+
           <span>
-            Overall Rating
+            Rank Rating
           </span>
 
           <strong>
             ${overall}
           </strong>
+
+          <small>
+            ${checklistWins}
+            ${
+              checklistWins === 1
+                ? "check"
+                : "checks"
+            }
+          </small>
 
           <div class="moneyline-score-bar">
             <span
@@ -481,6 +576,7 @@ const NFLMoneyline = {
               )}%"
             ></span>
           </div>
+
         </div>
 
         <div class="moneyline-category-list">
@@ -530,22 +626,27 @@ const NFLMoneyline = {
         team?.teamId || ""
       );
 
-    let gameTeam = null;
+    let gameTeam =
+      null;
 
     if (
       String(
-        matchup?.away?.teamId || ""
+        matchup?.away?.teamId ||
+        ""
       ) === teamId
     ) {
-      gameTeam = matchup.away;
+      gameTeam =
+        matchup.away;
     }
 
     if (
       String(
-        matchup?.home?.teamId || ""
+        matchup?.home?.teamId ||
+        ""
       ) === teamId
     ) {
-      gameTeam = matchup.home;
+      gameTeam =
+        matchup.home;
     }
 
     const logo =
@@ -556,7 +657,9 @@ const NFLMoneyline = {
     if (logo) {
       return `
         <img
-          src="${this.escapeHTML(logo)}"
+          src="${this.escapeHTML(
+            logo
+          )}"
           alt="${this.escapeHTML(
             team?.teamName ||
             "NFL Team"
@@ -577,6 +680,12 @@ const NFLMoneyline = {
   /*
   =======================================================
   CATEGORY COMPARISON ROW
+
+  Lower ranking is better.
+
+  Example:
+
+  Rank #3 receives ✅ over Rank #7.
   =======================================================
   */
 
@@ -593,117 +702,103 @@ const NFLMoneyline = {
       return "";
     }
 
-    const teamScore =
-      this.number(
-        team?.[category]
-      );
+    const teamRank =
+      side === "away"
+        ? this.number(
+            comparison.awayRank,
+            32
+          )
+        : this.number(
+            comparison.homeRank,
+            32
+          );
 
-    const opponentScore =
-      this.number(
-        opponent?.[category]
-      );
+    const opponentRank =
+      side === "away"
+        ? this.number(
+            comparison.homeRank,
+            32
+          )
+        : this.number(
+            comparison.awayRank,
+            32
+          );
 
-    const difference =
-      this.round(
-        teamScore -
-        opponentScore,
-        1
+    const teamValue =
+      side === "away"
+        ? this.number(
+            comparison.awayValue
+          )
+        : this.number(
+            comparison.homeValue
+          );
+
+    const opponentValue =
+      side === "away"
+        ? this.number(
+            comparison.homeValue
+          )
+        : this.number(
+            comparison.awayValue
+          );
+
+    const rankDifference =
+      Math.abs(
+        teamRank -
+        opponentRank
       );
 
     const isTie =
-      Math.abs(difference) < 0.05;
+      comparison.winner ===
+      "tie";
 
     const teamWon =
-      comparison.winner === side;
+      comparison.winner ===
+      side;
 
-    let statusIcon = "❌";
+    let statusIcon =
+      "❌";
+
     let resultClass =
       "moneyline-category-loss";
 
     if (isTie) {
-      statusIcon = "➖";
+      statusIcon =
+        "➖";
+
       resultClass =
         "moneyline-category-tie";
     } else if (teamWon) {
-      statusIcon = "✅";
+      statusIcon =
+        "✅";
+
       resultClass =
         "moneyline-category-win";
     }
 
-    const advantageText =
-      difference > 0
-        ? `+${difference}`
-        : `${difference}`;
+    let rankEdgeText =
+      `${rankDifference} spots worse`;
 
-const isPointsPerGame =
-  category === "pointsPerGame";
+    if (isTie) {
+      rankEdgeText =
+        "Same rank";
+    } else if (teamWon) {
+      rankEdgeText =
+        `${rankDifference} spots better`;
+    }
 
-const isPointsAllowed =
-  category === "pointsAllowedPerGame";
+    const valueText =
+      this.formatCategoryValue(
+        category,
+        teamValue
+      );
 
-let displayedValue =
-  teamScore;
+    const opponentValueText =
+      this.formatCategoryValue(
+        category,
+        opponentValue
+      );
 
-let displayedDifference =
-  advantageText;
-
-if (isPointsPerGame) {
-  const teamRaw =
-    this.number(
-      team?.rawPointsPerGame
-    );
-
-  const opponentRaw =
-    this.number(
-      opponent?.rawPointsPerGame
-    );
-
-  displayedValue =
-    this.round(teamRaw, 1);
-
-  const rawDifference =
-    this.round(
-      teamRaw - opponentRaw,
-      1
-    );
-
-  displayedDifference =
-    rawDifference > 0
-      ? `+${rawDifference}`
-      : `${rawDifference}`;
-}
-
-if (isPointsAllowed) {
-  const teamRaw =
-    this.number(
-      team?.rawPointsAllowedPerGame
-    );
-
-  const opponentRaw =
-    this.number(
-      opponent?.rawPointsAllowedPerGame
-    );
-
-  displayedValue =
-    this.round(teamRaw, 1);
-
-  /*
-  For points allowed, a lower number is better.
-  This displays how many fewer points the team allows.
-  */
-
-  const rawAdvantage =
-    this.round(
-      opponentRaw - teamRaw,
-      1
-    );
-
-  displayedDifference =
-    rawAdvantage > 0
-      ? `-${rawAdvantage} allowed`
-      : `${Math.abs(rawAdvantage)} more allowed`;
-}    
-    
     return `
       <div
         class="
@@ -713,6 +808,7 @@ if (isPointsAllowed) {
       >
 
         <div class="moneyline-category-name">
+
           <span>
             ${
               this.categoryIcons[
@@ -729,24 +825,96 @@ if (isPointsAllowed) {
               category
             )}
           </strong>
+
         </div>
 
         <div class="moneyline-category-result">
+
           <span class="moneyline-result-icon">
             ${statusIcon}
           </span>
 
-        <strong>
-          ${displayedValue}
-        </strong>
+          <strong>
+            Rank #${teamRank}
+          </strong>
 
-       <small>
-         ${displayedDifference}
-      </small>
+          <small>
+            ${this.escapeHTML(
+              rankEdgeText
+            )}
+          </small>
+
+          <small class="moneyline-category-stat">
+            ${this.escapeHTML(
+              valueText
+            )}
+          </small>
+
+          <small class="moneyline-category-opponent-stat">
+            Opponent:
+            ${this.escapeHTML(
+              opponentValueText
+            )}
+          </small>
+
         </div>
 
       </div>
     `;
+  },
+
+  /*
+  =======================================================
+  FORMAT ACTUAL CATEGORY STATISTIC
+  =======================================================
+  */
+
+  formatCategoryValue(
+    category,
+    value
+  ) {
+    const safeValue =
+      this.round(
+        value,
+        1
+      );
+
+    if (
+      category ===
+      "passing"
+    ) {
+      return `${safeValue} pass yards/game`;
+    }
+
+    if (
+      category ===
+      "rushing"
+    ) {
+      return `${safeValue} rush yards/game`;
+    }
+
+    if (
+      category ===
+      "receiving"
+    ) {
+      return `${safeValue} receiving yards/game`;
+    }
+
+    if (
+      category ===
+      "defense"
+    ) {
+      return `${safeValue} points allowed/game`;
+    }
+
+    if (
+      category ===
+      "pointsPerGame"
+    ) {
+      return `${safeValue} points/game`;
+    }
+
+    return `${safeValue}`;
   },
 
   /*
@@ -757,7 +925,9 @@ if (isPointsAllowed) {
 
   renderReasons(result) {
     const reasons =
-      Array.isArray(result?.reasons)
+      Array.isArray(
+        result?.reasons
+      )
         ? result.reasons
         : [];
 
@@ -777,40 +947,75 @@ if (isPointsAllowed) {
         </h4>
 
         <div class="moneyline-reason-grid">
+
           ${reasons
-            .map(reason => `
-              <div class="moneyline-reason">
+            .map(reason => {
+              const categoryLabel =
+                this.categoryLabels[
+                  reason.category
+                ] ||
+                reason.category;
 
-                <span>
-                  ${
-                    this.categoryIcons[
-                      reason.category
-                    ] || "✅"
-                  }
-                </span>
+              const pickRank =
+                this.number(
+                  reason.pickRank,
+                  32
+                );
 
-                <div>
-                  <strong>
-                    Better
-                    ${this.escapeHTML(
-                      this.categoryLabels[
+              const opponentRank =
+                this.number(
+                  reason.opponentRank,
+                  32
+                );
+
+              const rankDifference =
+                this.number(
+                  reason.rankDifference
+                );
+
+              return `
+                <div class="moneyline-reason">
+
+                  <span>
+                    ${
+                      this.categoryIcons[
                         reason.category
-                      ] ||
-                      reason.category
-                    )}
-                  </strong>
+                      ] || "✅"
+                    }
+                  </span>
 
-                  <small>
-                    +${this.number(
-                      reason.difference
-                    )}
-                    category edge
-                  </small>
+                  <div>
+
+                    <strong>
+                      Better
+                      ${this.escapeHTML(
+                        categoryLabel
+                      )}
+                      Ranking
+                    </strong>
+
+                    <small>
+                      Rank #${pickRank}
+                      vs Rank #${opponentRank}
+                    </small>
+
+                    <small>
+                      ${rankDifference}
+                      ${
+                        rankDifference === 1
+                          ? "ranking spot"
+                          : "ranking spots"
+                      }
+                      better
+                    </small>
+
+                  </div>
+
                 </div>
-
-              </div>
-            `)
+              `;
+            })
             .join("")}
+
         </div>
 
       </div>
@@ -828,7 +1033,9 @@ if (isPointsAllowed) {
       return "FINAL";
     }
 
-    if (matchup.state === "in") {
+    if (
+      matchup.state === "in"
+    ) {
       return "🔴 LIVE";
     }
 
@@ -874,17 +1081,18 @@ if (isPointsAllowed) {
     this.box.innerHTML = `
       <div class="moneyline-loading">
 
-        <div class="moneyline-spinner"></div>
+        <div class="moneyline-spinner">
+        </div>
 
         <h3>
           Calculating NFL moneyline picks...
         </h3>
 
-       <p>
-         Comparing passing, rushing,
-         receiving, defense, average points
-         scored and average points allowed.
-       </p>
+        <p>
+          Ranking all NFL teams in passing,
+          rushing, receiving, defense and
+          average points per game.
+        </p>
 
       </div>
     `;
@@ -903,7 +1111,9 @@ if (isPointsAllowed) {
         </h3>
 
         <p>
-          ${this.escapeHTML(message)}
+          ${this.escapeHTML(
+            message
+          )}
         </p>
 
         <button
@@ -936,13 +1146,18 @@ if (isPointsAllowed) {
   */
 
   getAverageConfidence() {
-    if (!this.matchups.length) {
+    if (
+      !this.matchups.length
+    ) {
       return 0;
     }
 
     const total =
       this.matchups.reduce(
-        (sum, matchup) =>
+        (
+          sum,
+          matchup
+        ) =>
           sum +
           this.number(
             matchup.result
@@ -957,15 +1172,24 @@ if (isPointsAllowed) {
     );
   },
 
-  number(value, fallback = 0) {
-    const parsed = Number(value);
+  number(
+    value,
+    fallback = 0
+  ) {
+    const parsed =
+      Number(value);
 
-    return Number.isFinite(parsed)
+    return Number.isFinite(
+      parsed
+    )
       ? parsed
       : fallback;
   },
 
-  round(value, decimals = 0) {
+  round(
+    value,
+    decimals = 0
+  ) {
     const multiplier =
       10 ** decimals;
 
@@ -992,12 +1216,29 @@ if (isPointsAllowed) {
   },
 
   escapeHTML(value) {
-    return String(value ?? "")
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
+    return String(
+      value ?? ""
+    )
+      .replace(
+        /&/g,
+        "&amp;"
+      )
+      .replace(
+        /</g,
+        "&lt;"
+      )
+      .replace(
+        />/g,
+        "&gt;"
+      )
+      .replace(
+        /"/g,
+        "&quot;"
+      )
+      .replace(
+        /'/g,
+        "&#039;"
+      );
   }
 };
 
