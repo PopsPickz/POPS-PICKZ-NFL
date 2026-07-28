@@ -1979,6 +1979,12 @@ async function build() {
      await loadSeasonSchedule(
       season
     );
+
+    const headToHeadHistory =
+     await loadHeadToHeadHistory(
+       season,
+       schedule
+     );    
     
     const statisticsSeason =
       getStatisticsSeason(season);
