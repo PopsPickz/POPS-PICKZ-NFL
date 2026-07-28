@@ -1063,3 +1063,128 @@ ON DESKTOP, TABLET, AND MOBILE.
     font-size: 7px;
   }
 }
+
+
+/* =====================================================
+   FIX OVERSIZED H2H LOGOS
+===================================================== */
+
+.moneyline-h2h {
+  margin: 12px 18px 4px;
+  overflow: hidden;
+}
+
+.moneyline-h2h-game {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr)
+    auto
+    minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+  padding: 14px;
+}
+
+.moneyline-h2h-team {
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr);
+  gap: 6px 8px;
+  align-items: center;
+  min-width: 0;
+}
+
+.moneyline-h2h-team:last-child {
+  grid-template-columns:
+    minmax(0, 1fr)
+    36px;
+  text-align: right;
+}
+
+.moneyline-h2h-logo-wrap {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  min-height: 36px;
+  overflow: hidden;
+}
+
+.moneyline-h2h-logo {
+  display: block !important;
+  width: 32px !important;
+  height: 32px !important;
+  max-width: 32px !important;
+  max-height: 32px !important;
+  object-fit: contain !important;
+}
+
+.moneyline-h2h-score {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.moneyline-h2h-team-name {
+  font-size: 11px;
+  line-height: 1.2;
+}
+
+/* PHONE FIX */
+
+@media (max-width: 650px) {
+  .moneyline-h2h {
+    margin: 10px 6px 3px;
+  }
+
+  .moneyline-h2h-game {
+    grid-template-columns:
+      minmax(0, 1fr)
+      68px
+      minmax(0, 1fr);
+    gap: 5px;
+    padding: 10px 7px;
+  }
+
+  .moneyline-h2h-team {
+    grid-template-columns:
+      28px
+      minmax(0, 1fr);
+    gap: 3px 5px;
+  }
+
+  .moneyline-h2h-team:last-child {
+    grid-template-columns:
+      minmax(0, 1fr)
+      28px;
+  }
+
+  .moneyline-h2h-logo-wrap {
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    min-height: 28px;
+  }
+
+  .moneyline-h2h-logo {
+    width: 25px !important;
+    height: 25px !important;
+    max-width: 25px !important;
+    max-height: 25px !important;
+  }
+
+  .moneyline-h2h-score {
+    font-size: 20px;
+  }
+
+  .moneyline-h2h-team-name {
+    font-size: 8px;
+  }
+
+  .moneyline-h2h-details strong {
+    font-size: 8px;
+  }
+
+  .moneyline-h2h-details span {
+    font-size: 7px;
+  }
+}
