@@ -2,34 +2,36 @@
 =========================================================
 POPS PICKZ NFL — TOUCHDOWN SCORER FORMULA
 File: td-formula.js
-Version: 1.0
+Version: 2.0
 =========================================================
 
 POPS TD SCORE — 100 POINTS
 
-1. Team scoring environment      18
-2. Red-zone usage               20
-3. Goal-line usage              18
-4. Touches and targets          14
-5. Opponent matchup             12
-6. Snap share                    6
-7. Recent touchdown form         7
-8. Home-field bonus              2
-9. Position scoring profile      3
+1. Team scoring environment      16
+2. Red-zone usage                20
+3. Goal-line usage               20
+4. Touches and targets           12
+5. Opponent matchup              10
+6. Snap share                     6
+7. Recent touchdown form          6
+8. Touchdown scoring rate         7
+9. Home-field bonus               1
+10. Position scoring profile      2
 =========================================================
 */
 
 const NFLTouchdownFormula = {
   weights: {
-    teamScoring: 18,
+    teamScoring: 16,
     redZoneUsage: 20,
-    goalLineUsage: 18,
-    opportunity: 14,
-    opponentMatchup: 12,
+    goalLineUsage: 20,
+    opportunity: 12,
+    opponentMatchup: 10,
     snapShare: 6,
-    recentForm: 7,
-    homeField: 2,
-    positionProfile: 3
+    recentForm: 6,
+    touchdownRate: 7,
+    homeField: 1,
+    positionProfile: 2
   },
 
   /*
@@ -46,11 +48,26 @@ const NFLTouchdownFormula = {
       : fallback;
   },
 
-  clamp(
-    value,
-    minimum = 0,
-    maximum = 100
-  ) {
+  hasNumber(value) {
+    return (
+      value !== null &&
+      value !== undefined &&
+      value !== "" &&
+      Number.isFinite(Number(value))
+    );
+  },
+
+  firstNumber(values = [], fallback = 0) {
+    for (const value of values) {
+      if (this.hasNumber(value)) {
+        return Number(value);
+      }
+    }
+
+    return fallback;
+  },
+
+  clamp(value, minimum = 0, maximum = 100) {
     return Math.min(
       maximum,
       Math.max(
@@ -110,28 +127,86 @@ const NFLTouchdownFormula = {
     return this.clamp(score);
   },
 
+  percentage(value, fallback = 0) {
+    let percentage =
+      this.number(value, fallback);
+
+    if (
+      percentage > 0 &&
+      percentage <= 1
+    ) {
+      percentage *= 100;
+    }
+
+    return this.clamp(
+      percentage,
+      0,
+      100
+    );
+  },
+
+  gamesPlayed(player = {}) {
+    return Math.max(
+      1,
+      this.firstNumber(
+        [
+          player.gamesPlayed,
+          player.games,
+          player.teamGamesPlayed
+        ],
+        1
+      )
+    );
+  },
+
+  perGame(
+    perGameValue,
+    totalValue,
+    gamesPlayed,
+    fallback = 0
+  ) {
+    if (this.hasNumber(perGameValue)) {
+      return Math.max(
+        0,
+        Number(perGameValue)
+      );
+    }
+
+    if (this.hasNumber(totalValue)) {
+      return Math.max(
+        0,
+        Number(totalValue) /
+        Math.max(1, gamesPlayed)
+      );
+    }
+
+    return fallback;
+  },
+
   position(player = {}) {
     return String(
       player.position || ""
-    ).toUpperCase();
+    )
+      .trim()
+      .toUpperCase();
   },
 
   /*
   =======================================================
-  TEAM SCORING ENVIRONMENT — 18 POINTS
-
-  Uses projected team points when available.
-  Falls back to season points per game.
+  TEAM SCORING ENVIRONMENT — 16 POINTS
   =======================================================
   */
 
   calculateTeamScoring(player = {}) {
     const projectedPoints =
-      this.number(
-        player.projectedTeamPoints ||
-        player.teamTotal ||
-        player.impliedTeamTotal ||
-        player.teamPointsPerGame,
+      this.firstNumber(
+        [
+          player.projectedTeamPoints,
+          player.teamTotal,
+          player.impliedTeamTotal,
+          player.teamPointsPerGame,
+          player.pointsPerGame
+        ],
         21
       );
 
@@ -139,7 +214,7 @@ const NFLTouchdownFormula = {
       this.normalize(
         projectedPoints,
         14,
-        35,
+        34,
         true
       );
 
@@ -160,51 +235,68 @@ const NFLTouchdownFormula = {
   */
 
   calculateRedZoneUsage(player = {}) {
+    const gamesPlayed =
+      this.gamesPlayed(player);
+
     const redZoneCarries =
-      this.number(
-        player.redZoneCarriesPerGame ||
-        player.redZoneCarries
+      this.perGame(
+        player.redZoneCarriesPerGame,
+        player.redZoneCarries,
+        gamesPlayed,
+        0
       );
 
     const redZoneTargets =
-      this.number(
-        player.redZoneTargetsPerGame ||
-        player.redZoneTargets
+      this.perGame(
+        player.redZoneTargetsPerGame,
+        player.redZoneTargets,
+        gamesPlayed,
+        0
       );
 
+    const calculatedTouches =
+      redZoneCarries +
+      redZoneTargets;
+
     const redZoneTouches =
-      this.number(
-        player.redZoneTouchesPerGame ||
+      this.perGame(
+        player.redZoneTouchesPerGame,
         player.redZoneTouches,
-        redZoneCarries +
-        redZoneTargets
+        gamesPlayed,
+        calculatedTouches
       );
 
     const redZoneShare =
-      this.number(
-        player.redZoneOpportunityShare ||
-        player.redZoneShare
+      this.percentage(
+        this.firstNumber(
+          [
+            player.redZoneOpportunityShare,
+            player.redZoneShare,
+            player.teamRedZoneShare
+          ],
+          15
+        )
       );
 
     const touchesScore =
       this.normalize(
         redZoneTouches,
         0,
-        6,
+        5.5,
         true
       );
 
     const shareScore =
       this.normalize(
         redZoneShare,
-        0,
+        5,
         45,
         true
       );
 
     const combined =
-      touchesScore * 0.70 +
-      shareScore * 0.30;
+      touchesScore * 0.72 +
+      shareScore * 0.28;
 
     return this.round(
       combined *
@@ -218,513 +310,21 @@ const NFLTouchdownFormula = {
 
   /*
   =======================================================
-  GOAL-LINE USAGE — 18 POINTS
+  GOAL-LINE USAGE — 20 POINTS
 
-  Inside the opponent's 5-yard line.
+  Uses opportunities inside the opponent's five-yard line.
+  QB sneaks are not double-counted when already included
+  in the quarterback's goal-line carries.
   =======================================================
   */
 
   calculateGoalLineUsage(player = {}) {
+    const position =
+      this.position(player);
+
+    const gamesPlayed =
+      this.gamesPlayed(player);
+
     const goalLineCarries =
-      this.number(
-        player.goalLineCarriesPerGame ||
-        player.goalLineCarries ||
-        player.insideFiveCarriesPerGame ||
-        player.insideFiveCarries
-      );
-
-    const endZoneTargets =
-      this.number(
-        player.endZoneTargetsPerGame ||
-        player.endZoneTargets
-      );
-
-    const qbSneaks =
-      this.number(
-        player.qbSneaksPerGame ||
-        player.qbSneaks
-      );
-
-    const totalOpportunities =
-      goalLineCarries +
-      endZoneTargets +
-      qbSneaks;
-
-    const normalized =
-      this.normalize(
-        totalOpportunities,
-        0,
-        3,
-        true
-      );
-
-    return this.round(
-      normalized *
-      (
-        this.weights.goalLineUsage /
-        100
-      ),
-      1
-    );
-  },
-
-  /*
-  =======================================================
-  TOUCHES AND TARGETS — 14 POINTS
-  =======================================================
-  */
-
-  calculateOpportunity(player = {}) {
-    const position =
-      this.position(player);
-
-    const carries =
-      this.number(
-        player.carriesPerGame ||
-        player.rushingAttemptsPerGame
-      );
-
-    const targets =
-      this.number(
-        player.targetsPerGame
-      );
-
-    const receptions =
-      this.number(
-        player.receptionsPerGame
-      );
-
-    const designedRuns =
-      this.number(
-        player.designedRunsPerGame ||
-        player.qbDesignedRunsPerGame
-      );
-
-    let normalized = 0;
-
-    if (position === "RB") {
-      normalized =
-        this.normalize(
-          carries + targets,
-          5,
-          25,
-          true
-        );
-    } else if (
-      position === "WR" ||
-      position === "TE"
-    ) {
-      normalized =
-        this.normalize(
-          targets + receptions * 0.35,
-          2,
-          14,
-          true
-        );
-    } else if (position === "QB") {
-      normalized =
-        this.normalize(
-          designedRuns,
-          0,
-          8,
-          true
-        );
-    } else {
-      normalized =
-        this.normalize(
-          carries + targets,
-          1,
-          18,
-          true
-        );
-    }
-
-    return this.round(
-      normalized *
-      (
-        this.weights.opportunity /
-        100
-      ),
-      1
-    );
-  },
-
-  /*
-  =======================================================
-  OPPONENT MATCHUP — 12 POINTS
-
-  Higher defensive TD allowance is better for the player.
-  =======================================================
-  */
-
-  calculateOpponentMatchup(player = {}) {
-    const position =
-      this.position(player);
-
-    let touchdownsAllowed =
-      this.number(
-        player.opponentTouchdownsAllowedPerGame ||
-        player.opponentTotalTouchdownsAllowedPerGame
-      );
-
-    if (position === "RB") {
-      touchdownsAllowed =
-        this.number(
-          player.opponentRBTDsAllowedPerGame,
-          touchdownsAllowed
-        );
-    }
-
-    if (position === "WR") {
-      touchdownsAllowed =
-        this.number(
-          player.opponentWRTDsAllowedPerGame,
-          touchdownsAllowed
-        );
-    }
-
-    if (position === "TE") {
-      touchdownsAllowed =
-        this.number(
-          player.opponentTETDsAllowedPerGame,
-          touchdownsAllowed
-        );
-    }
-
-    if (position === "QB") {
-      touchdownsAllowed =
-        this.number(
-          player.opponentQBRushingTDsAllowedPerGame,
-          touchdownsAllowed
-        );
-    }
-
-    const normalized =
-      this.normalize(
-        touchdownsAllowed,
-        0.3,
-        2.2,
-        true
-      );
-
-    return this.round(
-      normalized *
-      (
-        this.weights.opponentMatchup /
-        100
-      ),
-      1
-    );
-  },
-
-  /*
-  =======================================================
-  SNAP SHARE — 6 POINTS
-  =======================================================
-  */
-
-  calculateSnapShare(player = {}) {
-    const snapShare =
-      this.number(
-        player.snapShare ||
-        player.snapPercentage ||
-        player.offensiveSnapPercentage
-      );
-
-    const normalized =
-      this.normalize(
-        snapShare,
-        25,
-        95,
-        true
-      );
-
-    return this.round(
-      normalized *
-      (
-        this.weights.snapShare /
-        100
-      ),
-      1
-    );
-  },
-
-  /*
-  =======================================================
-  RECENT TOUCHDOWN FORM — 7 POINTS
-  =======================================================
-  */
-
-  calculateRecentForm(player = {}) {
-    const recentTouchdowns =
-      this.number(
-        player.touchdownsLast5 ||
-        player.recentTouchdowns ||
-        player.lastFiveTouchdowns
-      );
-
-    const recentRedZoneTouches =
-      this.number(
-        player.redZoneTouchesLast5
-      );
-
-    const touchdownScore =
-      this.normalize(
-        recentTouchdowns,
-        0,
-        5,
-        true
-      );
-
-    const usageScore =
-      this.normalize(
-        recentRedZoneTouches,
-        0,
-        20,
-        true
-      );
-
-    const combined =
-      touchdownScore * 0.75 +
-      usageScore * 0.25;
-
-    return this.round(
-      combined *
-      (
-        this.weights.recentForm /
-        100
-      ),
-      1
-    );
-  },
-
-  /*
-  =======================================================
-  HOME-FIELD BONUS — 2 POINTS
-  =======================================================
-  */
-
-  calculateHomeField(player = {}) {
-    return player.isHome === true
-      ? this.weights.homeField
-      : 0;
-  },
-
-  /*
-  =======================================================
-  POSITION PROFILE — 3 POINTS
-  =======================================================
-  */
-
-  calculatePositionProfile(player = {}) {
-    const position =
-      this.position(player);
-
-    const bonuses = {
-      RB: 3,
-      TE: 2.4,
-      WR: 2.2,
-      QB: 1.8
-    };
-
-    return this.number(
-      bonuses[position],
-      1
-    );
-  },
-
-  /*
-  =======================================================
-  ESTIMATED TOUCHDOWN PROBABILITY
-  =======================================================
-  */
-
-  calculateProbability(score) {
-    const normalizedScore =
-      this.clamp(score);
-
-    /*
-    Converts the POPS score into a readable estimated
-    touchdown probability.
-
-    This is a model estimate, not sportsbook odds.
-    */
-
-    const probability =
-      8 +
-      normalizedScore * 0.68;
-
-    return this.round(
-      this.clamp(
-        probability,
-        8,
-        76
-      )
-    );
-  },
-
-  /*
-  =======================================================
-  SCORE TIER
-  =======================================================
-  */
-
-  getTier(score) {
-    if (score >= 90) {
-      return {
-        label: "Elite TD Pick",
-        icon: "⭐",
-        className: "elite"
-      };
-    }
-
-    if (score >= 82) {
-      return {
-        label: "Excellent TD Pick",
-        icon: "🔥",
-        className: "excellent"
-      };
-    }
-
-    if (score >= 74) {
-      return {
-        label: "Strong TD Pick",
-        icon: "✅",
-        className: "strong"
-      };
-    }
-
-    if (score >= 66) {
-      return {
-        label: "Good TD Value",
-        icon: "👍",
-        className: "good"
-      };
-    }
-
-    if (score >= 58) {
-      return {
-        label: "TD Sleeper",
-        icon: "⚠️",
-        className: "sleeper"
-      };
-    }
-
-    return {
-      label: "Pass",
-      icon: "❌",
-      className: "pass"
-    };
-  },
-
-  /*
-  =======================================================
-  EVALUATE PLAYER
-  =======================================================
-  */
-
-  evaluatePlayer(player = {}) {
-    const breakdown = {
-      teamScoring:
-        this.calculateTeamScoring(
-          player
-        ),
-
-      redZoneUsage:
-        this.calculateRedZoneUsage(
-          player
-        ),
-
-      goalLineUsage:
-        this.calculateGoalLineUsage(
-          player
-        ),
-
-      opportunity:
-        this.calculateOpportunity(
-          player
-        ),
-
-      opponentMatchup:
-        this.calculateOpponentMatchup(
-          player
-        ),
-
-      snapShare:
-        this.calculateSnapShare(
-          player
-        ),
-
-      recentForm:
-        this.calculateRecentForm(
-          player
-        ),
-
-      homeField:
-        this.calculateHomeField(
-          player
-        ),
-
-      positionProfile:
-        this.calculatePositionProfile(
-          player
-        )
-    };
-
-    const score =
-      this.round(
-        Object.values(
-          breakdown
-        ).reduce(
-          (sum, value) =>
-            sum +
-            this.number(value),
-          0
-        )
-      );
-
-    const tier =
-      this.getTier(score);
-
-    const probability =
-      this.calculateProbability(
-        score
-      );
-
-    return {
-      ...player,
-
-      score:
-        this.clamp(score),
-
-      probability,
-
-      tier,
-
-      breakdown
-    };
-  },
-
-  /*
-  =======================================================
-  RANK PLAYERS
-  =======================================================
-  */
-
-  rankPlayers(players = []) {
-    return players
-      .map(player =>
-        this.evaluatePlayer(player)
-      )
-      .sort(
-        (first, second) =>
-          second.score -
-          first.score ||
-          second.probability -
-          first.probability
-      );
-  }
-};
-
-window.NFLTouchdownFormula =
-  NFLTouchdownFormula;
+      this.perGame(
+        this.firstNumber(
