@@ -1211,6 +1211,13 @@ const NFLMoneylineData = {
             home:
               game.home,
 
+            headToHead:
+             game.headToHead || {
+              found: false,
+              games: [],
+              meetingCount: 0
+          },
+            
             awayTeamData:
               this.connectGameTeam(
                 game.away,
