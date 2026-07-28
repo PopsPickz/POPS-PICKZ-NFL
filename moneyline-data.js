@@ -2,15 +2,34 @@
 =========================================================
 POPS PICKZ NFL — AUTOMATIC MONEYLINE DATA
 File: moneyline-data.js
+Version: 2.0 — TEAM RANKINGS
 =========================================================
 
-Loads:
+LOADS
 
 - data/upcoming-games.json
 - data/team-stats.json
 
-Then connects every official upcoming matchup to the
-team statistics used by moneyline-formula.js.
+AUTOMATIC RANKINGS
+
+- Passing rank
+- Rushing rank
+- Receiving rank
+- Defense rank
+- Average points per game rank
+
+RANKING RULES
+
+- Passing: Higher passing yards per game is better
+- Rushing: Higher rushing yards per game is better
+- Receiving: Higher receiving yards per game is better
+- Defense: Lower points allowed per game is better
+- Points/Game: Higher points per game is better
+
+All rankings are calculated using every team available
+inside data/team-stats.json.
+
+Rank No. 1 is the best ranking.
 =========================================================
 */
 
@@ -48,6 +67,12 @@ const NFLMoneylineData = {
     return response.json();
   },
 
+  /*
+  =======================================================
+  GENERAL HELPERS
+  =======================================================
+  */
+
   number(value, fallback = 0) {
     const parsed = Number(value);
 
@@ -57,14 +82,29 @@ const NFLMoneylineData = {
   },
 
   divide(value, divisor, fallback = 0) {
-    const top = this.number(value);
-    const bottom = this.number(divisor);
+    const top =
+      this.number(value);
+
+    const bottom =
+      this.number(divisor);
 
     if (bottom <= 0) {
       return fallback;
     }
 
     return top / bottom;
+  },
+
+  round(value, decimals = 1) {
+    const multiplier =
+      10 ** decimals;
+
+    return (
+      Math.round(
+        this.number(value) *
+        multiplier
+      ) / multiplier
+    );
   },
 
   normalizeKey(value) {
@@ -84,7 +124,9 @@ const NFLMoneylineData = {
         this.normalizeKey(alias);
 
       if (
-        statistics[key] !== undefined
+        statistics[key] !== undefined &&
+        statistics[key] !== null &&
+        statistics[key] !== ""
       ) {
         return this.number(
           statistics[key],
@@ -107,11 +149,13 @@ const NFLMoneylineData = {
       return this.cache.schedule;
     }
 
-    const data = await this.fetchJSON(
-      "data/upcoming-games.json"
-    );
+    const data =
+      await this.fetchJSON(
+        "data/upcoming-games.json"
+      );
 
-    this.cache.schedule = data;
+    this.cache.schedule =
+      data;
 
     return data;
   },
@@ -121,11 +165,13 @@ const NFLMoneylineData = {
       return this.cache.teamStats;
     }
 
-    const data = await this.fetchJSON(
-      "data/team-stats.json"
-    );
+    const data =
+      await this.fetchJSON(
+        "data/team-stats.json"
+      );
 
-    this.cache.teamStats = data;
+    this.cache.teamStats =
+      data;
 
     return data;
   },
@@ -154,37 +200,72 @@ const NFLMoneylineData = {
         17
       ) || 17;
 
-const totalPointsScored =
-  this.findStat(
-    stats,
-    [
-      "pointsFor",
-      "pointsScored",
-      "totalPoints",
-      "teamPoints"
-    ]
-  );
+    /*
+    =====================================================
+    SCORING
+    =====================================================
+    */
 
+    const totalPointsScored =
+      this.findStat(
+        stats,
+        [
+          "pointsFor",
+          "pointsScored",
+          "totalPoints",
+          "teamPoints"
+        ]
+      );
 
+    const pointsPerGame =
+      this.findStat(
+        stats,
+        [
+          "pointsPerGame",
+          "pointsScoredPerGame",
+          "teamPointsPerGame",
+          "scoringAverage"
+        ],
+        this.divide(
+          totalPointsScored,
+          gamesPlayed,
+          22
+        )
+      );
 
-const pointsPerGame =
-  this.findStat(
-    stats,
-    [
-      "pointsPerGame",
-      "pointsScoredPerGame",
-      "teamPointsPerGame",
-      "scoringAverage"
-    ],
-    this.divide(
-      totalPointsScored,
-      gamesPlayed,
-      22
-    )
-  );
+    const totalPointsAllowed =
+      this.findStat(
+        stats,
+        [
+          "pointsAgainst",
+          "pointsAllowed",
+          "totalPointsAllowed",
+          "opponentPoints"
+        ]
+      );
 
+    const pointsAllowedPerGame =
+      this.findStat(
+        stats,
+        [
+          "pointsAllowedPerGame",
+          "opponentPointsPerGame",
+          "averagePointsAllowed",
+          "pointsAgainstPerGame"
+        ],
+        this.divide(
+          totalPointsAllowed,
+          gamesPlayed,
+          22
+        )
+      );
 
-    
+    /*
+    =====================================================
+    PASSING
+    =====================================================
+    */
+
     const passingAttempts =
       this.findStat(
         stats,
@@ -209,7 +290,8 @@ const pointsPerGame =
         stats,
         [
           "passingYards",
-          "netPassingYards"
+          "netPassingYards",
+          "teamPassingYards"
         ]
       );
 
@@ -233,6 +315,12 @@ const pointsPerGame =
         ]
       );
 
+    /*
+    =====================================================
+    RUSHING
+    =====================================================
+    */
+
     const rushingAttempts =
       this.findStat(
         stats,
@@ -247,7 +335,8 @@ const pointsPerGame =
         stats,
         [
           "rushingYards",
-          "rushYards"
+          "rushYards",
+          "teamRushingYards"
         ]
       );
 
@@ -256,9 +345,16 @@ const pointsPerGame =
         stats,
         [
           "rushingTouchdowns",
-          "rushingTDs"
+          "rushingTDs",
+          "rushTouchdowns"
         ]
       );
+
+    /*
+    =====================================================
+    RECEIVING
+    =====================================================
+    */
 
     const receptions =
       this.findStat(
@@ -290,7 +386,11 @@ const pointsPerGame =
         passingTouchdowns
       );
 
-    
+    /*
+    =====================================================
+    RETURN COMPLETE TEAM DATA
+    =====================================================
+    */
 
     return {
       teamId:
@@ -303,11 +403,13 @@ const pointsPerGame =
       teamName:
         gameTeam.teamName ||
         storedTeam.teamName ||
+        storedTeam.name ||
         "NFL Team",
 
       abbreviation:
         gameTeam.abbreviation ||
         storedTeam.abbreviation ||
+        storedTeam.abbrev ||
         "NFL",
 
       logo:
@@ -316,7 +418,17 @@ const pointsPerGame =
         "",
 
       isHome:
-        Boolean(gameTeam.isHome),
+        Boolean(
+          gameTeam.isHome
+        ),
+
+      gamesPlayed,
+
+      /*
+      ===================================================
+      PASSING DATA
+      ===================================================
+      */
 
       passing: {
         passingYardsPerGame:
@@ -367,6 +479,12 @@ const pointsPerGame =
           )
       },
 
+      /*
+      ===================================================
+      RUSHING DATA
+      ===================================================
+      */
+
       rushing: {
         rushingYardsPerGame:
           this.divide(
@@ -412,6 +530,12 @@ const pointsPerGame =
             10
           )
       },
+
+      /*
+      ===================================================
+      RECEIVING DATA
+      ===================================================
+      */
 
       receiving: {
         receivingYardsPerGame:
@@ -464,17 +588,14 @@ const pointsPerGame =
           )
       },
 
+      /*
+      ===================================================
+      DEFENSE DATA
+      ===================================================
+      */
+
       defense: {
-        pointsAllowedPerGame:
-         this.findStat(
-          stats,
-       [
-        "pointsAllowedPerGame",
-        "opponentPointsPerGame",
-        "averagePointsAllowed"
-      ],
-      22
-    ),
+        pointsAllowedPerGame,
 
         totalYardsAllowedPerGame:
           this.findStat(
@@ -544,9 +665,374 @@ const pointsPerGame =
           )
       },
 
+      /*
+      ===================================================
+      SCORING DATA
+      ===================================================
+      */
+
       scoring: {
         pointsPerGame,
+        pointsAllowedPerGame
       }
+    };
+  },
+
+  /*
+  =======================================================
+  CREATE ONE CATEGORY RANKING
+
+  The same statistical value receives the same rank.
+
+  Example:
+
+  Team A: 300 yards = Rank 1
+  Team B: 290 yards = Rank 2
+  Team C: 290 yards = Rank 2
+  Team D: 275 yards = Rank 4
+  =======================================================
+  */
+
+  createCategoryRankings(
+    teams = [],
+    valueGetter,
+    higherIsBetter = true
+  ) {
+    const validTeams =
+      Array.isArray(teams)
+        ? teams.filter(
+            team =>
+              team &&
+              String(
+                team.teamId || ""
+              )
+          )
+        : [];
+
+    const sortedTeams =
+      [...validTeams].sort(
+        (first, second) => {
+          const firstValue =
+            this.number(
+              valueGetter(first)
+            );
+
+          const secondValue =
+            this.number(
+              valueGetter(second)
+            );
+
+          if (higherIsBetter) {
+            return (
+              secondValue -
+              firstValue
+            );
+          }
+
+          return (
+            firstValue -
+            secondValue
+          );
+        }
+      );
+
+    const rankings =
+      new Map();
+
+    let previousValue =
+      null;
+
+    let previousRank =
+      0;
+
+    sortedTeams.forEach(
+      (team, index) => {
+        const value =
+          this.round(
+            valueGetter(team),
+            4
+          );
+
+        let rank =
+          index + 1;
+
+        if (
+          previousValue !== null &&
+          Math.abs(
+            value -
+            previousValue
+          ) < 0.0001
+        ) {
+          rank =
+            previousRank;
+        }
+
+        rankings.set(
+          String(team.teamId),
+          {
+            rank,
+            value
+          }
+        );
+
+        previousValue =
+          value;
+
+        previousRank =
+          rank;
+      }
+    );
+
+    return rankings;
+  },
+
+  /*
+  =======================================================
+  BUILD ALL NFL TEAM RANKINGS
+  =======================================================
+  */
+
+  buildRankedTeams(storedTeams = []) {
+    const formulaTeams =
+      storedTeams
+        .map(team =>
+          this.buildFormulaTeamData(
+            {
+              teamId:
+                team.teamId,
+
+              teamName:
+                team.teamName ||
+                team.name,
+
+              abbreviation:
+                team.abbreviation ||
+                team.abbrev,
+
+              logo:
+                team.logo,
+
+              isHome: false
+            },
+            team
+          )
+        )
+        .filter(
+          team =>
+            String(
+              team.teamId || ""
+            )
+        );
+
+    /*
+    Passing rank:
+    Higher passing yards per game is better.
+    */
+
+    const passingRankings =
+      this.createCategoryRankings(
+        formulaTeams,
+        team =>
+          team.passing
+            ?.passingYardsPerGame,
+        true
+      );
+
+    /*
+    Rushing rank:
+    Higher rushing yards per game is better.
+    */
+
+    const rushingRankings =
+      this.createCategoryRankings(
+        formulaTeams,
+        team =>
+          team.rushing
+            ?.rushingYardsPerGame,
+        true
+      );
+
+    /*
+    Receiving rank:
+    Higher receiving yards per game is better.
+    */
+
+    const receivingRankings =
+      this.createCategoryRankings(
+        formulaTeams,
+        team =>
+          team.receiving
+            ?.receivingYardsPerGame,
+        true
+      );
+
+    /*
+    Defense rank:
+    Lower points allowed per game is better.
+    */
+
+    const defenseRankings =
+      this.createCategoryRankings(
+        formulaTeams,
+        team =>
+          team.defense
+            ?.pointsAllowedPerGame,
+        false
+      );
+
+    /*
+    Average points per game rank:
+    Higher points scored per game is better.
+    */
+
+    const pointsPerGameRankings =
+      this.createCategoryRankings(
+        formulaTeams,
+        team =>
+          team.scoring
+            ?.pointsPerGame,
+        true
+      );
+
+    return formulaTeams.map(
+      team => {
+        const teamId =
+          String(team.teamId);
+
+        const passing =
+          passingRankings.get(
+            teamId
+          ) || {
+            rank: 32,
+            value: 0
+          };
+
+        const rushing =
+          rushingRankings.get(
+            teamId
+          ) || {
+            rank: 32,
+            value: 0
+          };
+
+        const receiving =
+          receivingRankings.get(
+            teamId
+          ) || {
+            rank: 32,
+            value: 0
+          };
+
+        const defense =
+          defenseRankings.get(
+            teamId
+          ) || {
+            rank: 32,
+            value: 0
+          };
+
+        const pointsPerGame =
+          pointsPerGameRankings.get(
+            teamId
+          ) || {
+            rank: 32,
+            value: 0
+          };
+
+        return {
+          ...team,
+
+          rankings: {
+            passing:
+              passing.rank,
+
+            rushing:
+              rushing.rank,
+
+            receiving:
+              receiving.rank,
+
+            defense:
+              defense.rank,
+
+            pointsPerGame:
+              pointsPerGame.rank
+          },
+
+          rankingValues: {
+            passing:
+              this.round(
+                passing.value,
+                1
+              ),
+
+            rushing:
+              this.round(
+                rushing.value,
+                1
+              ),
+
+            receiving:
+              this.round(
+                receiving.value,
+                1
+              ),
+
+            defense:
+              this.round(
+                defense.value,
+                1
+              ),
+
+            pointsPerGame:
+              this.round(
+                pointsPerGame.value,
+                1
+              )
+          }
+        };
+      }
+    );
+  },
+
+  /*
+  =======================================================
+  CONNECT RANKED TEAM TO GAME TEAM
+  =======================================================
+  */
+
+  connectGameTeam(
+    gameTeam = {},
+    rankedTeam = {},
+    isHome = false
+  ) {
+    return {
+      ...rankedTeam,
+
+      teamId:
+        String(
+          gameTeam.teamId ||
+          rankedTeam.teamId ||
+          ""
+        ),
+
+      teamName:
+        gameTeam.teamName ||
+        rankedTeam.teamName ||
+        "NFL Team",
+
+      abbreviation:
+        gameTeam.abbreviation ||
+        rankedTeam.abbreviation ||
+        "NFL",
+
+      logo:
+        gameTeam.logo ||
+        rankedTeam.logo ||
+        "",
+
+      isHome:
+        Boolean(isHome)
     };
   },
 
@@ -566,101 +1052,189 @@ const pointsPerGame =
     ]);
 
     const games =
-      Array.isArray(scheduleData.games)
+      Array.isArray(
+        scheduleData.games
+      )
         ? scheduleData.games
         : [];
 
     const storedTeams =
-      Array.isArray(teamStatsData.teams)
+      Array.isArray(
+        teamStatsData.teams
+      )
         ? teamStatsData.teams
         : [];
 
-    const statsByTeamId =
-      new Map(
-        storedTeams.map(team => [
-          String(team.teamId),
-          team
-        ])
+    if (!storedTeams.length) {
+      throw new Error(
+        "No NFL team statistics were found."
+      );
+    }
+
+    /*
+    Rankings are calculated using every team in
+    team-stats.json, not only teams playing today.
+    */
+
+    const rankedTeams =
+      this.buildRankedTeams(
+        storedTeams
       );
 
-    const matchups = games
-      .map(game => {
-        const awayStored =
-          statsByTeamId.get(
-            String(game.away?.teamId)
-          );
-
-        const homeStored =
-          statsByTeamId.get(
-            String(game.home?.teamId)
-          );
-
-        if (
-          !awayStored ||
-          !homeStored
-        ) {
-          console.warn(
-            "POPS NFL missing team stats:",
-            game.name
-          );
-
-          return null;
-        }
-
-        return {
-          gameId: game.gameId,
-          name: game.name,
-          shortName: game.shortName,
-
-          week:
-            game.week ||
-            scheduleData.week,
-
-          season:
-            game.season ||
-            scheduleData.season,
-
-          startTime:
-            game.startTime ||
-            new Date(game.date).getTime(),
-
-          date: game.date,
-
-          state: game.state,
-          completed: game.completed,
-          statusText: game.status,
-
-          away: game.away,
-          home: game.home,
-
-          awayTeamData:
-            this.buildFormulaTeamData(
-              {
-                ...game.away,
-                isHome: false
-              },
-              awayStored
-            ),
-
-          homeTeamData:
-            this.buildFormulaTeamData(
-              {
-                ...game.home,
-                isHome: true
-              },
-              homeStored
-            )
-        };
-      })
-      .filter(Boolean);
+    const rankedTeamsById =
+      new Map(
+        rankedTeams.map(
+          team => [
+            String(team.teamId),
+            team
+          ]
+        )
+      );
 
     console.log(
-      `POPS NFL loaded ${matchups.length} moneyline matchups.`
+      `POPS NFL ranked ${rankedTeams.length} teams.`
+    );
+
+    /*
+    Optional ranking table for testing in the
+    browser console.
+    */
+
+    console.table(
+      rankedTeams
+        .map(team => ({
+          team:
+            team.abbreviation,
+
+          passing:
+            team.rankings
+              ?.passing,
+
+          rushing:
+            team.rankings
+              ?.rushing,
+
+          receiving:
+            team.rankings
+              ?.receiving,
+
+          defense:
+            team.rankings
+              ?.defense,
+
+          pointsPerGame:
+            team.rankings
+              ?.pointsPerGame
+        }))
+        .sort(
+          (first, second) =>
+            first.passing -
+            second.passing
+        )
+    );
+
+    const matchups =
+      games
+        .map(game => {
+          const awayRanked =
+            rankedTeamsById.get(
+              String(
+                game.away?.teamId
+              )
+            );
+
+          const homeRanked =
+            rankedTeamsById.get(
+              String(
+                game.home?.teamId
+              )
+            );
+
+          if (
+            !awayRanked ||
+            !homeRanked
+          ) {
+            console.warn(
+              "POPS NFL missing ranked team stats:",
+              game.name,
+              {
+                awayTeamId:
+                  game.away?.teamId,
+
+                homeTeamId:
+                  game.home?.teamId
+              }
+            );
+
+            return null;
+          }
+
+          return {
+            gameId:
+              game.gameId,
+
+            name:
+              game.name,
+
+            shortName:
+              game.shortName,
+
+            week:
+              game.week ||
+              scheduleData.week,
+
+            season:
+              game.season ||
+              scheduleData.season,
+
+            startTime:
+              game.startTime ||
+              new Date(
+                game.date
+              ).getTime(),
+
+            date:
+              game.date,
+
+            state:
+              game.state,
+
+            completed:
+              game.completed,
+
+            statusText:
+              game.status,
+
+            away:
+              game.away,
+
+            home:
+              game.home,
+
+            awayTeamData:
+              this.connectGameTeam(
+                game.away,
+                awayRanked,
+                false
+              ),
+
+            homeTeamData:
+              this.connectGameTeam(
+                game.home,
+                homeRanked,
+                true
+              )
+          };
+        })
+        .filter(Boolean);
+
+    console.log(
+      `POPS NFL loaded ${matchups.length} ranked moneyline matchups.`
     );
 
     if (!matchups.length) {
       throw new Error(
-        "No official NFL matchups could be connected to team statistics."
+        "No official NFL matchups could be connected to the team rankings."
       );
     }
 
@@ -674,19 +1248,27 @@ const pointsPerGame =
   */
 
   formatGameTime(timestamp) {
-    const date = new Date(timestamp);
+    const date =
+      new Date(timestamp);
 
-    if (Number.isNaN(date.getTime())) {
+    if (
+      Number.isNaN(
+        date.getTime()
+      )
+    ) {
       return "Time TBD";
     }
 
-    return date.toLocaleString([], {
-      weekday: "short",
-      month: "short",
-      day: "numeric",
-      hour: "numeric",
-      minute: "2-digit"
-    });
+    return date.toLocaleString(
+      [],
+      {
+        weekday: "short",
+        month: "short",
+        day: "numeric",
+        hour: "numeric",
+        minute: "2-digit"
+      }
+    );
   }
 };
 
