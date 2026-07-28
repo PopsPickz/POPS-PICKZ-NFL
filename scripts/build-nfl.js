@@ -2,26 +2,23 @@
 =========================================================
 POPS PICKZ NFL — MASTER DATA BUILDER
 File: scripts/build-nfl.js
-Phase 2 — Foundation
+Version: 3.0 — HEAD-TO-HEAD HISTORY
 =========================================================
 
 CURRENT OUTPUTS
 
 1. data/upcoming-games.json
 2. data/teams.json
+3. data/team-stats.json
+4. data/player-stats.json
 
-NEXT ADDITIONS
+H2H UPDATE
 
-- Team statistics
-- Player statistics
-- Rosters
-- TD projections
-- Passing projections
-- Rushing projections
-- Receiving projections
-- Moneyline predictions
-- Live tracking
-- Weekly and season records
+- Loads previous NFL seasons once per build
+- Finds the most recent completed matchup
+- Includes regular-season and postseason games
+- Ignores preseason games
+- Adds headToHead to every upcoming game
 =========================================================
 */
 
@@ -46,18 +43,22 @@ const SETTINGS = {
 
   maximumGames: 32,
 
- requestDelayMilliseconds: 100,
-  
-headToHeadSeasonsBack: 5,
-  
-playerPositions: [
-  "QB",
-  "RB",
-  "FB",
-  "WR",
-  "TE"
-]
-  
+  requestDelayMilliseconds: 100,
+
+  /*
+  Search the previous five NFL seasons for the
+  most recent completed matchup.
+  */
+
+  headToHeadSeasonsBack: 5,
+
+  playerPositions: [
+    "QB",
+    "RB",
+    "FB",
+    "WR",
+    "TE"
+  ]
 };
 
 /*
@@ -66,37 +67,42 @@ DIRECTORIES AND FILES
 =========================================================
 */
 
-const ROOT_DIRECTORY = path.resolve(
-  __dirname,
-  ".."
-);
+const ROOT_DIRECTORY =
+  path.resolve(
+    __dirname,
+    ".."
+  );
 
-const DATA_DIRECTORY = path.join(
-  ROOT_DIRECTORY,
-  "data"
-);
+const DATA_DIRECTORY =
+  path.join(
+    ROOT_DIRECTORY,
+    "data"
+  );
 
 const FILES = {
-  upcomingGames: path.join(
-    DATA_DIRECTORY,
-    "upcoming-games.json"
-  ),
+  upcomingGames:
+    path.join(
+      DATA_DIRECTORY,
+      "upcoming-games.json"
+    ),
 
-  teams: path.join(
-    DATA_DIRECTORY,
-    "teams.json"
-  ),
+  teams:
+    path.join(
+      DATA_DIRECTORY,
+      "teams.json"
+    ),
 
-  teamStats: path.join(
-  DATA_DIRECTORY,
-  "team-stats.json"
-),
+  teamStats:
+    path.join(
+      DATA_DIRECTORY,
+      "team-stats.json"
+    ),
 
-playerStats: path.join(
-  DATA_DIRECTORY,
-  "player-stats.json"
-)
-  
+  playerStats:
+    path.join(
+      DATA_DIRECTORY,
+      "player-stats.json"
+    )
 };
 
 /*
@@ -105,18 +111,26 @@ GENERAL HELPERS
 =========================================================
 */
 
-function number(value, fallback = 0) {
-  const parsed = Number(value);
+function number(
+  value,
+  fallback = 0
+) {
+  const parsed =
+    Number(value);
 
   return Number.isFinite(parsed)
     ? parsed
     : fallback;
 }
 
-function text(value, fallback = "") {
-  const cleaned = String(
-    value ?? ""
-  ).trim();
+function text(
+  value,
+  fallback = ""
+) {
+  const cleaned =
+    String(
+      value ?? ""
+    ).trim();
 
   return cleaned || fallback;
 }
@@ -133,37 +147,61 @@ function unique(values = []) {
 
 function wait(milliseconds) {
   return new Promise(resolve => {
-    setTimeout(resolve, milliseconds);
+    setTimeout(
+      resolve,
+      milliseconds
+    );
   });
 }
 
-function ensureDirectory(directoryPath) {
-  if (!fs.existsSync(directoryPath)) {
-    fs.mkdirSync(directoryPath, {
-      recursive: true
-    });
+function ensureDirectory(
+  directoryPath
+) {
+  if (
+    !fs.existsSync(
+      directoryPath
+    )
+  ) {
+    fs.mkdirSync(
+      directoryPath,
+      {
+        recursive: true
+      }
+    );
   }
 }
 
-function writeJSON(filePath, data) {
+function writeJSON(
+  filePath,
+  data
+) {
   fs.writeFileSync(
     filePath,
-    JSON.stringify(data, null, 2),
+    JSON.stringify(
+      data,
+      null,
+      2
+    ),
     "utf8"
   );
 }
 
 function getCurrentNFLSeason() {
-  const now = new Date();
-  const year = now.getFullYear();
-  const month = now.getMonth();
+  const now =
+    new Date();
+
+  const year =
+    now.getFullYear();
+
+  const month =
+    now.getMonth();
 
   /*
-  January and February are part of the NFL season
-  that began during the previous calendar year.
+  January and February belong to the NFL season
+  that began in the previous calendar year.
 
-  From March forward, prepare for the upcoming season
-  named for the current calendar year.
+  From March forward, use the current calendar year
+  as the upcoming NFL season.
   */
 
   return month <= 1
@@ -172,9 +210,12 @@ function getCurrentNFLSeason() {
 }
 
 function safeDate(value) {
-  const date = new Date(value);
+  const date =
+    new Date(value);
 
-  return Number.isNaN(date.getTime())
+  return Number.isNaN(
+    date.getTime()
+  )
     ? null
     : date;
 }
@@ -189,23 +230,33 @@ async function fetchJSON(
   url,
   options = {}
 ) {
-  const response = await fetch(url, {
-    cache: "no-store",
+  const response =
+    await fetch(
+      url,
+      {
+        cache: "no-store",
 
-    headers: {
-      Accept: "application/json",
+        headers: {
+          Accept:
+            "application/json",
 
-      "User-Agent":
-        "POPS-PICKZ-NFL/2.0",
+          "User-Agent":
+            "POPS-PICKZ-NFL/3.0",
 
-      ...(options.headers || {})
-    }
-  });
+          ...(
+            options.headers ||
+            {}
+          )
+        }
+      }
+    );
 
   if (!response.ok) {
     throw new Error(
-      `Request failed: ${response.status} ` +
-      `${response.statusText} — ${url}`
+      `Request failed: ` +
+      `${response.status} ` +
+      `${response.statusText} — ` +
+      `${url}`
     );
   }
 
@@ -218,61 +269,99 @@ TEAM NORMALIZATION
 =========================================================
 */
 
-function normalizeTeamRecord(team = {}) {
-  const logos = Array.isArray(team.logos)
-    ? team.logos
-    : [];
+function normalizeTeamRecord(
+  team = {}
+) {
+  const logos =
+    Array.isArray(
+      team.logos
+    )
+      ? team.logos
+      : [];
 
   return {
-    teamId: text(team.id),
+    teamId:
+      text(team.id),
 
-    uid: text(team.uid),
+    uid:
+      text(team.uid),
 
-    slug: text(team.slug),
+    slug:
+      text(team.slug),
 
-    abbreviation: text(
-      team.abbreviation,
-      text(team.shortDisplayName, "NFL")
-    ),
+    abbreviation:
+      text(
+        team.abbreviation,
+        text(
+          team.shortDisplayName,
+          "NFL"
+        )
+      ),
 
-    teamName: text(
-      team.displayName,
-      text(team.name, "NFL Team")
-    ),
+    teamName:
+      text(
+        team.displayName,
+        text(
+          team.name,
+          "NFL Team"
+        )
+      ),
 
-    shortName: text(
-      team.shortDisplayName,
-      text(team.name, "NFL Team")
-    ),
+    shortName:
+      text(
+        team.shortDisplayName,
+        text(
+          team.name,
+          "NFL Team"
+        )
+      ),
 
-    location: text(team.location),
+    location:
+      text(team.location),
 
-    nickname: text(team.name),
+    nickname:
+      text(team.name),
 
-    color: text(team.color),
+    color:
+      text(team.color),
 
-    alternateColor: text(
-      team.alternateColor
-    ),
+    alternateColor:
+      text(
+        team.alternateColor
+      ),
 
-    logo: text(
-      team.logo,
-      text(logos[0]?.href)
-    ),
+    logo:
+      text(
+        team.logo,
+        text(
+          logos[0]?.href
+        )
+      ),
 
-    links: Array.isArray(team.links)
-      ? team.links
-          .map(link => ({
-            rel: Array.isArray(link.rel)
-              ? link.rel
-              : [],
+    links:
+      Array.isArray(
+        team.links
+      )
+        ? team.links
+            .map(link => ({
+              rel:
+                Array.isArray(
+                  link.rel
+                )
+                  ? link.rel
+                  : [],
 
-            href: text(link.href),
+              href:
+                text(link.href),
 
-            text: text(link.text)
-          }))
-          .filter(link => link.href)
-      : []
+              text:
+                text(link.text)
+            }))
+            .filter(
+              link =>
+                link.href
+            )
+        : []
   };
 }
 
@@ -280,49 +369,75 @@ function normalizeGameTeam(
   competitor = {},
   isHome = false
 ) {
-  const team = competitor.team || {};
+  const team =
+    competitor.team || {};
 
   return {
-    teamId: text(team.id),
+    teamId:
+      text(team.id),
 
-    teamName: text(
-      team.displayName,
-      text(team.name, "NFL Team")
-    ),
+    teamName:
+      text(
+        team.displayName,
+        text(
+          team.name,
+          "NFL Team"
+        )
+      ),
 
-    shortName: text(
-      team.shortDisplayName,
-      text(team.name, "NFL Team")
-    ),
+    shortName:
+      text(
+        team.shortDisplayName,
+        text(
+          team.name,
+          "NFL Team"
+        )
+      ),
 
-    abbreviation: text(
-      team.abbreviation,
-      "NFL"
-    ),
+    abbreviation:
+      text(
+        team.abbreviation,
+        "NFL"
+      ),
 
-    logo: text(
-      team.logo,
-      text(team.logos?.[0]?.href)
-    ),
+    logo:
+      text(
+        team.logo,
+        text(
+          team.logos?.[0]?.href
+        )
+      ),
 
-    color: text(team.color),
+    color:
+      text(team.color),
 
-    alternateColor: text(
-      team.alternateColor
-    ),
+    alternateColor:
+      text(
+        team.alternateColor
+      ),
 
     isHome,
 
     score:
-      competitor.score !== undefined
-        ? text(competitor.score, "0")
+      competitor.score !==
+      undefined
+        ? text(
+            competitor.score,
+            "0"
+          )
         : "0",
 
-    winner: boolean(competitor.winner),
+    winner:
+      boolean(
+        competitor.winner
+      ),
 
-    record: text(
-      competitor.records?.[0]?.summary
-    )
+    record:
+      text(
+        competitor
+          .records?.[0]
+          ?.summary
+      )
   };
 }
 
@@ -332,7 +447,9 @@ GAME NORMALIZATION
 =========================================================
 */
 
-function normalizeGame(event = {}) {
+function normalizeGame(
+  event = {}
+) {
   const competition =
     event.competitions?.[0];
 
@@ -340,22 +457,25 @@ function normalizeGame(event = {}) {
     return null;
   }
 
-  const competitors = Array.isArray(
-    competition.competitors
-  )
-    ? competition.competitors
-    : [];
+  const competitors =
+    Array.isArray(
+      competition.competitors
+    )
+      ? competition.competitors
+      : [];
 
   const awayCompetitor =
     competitors.find(
       competitor =>
-        competitor.homeAway === "away"
+        competitor.homeAway ===
+        "away"
     );
 
   const homeCompetitor =
     competitors.find(
       competitor =>
-        competitor.homeAway === "home"
+        competitor.homeAway ===
+        "home"
     );
 
   if (
@@ -374,7 +494,9 @@ function normalizeGame(event = {}) {
     status.type || {};
 
   const startDate =
-    safeDate(event.date);
+    safeDate(
+      event.date
+    );
 
   const startTime =
     startDate
@@ -382,35 +504,45 @@ function normalizeGame(event = {}) {
       : 0;
 
   return {
-    gameId: text(event.id),
+    gameId:
+      text(event.id),
 
-    season: number(
-      event.season?.year,
-      getCurrentNFLSeason()
-    ),
+    season:
+      number(
+        event.season?.year,
+        getCurrentNFLSeason()
+      ),
 
-    seasonType: number(
-      event.season?.type ??
-      competition.type?.id
-    ),
+    seasonType:
+      number(
+        event.season?.type ??
+        competition.type?.id
+      ),
 
-    week: number(
-      event.week?.number ??
-      competition.week?.number
-    ),
+    week:
+      number(
+        event.week?.number ??
+        competition.week?.number
+      ),
 
-    name: text(
-      event.name,
-      `${
-        awayCompetitor.team
-          ?.displayName || "Away"
-      } at ${
-        homeCompetitor.team
-          ?.displayName || "Home"
-      }`
-    ),
+    name:
+      text(
+        event.name,
+        `${
+          awayCompetitor.team
+            ?.displayName ||
+          "Away"
+        } at ${
+          homeCompetitor.team
+            ?.displayName ||
+          "Home"
+        }`
+      ),
 
-    shortName: text(event.shortName),
+    shortName:
+      text(
+        event.shortName
+      ),
 
     date:
       startDate
@@ -419,93 +551,115 @@ function normalizeGame(event = {}) {
 
     startTime,
 
-    state: text(
-      statusType.state,
-      "pre"
-    ),
-
-    completed: boolean(
-      statusType.completed
-    ),
-
-    status: text(
-      statusType.shortDetail,
+    state:
       text(
-        statusType.detail,
+        statusType.state,
+        "pre"
+      ),
+
+    completed:
+      boolean(
+        statusType.completed
+      ),
+
+    status:
+      text(
+        statusType.shortDetail,
         text(
-          statusType.description,
-          "Scheduled"
+          statusType.detail,
+          text(
+            statusType.description,
+            "Scheduled"
+          )
         )
-      )
-    ),
+      ),
 
-    period: number(status.period),
+    period:
+      number(
+        status.period
+      ),
 
-    clock: text(
-      status.displayClock
-    ),
+    clock:
+      text(
+        status.displayClock
+      ),
 
-    neutralSite: boolean(
-      competition.neutralSite
-    ),
+    neutralSite:
+      boolean(
+        competition.neutralSite
+      ),
 
     conferenceCompetition:
       boolean(
-        competition.conferenceCompetition
+        competition
+          .conferenceCompetition
       ),
 
-    attendance: number(
-      competition.attendance
-    ),
+    attendance:
+      number(
+        competition.attendance
+      ),
 
     venue: {
-      name: text(
-        competition.venue?.fullName
-      ),
+      name:
+        text(
+          competition.venue
+            ?.fullName
+        ),
 
-      city: text(
-        competition.venue
-          ?.address?.city
-      ),
+      city:
+        text(
+          competition.venue
+            ?.address?.city
+        ),
 
-      state: text(
-        competition.venue
-          ?.address?.state
-      ),
+      state:
+        text(
+          competition.venue
+            ?.address?.state
+        ),
 
-      indoor: boolean(
-        competition.venue?.indoor
-      ),
+      indoor:
+        boolean(
+          competition.venue
+            ?.indoor
+        ),
 
-      grass: boolean(
-        competition.venue?.grass
-      )
+      grass:
+        boolean(
+          competition.venue
+            ?.grass
+        )
     },
 
-    broadcasts: Array.isArray(
-      competition.broadcasts
-    )
-      ? unique(
-          competition.broadcasts.flatMap(
-            broadcast =>
-              Array.isArray(
-                broadcast.names
+    broadcasts:
+      Array.isArray(
+        competition.broadcasts
+      )
+        ? unique(
+            competition.broadcasts
+              .flatMap(
+                broadcast =>
+                  Array.isArray(
+                    broadcast.names
+                  )
+                    ? broadcast.names
+                    : []
               )
-                ? broadcast.names
-                : []
           )
-        )
-      : [],
+        : [],
 
-    away: normalizeGameTeam(
-      awayCompetitor,
-      false
-    ),
+    away:
+      normalizeGameTeam(
+        awayCompetitor,
+        false
+      ),
 
-    home: normalizeGameTeam(
-      homeCompetitor,
-      true
-    )
+    home:
+      normalizeGameTeam(
+        homeCompetitor,
+        true
+      )
   };
 }
 
@@ -527,28 +681,42 @@ async function loadNFLTeams() {
     "Loading NFL teams..."
   );
 
-  const data = await fetchJSON(url);
+  const data =
+    await fetchJSON(url);
 
   const league =
-    data?.sports?.[0]?.leagues?.[0];
+    data?.sports?.[0]
+      ?.leagues?.[0];
 
   const rawTeams =
-    Array.isArray(league?.teams)
+    Array.isArray(
+      league?.teams
+    )
       ? league.teams
       : [];
 
-  const teams = rawTeams
-    .map(item =>
-      normalizeTeamRecord(
-        item.team || item
+  const teams =
+    rawTeams
+      .map(item =>
+        normalizeTeamRecord(
+          item.team ||
+          item
+        )
       )
-    )
-    .filter(team => team.teamId)
-    .sort((first, second) =>
-      first.teamName.localeCompare(
-        second.teamName
+      .filter(
+        team =>
+          team.teamId
       )
-    );
+      .sort(
+        (
+          first,
+          second
+        ) =>
+          first.teamName
+            .localeCompare(
+              second.teamName
+            )
+      );
 
   console.log(
     `Loaded ${teams.length} NFL teams.`
@@ -563,40 +731,67 @@ TEAM STATISTICS HELPERS
 =========================================================
 */
 
-function getStatisticsSeason(scheduleSeason) {
+function getStatisticsSeason(
+  scheduleSeason
+) {
   /*
-  Before the current regular season has produced stats,
-  use the previous completed season as the model baseline.
+  Before the current season has produced statistics,
+  use the previous completed NFL season.
   */
 
   return scheduleSeason - 1;
 }
 
 function normalizeStatKey(value) {
-  return String(value || "")
+  return String(
+    value || ""
+  )
     .toLowerCase()
-    .replace(/%/g, "percentage")
-    .replace(/[^a-z0-9]/g, "");
+    .replace(
+      /%/g,
+      "percentage"
+    )
+    .replace(
+      /[^a-z0-9]/g,
+      ""
+    );
 }
 
 function parseStatValue(value) {
-  if (typeof value === "number") {
+  if (
+    typeof value ===
+    "number"
+  ) {
     return value;
   }
 
-  const cleaned = String(value ?? "")
-    .replace(/,/g, "")
-    .replace(/%/g, "")
-    .trim();
+  const cleaned =
+    String(
+      value ?? ""
+    )
+      .replace(
+        /,/g,
+        ""
+      )
+      .replace(
+        /%/g,
+        ""
+      )
+      .trim();
 
-  const parsed = Number(cleaned);
+  const parsed =
+    Number(cleaned);
 
-  return Number.isFinite(parsed)
+  return Number.isFinite(
+    parsed
+  )
     ? parsed
     : 0;
 }
 
-function flattenTeamStatistics(data = {}) {
+function flattenTeamStatistics(
+  data = {}
+) {
   const result = {};
 
   const categories =
@@ -604,44 +799,58 @@ function flattenTeamStatistics(data = {}) {
       data?.splits?.categories
     )
       ? data.splits.categories
-      : Array.isArray(data?.categories)
+      : Array.isArray(
+          data?.categories
+        )
         ? data.categories
         : [];
 
-  categories.forEach(category => {
-    const stats = Array.isArray(
-      category?.stats
-    )
-      ? category.stats
-      : [];
+  categories.forEach(
+    category => {
+      const stats =
+        Array.isArray(
+          category?.stats
+        )
+          ? category.stats
+          : [];
 
-    stats.forEach(stat => {
-      const possibleNames = [
-        stat.name,
-        stat.displayName,
-        stat.shortDisplayName,
-        stat.abbreviation
-      ]
-        .filter(Boolean)
-        .map(normalizeStatKey);
+      stats.forEach(
+        stat => {
+          const possibleNames = [
+            stat.name,
+            stat.displayName,
+            stat.shortDisplayName,
+            stat.abbreviation
+          ]
+            .filter(Boolean)
+            .map(
+              normalizeStatKey
+            );
 
-      const rawValue =
-        stat.value ??
-        stat.displayValue ??
-        stat.perGameValue ??
-        0;
+          const rawValue =
+            stat.value ??
+            stat.displayValue ??
+            stat.perGameValue ??
+            0;
 
-      possibleNames.forEach(key => {
-        if (
-          key &&
-          result[key] === undefined
-        ) {
-          result[key] =
-            parseStatValue(rawValue);
+          possibleNames.forEach(
+            key => {
+              if (
+                key &&
+                result[key] ===
+                undefined
+              ) {
+                result[key] =
+                  parseStatValue(
+                    rawValue
+                  );
+              }
+            }
+          );
         }
-      });
-    });
-  });
+      );
+    }
+  );
 
   return result;
 }
@@ -651,12 +860,17 @@ function findTeamStat(
   aliases,
   fallback = 0
 ) {
-  for (const alias of aliases) {
+  for (
+    const alias of aliases
+  ) {
     const key =
-      normalizeStatKey(alias);
+      normalizeStatKey(
+        alias
+      );
 
     if (
-      statistics[key] !== undefined
+      statistics[key] !==
+      undefined
     ) {
       return number(
         statistics[key],
@@ -684,20 +898,31 @@ async function loadSingleTeamStatistics(
     `seasons/${statisticsSeason}/types/2/` +
     `teams/${team.teamId}/statistics`;
 
-  const data = await fetchJSON(url);
+  const data =
+    await fetchJSON(url);
 
   const statistics =
-    flattenTeamStatistics(data);
+    flattenTeamStatistics(
+      data
+    );
 
   return {
-    teamId: team.teamId,
-    teamName: team.teamName,
-    abbreviation: team.abbreviation,
-    logo: team.logo,
+    teamId:
+      team.teamId,
+
+    teamName:
+      team.teamName,
+
+    abbreviation:
+      team.abbreviation,
+
+    logo:
+      team.logo,
 
     statisticsSeason,
 
-    rawStatistics: statistics
+    rawStatistics:
+      statistics
   };
 }
 
@@ -714,7 +939,8 @@ async function loadAllTeamStatistics(
   const teamStatistics = [];
 
   console.log(
-    `Loading ${statisticsSeason} team statistics...`
+    `Loading ${statisticsSeason} ` +
+    `team statistics...`
   );
 
   for (
@@ -722,7 +948,8 @@ async function loadAllTeamStatistics(
     index < teams.length;
     index += 1
   ) {
-    const team = teams[index];
+    const team =
+      teams[index];
 
     try {
       const result =
@@ -731,26 +958,41 @@ async function loadAllTeamStatistics(
           statisticsSeason
         );
 
-      teamStatistics.push(result);
+      teamStatistics.push(
+        result
+      );
 
       console.log(
-        `Loaded stats ${index + 1}/${teams.length}: ` +
-        team.teamName
+        `Loaded stats ` +
+        `${index + 1}/` +
+        `${teams.length}: ` +
+        `${team.teamName}`
       );
     } catch (error) {
       console.warn(
-        `Stats failed for ${team.teamName}:`,
-        error?.message || error
+        `Stats failed for ` +
+        `${team.teamName}:`,
+        error?.message ||
+        error
       );
 
       teamStatistics.push({
-        teamId: team.teamId,
-        teamName: team.teamName,
+        teamId:
+          team.teamId,
+
+        teamName:
+          team.teamName,
+
         abbreviation:
           team.abbreviation,
-        logo: team.logo,
+
+        logo:
+          team.logo,
+
         statisticsSeason,
+
         rawStatistics: {},
+
         loadError:
           error?.message ||
           "Statistics request failed"
@@ -758,7 +1000,8 @@ async function loadAllTeamStatistics(
     }
 
     await wait(
-      SETTINGS.requestDelayMilliseconds
+      SETTINGS
+        .requestDelayMilliseconds
     );
   }
 
@@ -770,18 +1013,21 @@ async function loadAllTeamStatistics(
   return teamStatistics;
 }
 
-
 /*
 =========================================================
 PLAYER STATISTICS HELPERS
 =========================================================
 */
 
-function normalizePlayerPosition(athlete = {}) {
+function normalizePlayerPosition(
+  athlete = {}
+) {
   return text(
-    athlete.position?.abbreviation,
+    athlete.position
+      ?.abbreviation,
     text(
-      athlete.position?.name
+      athlete.position
+        ?.name
     )
   ).toUpperCase();
 }
@@ -794,8 +1040,11 @@ function isOffensiveSkillPlayer(
       athlete
     );
 
-  return SETTINGS.playerPositions
-    .includes(position);
+  return SETTINGS
+    .playerPositions
+    .includes(
+      position
+    );
 }
 
 function flattenPlayerStatistics(
@@ -814,47 +1063,55 @@ function flattenPlayerStatistics(
         ? data.categories
         : [];
 
-  categories.forEach(category => {
-    const stats =
-      Array.isArray(
-        category?.stats
-      )
-        ? category.stats
-        : [];
+  categories.forEach(
+    category => {
+      const stats =
+        Array.isArray(
+          category?.stats
+        )
+          ? category.stats
+          : [];
 
-    stats.forEach(stat => {
-      const possibleNames = [
-        stat.name,
-        stat.displayName,
-        stat.shortDisplayName,
-        stat.abbreviation
-      ]
-        .filter(Boolean)
-        .map(normalizeStatKey);
-
-      const rawValue =
-        stat.value ??
-        stat.displayValue ??
-        stat.perGameValue ??
-        0;
-
-      possibleNames.forEach(key => {
-        if (
-          key &&
-          result[key] === undefined
-        ) {
-          result[key] =
-            parseStatValue(
-              rawValue
+      stats.forEach(
+        stat => {
+          const possibleNames = [
+            stat.name,
+            stat.displayName,
+            stat.shortDisplayName,
+            stat.abbreviation
+          ]
+            .filter(Boolean)
+            .map(
+              normalizeStatKey
             );
+
+          const rawValue =
+            stat.value ??
+            stat.displayValue ??
+            stat.perGameValue ??
+            0;
+
+          possibleNames.forEach(
+            key => {
+              if (
+                key &&
+                result[key] ===
+                undefined
+              ) {
+                result[key] =
+                  parseStatValue(
+                    rawValue
+                  );
+              }
+            }
+          );
         }
-      });
-    });
-  });
+      );
+    }
+  );
 
   return result;
 }
-
 
 /*
 =========================================================
@@ -885,43 +1142,50 @@ async function loadTeamRoster(
       ? data.athletes
       : [];
 
-  groups.forEach(group => {
-    const items =
-      Array.isArray(group?.items)
-        ? group.items
-        : Array.isArray(group)
-          ? group
-          : [];
-
-    items.forEach(athlete => {
-      if (
-        athlete &&
-        isOffensiveSkillPlayer(
-          athlete
+  groups.forEach(
+    group => {
+      const items =
+        Array.isArray(
+          group?.items
         )
-      ) {
-        athletes.push({
-          ...athlete,
+          ? group.items
+          : Array.isArray(
+              group
+            )
+            ? group
+            : [];
 
-          teamId:
-            team.teamId,
+      items.forEach(
+        athlete => {
+          if (
+            athlete &&
+            isOffensiveSkillPlayer(
+              athlete
+            )
+          ) {
+            athletes.push({
+              ...athlete,
 
-          teamName:
-            team.teamName,
+              teamId:
+                team.teamId,
 
-          teamAbbreviation:
-            team.abbreviation,
+              teamName:
+                team.teamName,
 
-          teamLogo:
-            team.logo
-        });
-      }
-    });
-  });
+              teamAbbreviation:
+                team.abbreviation,
+
+              teamLogo:
+                team.logo
+            });
+          }
+        }
+      );
+    }
+  );
 
   return athletes;
 }
-
 
 /*
 =========================================================
@@ -934,7 +1198,9 @@ async function loadSinglePlayerStatistics(
   statisticsSeason
 ) {
   const playerId =
-    text(athlete.id);
+    text(
+      athlete.id
+    );
 
   if (!playerId) {
     return null;
@@ -1064,7 +1330,8 @@ async function loadSinglePlayerStatistics(
 
     headshot:
       text(
-        athlete.headshot?.href
+        athlete.headshot
+          ?.href
       ),
 
     teamId:
@@ -1079,7 +1346,8 @@ async function loadSinglePlayerStatistics(
 
     teamAbbreviation:
       text(
-        athlete.teamAbbreviation
+        athlete
+          .teamAbbreviation
       ),
 
     teamLogo:
@@ -1154,8 +1422,6 @@ async function loadSinglePlayerStatistics(
   };
 }
 
-
-
 /*
 =========================================================
 LOAD ALL OFFENSIVE PLAYER STATISTICS
@@ -1167,10 +1433,13 @@ async function loadAllPlayerStatistics(
   statisticsSeason
 ) {
   const playerStatistics = [];
-  const usedPlayerIds = new Set();
+
+  const usedPlayerIds =
+    new Set();
 
   console.log(
-    `Loading ${statisticsSeason} player statistics...`
+    `Loading ${statisticsSeason} ` +
+    `player statistics...`
   );
 
   for (
@@ -1178,7 +1447,8 @@ async function loadAllPlayerStatistics(
     teamIndex < teams.length;
     teamIndex += 1
   ) {
-    const team = teams[teamIndex];
+    const team =
+      teams[teamIndex];
 
     try {
       const roster =
@@ -1188,25 +1458,32 @@ async function loadAllPlayerStatistics(
         );
 
       console.log(
-        `Loaded roster ${teamIndex + 1}/${teams.length}: ` +
+        `Loaded roster ` +
+        `${teamIndex + 1}/` +
+        `${teams.length}: ` +
         `${team.teamName} ` +
         `(${roster.length} skill players)`
       );
 
       for (
         let playerIndex = 0;
-        playerIndex < roster.length;
+        playerIndex <
+        roster.length;
         playerIndex += 1
       ) {
         const athlete =
           roster[playerIndex];
 
         const playerId =
-          text(athlete.id);
+          text(
+            athlete.id
+          );
 
         if (
           !playerId ||
-          usedPlayerIds.has(playerId)
+          usedPlayerIds.has(
+            playerId
+          )
         ) {
           continue;
         }
@@ -1234,7 +1511,8 @@ async function loadAllPlayerStatistics(
               athlete.displayName ||
               playerId
             }:`,
-            error?.message || error
+            error?.message ||
+            error
           );
         }
 
@@ -1245,8 +1523,10 @@ async function loadAllPlayerStatistics(
       }
     } catch (error) {
       console.warn(
-        `Roster failed for ${team.teamName}:`,
-        error?.message || error
+        `Roster failed for ` +
+        `${team.teamName}:`,
+        error?.message ||
+        error
       );
     }
 
@@ -1257,7 +1537,10 @@ async function loadAllPlayerStatistics(
   }
 
   playerStatistics.sort(
-    (first, second) => {
+    (
+      first,
+      second
+    ) => {
       const touchdownDifference =
         number(
           second.totalTouchdowns
@@ -1266,7 +1549,9 @@ async function loadAllPlayerStatistics(
           first.totalTouchdowns
         );
 
-      if (touchdownDifference !== 0) {
+      if (
+        touchdownDifference !== 0
+      ) {
         return touchdownDifference;
       }
 
@@ -1286,7 +1571,10 @@ async function loadAllPlayerStatistics(
           first.receivingYards
         );
 
-      return secondYards - firstYards;
+      return (
+        secondYards -
+        firstYards
+      );
     }
   );
 
@@ -1312,7 +1600,8 @@ function createTeamStatsOutput(
 ) {
   return {
     generatedAt:
-      new Date().toISOString(),
+      new Date()
+        .toISOString(),
 
     scheduleSeason,
 
@@ -1329,8 +1618,6 @@ function createTeamStatsOutput(
   };
 }
 
-
-
 /*
 =========================================================
 CREATE PLAYER STATISTICS OUTPUT
@@ -1344,7 +1631,8 @@ function createPlayerStatsOutput(
 ) {
   return {
     generatedAt:
-      new Date().toISOString(),
+      new Date()
+        .toISOString(),
 
     scheduleSeason,
 
@@ -1383,33 +1671,42 @@ async function loadSeasonSchedule(
     `Loading NFL ${season} schedule...`
   );
 
-  const data = await fetchJSON(url);
+  const data =
+    await fetchJSON(url);
 
   const events =
-    Array.isArray(data.events)
+    Array.isArray(
+      data.events
+    )
       ? data.events
       : [];
 
-  const games = events
-    .map(normalizeGame)
-    .filter(Boolean)
-    .sort(
-      (first, second) =>
-        first.startTime -
-        second.startTime
-    );
+  const games =
+    events
+      .map(
+        normalizeGame
+      )
+      .filter(Boolean)
+      .sort(
+        (
+          first,
+          second
+        ) =>
+          first.startTime -
+          second.startTime
+      );
 
   console.log(
-    `Loaded ${games.length} total games.`
+    `Loaded ${games.length} total games ` +
+    `for ${season}.`
   );
 
   return games;
 }
 
-
 /*
 =========================================================
-NFL HEAD-TO-HEAD HISTORY
+HEAD-TO-HEAD HELPERS
 =========================================================
 */
 
@@ -1419,10 +1716,14 @@ function isSameNFLMatchup(
   secondTeamId = ""
 ) {
   const awayTeamId =
-    text(game.away?.teamId);
+    text(
+      game.away?.teamId
+    );
 
   const homeTeamId =
-    text(game.home?.teamId);
+    text(
+      game.home?.teamId
+    );
 
   const firstId =
     text(firstTeamId);
@@ -1442,18 +1743,35 @@ function isSameNFLMatchup(
   );
 }
 
+function isOfficialH2HGame(
+  game = {}
+) {
+  return (
+    game.seasonType ===
+      SETTINGS
+        .seasonTypes
+        .regular ||
+    game.seasonType ===
+      SETTINGS
+        .seasonTypes
+        .postseason
+  );
+}
+
 function buildLastHeadToHead(
   upcomingGame = {},
   historicalGames = []
 ) {
-  const awayTeamId =
+  const upcomingAwayTeamId =
     text(
-      upcomingGame.away?.teamId
+      upcomingGame.away
+        ?.teamId
     );
 
-  const homeTeamId =
+  const upcomingHomeTeamId =
     text(
-      upcomingGame.home?.teamId
+      upcomingGame.home
+        ?.teamId
     );
 
   const upcomingStartTime =
@@ -1465,12 +1783,26 @@ function buildLastHeadToHead(
   const previousMeetings =
     historicalGames
       .filter(game => {
-        if (!game?.completed) {
+        if (!game) {
+          return false;
+        }
+
+        if (!game.completed) {
           return false;
         }
 
         if (
-          number(game.startTime) >=
+          !isOfficialH2HGame(
+            game
+          )
+        ) {
+          return false;
+        }
+
+        if (
+          number(
+            game.startTime
+          ) >=
           upcomingStartTime
         ) {
           return false;
@@ -1478,12 +1810,15 @@ function buildLastHeadToHead(
 
         return isSameNFLMatchup(
           game,
-          awayTeamId,
-          homeTeamId
+          upcomingAwayTeamId,
+          upcomingHomeTeamId
         );
       })
       .sort(
-        (first, second) =>
+        (
+          first,
+          second
+        ) =>
           number(
             second.startTime
           ) -
@@ -1498,19 +1833,22 @@ function buildLastHeadToHead(
   if (!lastMeeting) {
     return {
       found: false,
-      games: [],
-      meetingCount: 0
+      meetingCount: 0,
+      lastMeeting: null,
+      games: []
     };
   }
 
   const awayScore =
     number(
-      lastMeeting.away?.score
+      lastMeeting.away
+        ?.score
     );
 
   const homeScore =
     number(
-      lastMeeting.home?.score
+      lastMeeting.home
+        ?.score
     );
 
   let winnerTeamId = null;
@@ -1518,49 +1856,179 @@ function buildLastHeadToHead(
   let loserTeamId = null;
   let loserTeamName = "";
 
-  if (awayScore > homeScore) {
-    winnerTeamId =
-      text(
-        lastMeeting.away?.teamId
-      );
-
-    winnerTeamName =
-      text(
-        lastMeeting.away?.teamName
-      );
-
-    loserTeamId =
-      text(
-        lastMeeting.home?.teamId
-      );
-
-    loserTeamName =
-      text(
-        lastMeeting.home?.teamName
-      );
-  } else if (
-    homeScore > awayScore
+  if (
+    awayScore >
+    homeScore
   ) {
     winnerTeamId =
       text(
-        lastMeeting.home?.teamId
+        lastMeeting.away
+          ?.teamId
       );
 
     winnerTeamName =
       text(
-        lastMeeting.home?.teamName
+        lastMeeting.away
+          ?.teamName
       );
 
     loserTeamId =
       text(
-        lastMeeting.away?.teamId
+        lastMeeting.home
+          ?.teamId
       );
 
     loserTeamName =
       text(
-        lastMeeting.away?.teamName
+        lastMeeting.home
+          ?.teamName
+      );
+  } else if (
+    homeScore >
+    awayScore
+  ) {
+    winnerTeamId =
+      text(
+        lastMeeting.home
+          ?.teamId
+      );
+
+    winnerTeamName =
+      text(
+        lastMeeting.home
+          ?.teamName
+      );
+
+    loserTeamId =
+      text(
+        lastMeeting.away
+          ?.teamId
+      );
+
+    loserTeamName =
+      text(
+        lastMeeting.away
+          ?.teamName
       );
   }
+
+  const normalizedMeeting = {
+    gameId:
+      text(
+        lastMeeting.gameId
+      ),
+
+    date:
+      text(
+        lastMeeting.date
+      ),
+
+    startTime:
+      number(
+        lastMeeting.startTime
+      ),
+
+    season:
+      number(
+        lastMeeting.season
+      ),
+
+    seasonType:
+      number(
+        lastMeeting.seasonType
+      ),
+
+    week:
+      number(
+        lastMeeting.week
+      ),
+
+    status:
+      "Final",
+
+    away: {
+      teamId:
+        text(
+          lastMeeting.away
+            ?.teamId
+        ),
+
+      teamName:
+        text(
+          lastMeeting.away
+            ?.teamName,
+          "Away Team"
+        ),
+
+      shortName:
+        text(
+          lastMeeting.away
+            ?.shortName
+        ),
+
+      abbreviation:
+        text(
+          lastMeeting.away
+            ?.abbreviation,
+          "NFL"
+        ),
+
+      logo:
+        text(
+          lastMeeting.away
+            ?.logo
+        ),
+
+      score:
+        awayScore
+    },
+
+    home: {
+      teamId:
+        text(
+          lastMeeting.home
+            ?.teamId
+        ),
+
+      teamName:
+        text(
+          lastMeeting.home
+            ?.teamName,
+          "Home Team"
+        ),
+
+      shortName:
+        text(
+          lastMeeting.home
+            ?.shortName
+        ),
+
+      abbreviation:
+        text(
+          lastMeeting.home
+            ?.abbreviation,
+          "NFL"
+        ),
+
+      logo:
+        text(
+          lastMeeting.home
+            ?.logo
+        ),
+
+      score:
+        homeScore
+    },
+
+    winnerTeamId,
+    winnerTeamName,
+    loserTeamId,
+    loserTeamName,
+
+    tied:
+      awayScore ===
+      homeScore
+  };
 
   return {
     found: true,
@@ -1568,154 +2036,78 @@ function buildLastHeadToHead(
     meetingCount:
       previousMeetings.length,
 
-    lastMeeting: {
-      gameId:
-        text(
-          lastMeeting.gameId
-        ),
-
-      date:
-        text(
-          lastMeeting.date
-        ),
-
-      season:
-        number(
-          lastMeeting.season
-        ),
-
-      week:
-        number(
-          lastMeeting.week
-        ),
-
-      status:
-        "Final",
-
-      away: {
-        teamId:
-          text(
-            lastMeeting.away
-              ?.teamId
-          ),
-
-        teamName:
-          text(
-            lastMeeting.away
-              ?.teamName,
-            "Away Team"
-          ),
-
-        abbreviation:
-          text(
-            lastMeeting.away
-              ?.abbreviation,
-            "NFL"
-          ),
-
-        logo:
-          text(
-            lastMeeting.away
-              ?.logo
-          ),
-
-        score:
-          awayScore
-      },
-
-      home: {
-        teamId:
-          text(
-            lastMeeting.home
-              ?.teamId
-          ),
-
-        teamName:
-          text(
-            lastMeeting.home
-              ?.teamName,
-            "Home Team"
-          ),
-
-        abbreviation:
-          text(
-            lastMeeting.home
-              ?.abbreviation,
-            "NFL"
-          ),
-
-        logo:
-          text(
-            lastMeeting.home
-              ?.logo
-          ),
-
-        score:
-          homeScore
-      },
-
-      winnerTeamId,
-      winnerTeamName,
-      loserTeamId,
-      loserTeamName,
-
-      tied:
-        awayScore === homeScore
-    },
+    lastMeeting:
+      normalizedMeeting,
 
     games: [
       {
         gameId:
-          text(
-            lastMeeting.gameId
-          ),
+          normalizedMeeting
+            .gameId,
 
         date:
-          text(
-            lastMeeting.date
-          ),
+          normalizedMeeting
+            .date,
+
+        season:
+          normalizedMeeting
+            .season,
+
+        week:
+          normalizedMeeting
+            .week,
 
         awayTeamId:
-          text(
-            lastMeeting.away
-              ?.teamId
-          ),
+          normalizedMeeting
+            .away.teamId,
 
         awayTeam:
-          text(
-            lastMeeting.away
-              ?.teamName
-          ),
+          normalizedMeeting
+            .away.teamName,
+
+        awayAbbreviation:
+          normalizedMeeting
+            .away.abbreviation,
 
         awayLogo:
-          text(
-            lastMeeting.away
-              ?.logo
-          ),
+          normalizedMeeting
+            .away.logo,
 
-        awayScore,
+        awayScore:
+          normalizedMeeting
+            .away.score,
 
         homeTeamId:
-          text(
-            lastMeeting.home
-              ?.teamId
-          ),
+          normalizedMeeting
+            .home.teamId,
 
         homeTeam:
-          text(
-            lastMeeting.home
-              ?.teamName
-          ),
+          normalizedMeeting
+            .home.teamName,
+
+        homeAbbreviation:
+          normalizedMeeting
+            .home.abbreviation,
 
         homeLogo:
-          text(
-            lastMeeting.home
-              ?.logo
-          ),
+          normalizedMeeting
+            .home.logo,
 
-        homeScore,
+        homeScore:
+          normalizedMeeting
+            .home.score,
 
-        winnerTeamId
+        winnerTeamId:
+          normalizedMeeting
+            .winnerTeamId,
+
+        winnerTeamName:
+          normalizedMeeting
+            .winnerTeamName,
+
+        tied:
+          normalizedMeeting
+            .tied
       }
     ]
   };
@@ -1729,10 +2121,16 @@ async function loadHeadToHeadHistory(
     ...currentSchedule
   ];
 
+  console.log("");
+  console.log(
+    "Loading NFL head-to-head history..."
+  );
+
   for (
     let seasonsBack = 1;
     seasonsBack <=
-      SETTINGS.headToHeadSeasonsBack;
+      SETTINGS
+        .headToHeadSeasonsBack;
     seasonsBack += 1
   ) {
     const historicalSeason =
@@ -1750,12 +2148,14 @@ async function loadHeadToHeadHistory(
       );
 
       console.log(
-        `Loaded ${historicalSeason} ` +
-        `for NFL H2H history.`
+        `✓ Added ${historicalSeason} ` +
+        `to H2H history ` +
+        `(${seasonGames.length} games)`
       );
     } catch (error) {
       console.warn(
-        `H2H season ${historicalSeason} failed:`,
+        `H2H season ` +
+        `${historicalSeason} failed:`,
         error?.message ||
         error
       );
@@ -1767,7 +2167,44 @@ async function loadHeadToHeadHistory(
     );
   }
 
-  return historicalGames;
+  /*
+  Prevent duplicate games if ESPN returns the same
+  game more than once.
+  */
+
+  const uniqueGamesById =
+    new Map();
+
+  historicalGames.forEach(
+    game => {
+      const gameId =
+        text(
+          game?.gameId
+        );
+
+      if (!gameId) {
+        return;
+      }
+
+      uniqueGamesById.set(
+        gameId,
+        game
+      );
+    }
+  );
+
+  const uniqueHistoricalGames =
+    Array.from(
+      uniqueGamesById.values()
+    );
+
+  console.log(
+    `H2H history contains ` +
+    `${uniqueHistoricalGames.length} ` +
+    `unique games.`
+  );
+
+  return uniqueHistoricalGames;
 }
 
 function attachHeadToHeadHistory(
@@ -1775,15 +2212,43 @@ function attachHeadToHeadHistory(
   historicalGames = []
 ) {
   return upcomingGames.map(
-    game => ({
-      ...game,
-
-      headToHead:
+    game => {
+      const headToHead =
         buildLastHeadToHead(
           game,
           historicalGames
-        )
-    })
+        );
+
+      console.log(
+        `H2H: ` +
+        `${game.away?.abbreviation || "AWAY"} ` +
+        `vs ` +
+        `${game.home?.abbreviation || "HOME"} — ` +
+        `${
+          headToHead.found
+            ? (
+                `${headToHead.lastMeeting
+                  ?.away
+                  ?.abbreviation} ` +
+                `${headToHead.lastMeeting
+                  ?.away
+                  ?.score}-` +
+                `${headToHead.lastMeeting
+                  ?.home
+                  ?.score} ` +
+                `${headToHead.lastMeeting
+                  ?.home
+                  ?.abbreviation}`
+              )
+            : "No previous matchup found"
+        }`
+      );
+
+      return {
+        ...game,
+        headToHead
+      };
+    }
   );
 }
 
@@ -1793,16 +2258,20 @@ SELECT THE NEXT REGULAR-SEASON SLATE
 =========================================================
 */
 
-function selectUpcomingWeek(games = []) {
-  const now = Date.now();
+function selectUpcomingWeek(
+  games = []
+) {
+  const now =
+    Date.now();
 
   const regularSeasonGames =
-    games.filter(game => {
-      return (
+    games.filter(
+      game =>
         game.seasonType ===
-        SETTINGS.seasonTypes.regular
-      );
-    });
+        SETTINGS
+          .seasonTypes
+          .regular
+    );
 
   /*
   Include games that are live or scheduled in the future.
@@ -1812,20 +2281,27 @@ function selectUpcomingWeek(games = []) {
     regularSeasonGames
       .filter(game => {
         return (
-          game.state === "in" ||
+          game.state ===
+            "in" ||
           (
             !game.completed &&
-            game.startTime >= now
+            game.startTime >=
+              now
           )
         );
       })
       .sort(
-        (first, second) =>
+        (
+          first,
+          second
+        ) =>
           first.startTime -
           second.startTime
       );
 
-  if (!availableGames.length) {
+  if (
+    !availableGames.length
+  ) {
     return {
       week: null,
       games: []
@@ -1839,42 +2315,55 @@ function selectUpcomingWeek(games = []) {
     firstGame.week;
 
   let selectedGames =
-    availableGames.filter(game => {
-      return (
-        selectedWeek > 0 &&
-        game.week === selectedWeek
-      );
-    });
+    availableGames.filter(
+      game => {
+        return (
+          selectedWeek > 0 &&
+          game.week ===
+            selectedWeek
+        );
+      }
+    );
 
   /*
   Fallback when week numbers are missing.
   Select games within seven days of the next game.
   */
 
-  if (!selectedGames.length) {
+  if (
+    !selectedGames.length
+  ) {
     const sevenDays =
-      7 * 24 * 60 * 60 * 1000;
+      7 *
+      24 *
+      60 *
+      60 *
+      1000;
 
     selectedGames =
-      availableGames.filter(game => {
-        return (
-          game.startTime >=
-            firstGame.startTime &&
-          game.startTime <
-            firstGame.startTime +
-            sevenDays
-        );
-      });
+      availableGames.filter(
+        game => {
+          return (
+            game.startTime >=
+              firstGame.startTime &&
+            game.startTime <
+              firstGame.startTime +
+              sevenDays
+          );
+        }
+      );
   }
 
   return {
     week:
-      selectedWeek || null,
+      selectedWeek ||
+      null,
 
-    games: selectedGames.slice(
-      0,
-      SETTINGS.maximumGames
-    )
+    games:
+      selectedGames.slice(
+        0,
+        SETTINGS.maximumGames
+      )
   };
 }
 
@@ -1890,11 +2379,13 @@ function createTeamsOutput(
 ) {
   return {
     generatedAt:
-      new Date().toISOString(),
+      new Date()
+        .toISOString(),
 
     season,
 
-    teamCount: teams.length,
+    teamCount:
+      teams.length,
 
     source:
       "ESPN team feed",
@@ -1909,7 +2400,8 @@ function createUpcomingGamesOutput(
 ) {
   return {
     generatedAt:
-      new Date().toISOString(),
+      new Date()
+        .toISOString(),
 
     season,
 
@@ -1923,7 +2415,7 @@ function createUpcomingGamesOutput(
       selection.games.length,
 
     source:
-      "ESPN schedule feed",
+      "ESPN schedule feed with H2H history",
 
     games:
       selection.games
@@ -1965,65 +2457,102 @@ async function build() {
     console.log("");
 
     /*
-    Load teams and schedule.
+    Load teams.
     */
 
     const teams =
       await loadNFLTeams();
 
     await wait(
-      SETTINGS.requestDelayMilliseconds
+      SETTINGS
+        .requestDelayMilliseconds
     );
+
+    /*
+    Load the current NFL schedule.
+    */
 
     const schedule =
-     await loadSeasonSchedule(
-      season
-    );
+      await loadSeasonSchedule(
+        season
+      );
+
+    /*
+    Load previous seasons once for H2H history.
+    */
 
     const headToHeadHistory =
-     await loadHeadToHeadHistory(
-       season,
-       schedule
-     );    
-    
+      await loadHeadToHeadHistory(
+        season,
+        schedule
+      );
+
+    /*
+    Use the previous completed season for team and
+    player statistics.
+    */
+
     const statisticsSeason =
-      getStatisticsSeason(season);
+      getStatisticsSeason(
+        season
+      );
 
-   const teamStatistics =
-     await loadAllTeamStatistics(
-      teams,
-      statisticsSeason
-    );
+    const teamStatistics =
+      await loadAllTeamStatistics(
+        teams,
+        statisticsSeason
+      );
 
-const playerStatistics =
-  await loadAllPlayerStatistics(
-    teams,
-    statisticsSeason
-  );
+    const playerStatistics =
+      await loadAllPlayerStatistics(
+        teams,
+        statisticsSeason
+      );
 
     /*
     Select the next week.
     */
 
     const upcomingSelection =
-  selectUpcomingWeek(
-    schedule
-  );
-
-upcomingSelection.games =
-  attachHeadToHeadHistory(
-    upcomingSelection.games,
-    headToHeadHistory
-  );
+      selectUpcomingWeek(
+        schedule
+      );
 
     if (
-      !upcomingSelection.games.length
+      !upcomingSelection
+        .games.length
     ) {
       throw new Error(
         `No upcoming regular-season NFL games ` +
         `were found for ${season}.`
       );
     }
+
+    /*
+    Attach the most recent H2H meeting to every
+    upcoming game.
+    */
+
+    upcomingSelection.games =
+      attachHeadToHeadHistory(
+        upcomingSelection.games,
+        headToHeadHistory
+      );
+
+    console.log("");
+    console.log(
+      "FIRST GAME H2H TEST:"
+    );
+
+    console.log(
+      JSON.stringify(
+        upcomingSelection
+          .games[0]
+          ?.headToHead,
+        null,
+        2
+      )
+    );
 
     /*
     Build output objects.
@@ -2040,44 +2569,44 @@ upcomingSelection.games =
         season,
         upcomingSelection
       );
-    
+
     const teamStatsOutput =
       createTeamStatsOutput(
-       season,
-       statisticsSeason,
-       teamStatistics
-    );
+        season,
+        statisticsSeason,
+        teamStatistics
+      );
 
     const playerStatsOutput =
-     createPlayerStatsOutput(
-     season,
-     statisticsSeason,
-     playerStatistics
-   );
+      createPlayerStatsOutput(
+        season,
+        statisticsSeason,
+        playerStatistics
+      );
 
     /*
     Write files.
     */
 
     writeJSON(
-     FILES.teams,
-     teamsOutput
-  );
+      FILES.teams,
+      teamsOutput
+    );
 
-   writeJSON(
-    FILES.teamStats,
-    teamStatsOutput
-  );
+    writeJSON(
+      FILES.teamStats,
+      teamStatsOutput
+    );
 
-   writeJSON(
-    FILES.playerStats,
-    playerStatsOutput
- );
+    writeJSON(
+      FILES.playerStats,
+      playerStatsOutput
+    );
 
-  writeJSON(
-   FILES.upcomingGames,
-   upcomingGamesOutput
- );
+    writeJSON(
+      FILES.upcomingGames,
+      upcomingGamesOutput
+    );
 
     console.log("");
     console.log(
@@ -2085,14 +2614,20 @@ upcomingSelection.games =
     );
 
     console.log(
-      `✓ data/teams.json (${teams.length} teams)`
+      `✓ data/teams.json ` +
+      `(${teams.length} teams)`
     );
 
     console.log(
-  `✓ data/team-stats.json ` +
-  `(${teamStatistics.length} teams)`
-);
-    
+      `✓ data/team-stats.json ` +
+      `(${teamStatistics.length} teams)`
+    );
+
+    console.log(
+      `✓ data/player-stats.json ` +
+      `(${playerStatistics.length} players)`
+    );
+
     console.log(
       `✓ data/upcoming-games.json ` +
       `(${upcomingSelection.games.length} games)`
