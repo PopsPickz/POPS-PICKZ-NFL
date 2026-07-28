@@ -47,7 +47,9 @@ const SETTINGS = {
   maximumGames: 32,
 
  requestDelayMilliseconds: 100,
-
+  
+headToHeadSeasonsBack: 5,
+  
 playerPositions: [
   "QB",
   "RB",
