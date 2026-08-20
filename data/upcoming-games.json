@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-19T10:43:27.374Z",
+  "generatedAt": "2026-08-20T10:44:54.013Z",
   "season": 2026,
   "seasonType": "regular",
   "week": 1,
@@ -1005,7 +1005,7 @@
       "conferenceCompetition": false,
       "attendance": 0,
       "venue": {
-        "name": "NRG Stadium",
+        "name": "Reliant Stadium",
         "city": "Houston",
         "state": "TX",
         "indoor": true,
@@ -1659,7 +1659,7 @@
       "conferenceCompetition": false,
       "attendance": 0,
       "venue": {
-        "name": "GEHA Field at Arrowhead Stadium",
+        "name": "Arrowhead Stadium",
         "city": "Kansas City",
         "state": "MO",
         "indoor": false,
