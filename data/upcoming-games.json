@@ -1,39 +1,597 @@
 {
-  "generatedAt": "2026-11-23T22:00:30.272Z",
+  "generatedAt": "2026-11-24T20:37:47.690Z",
   "season": 2026,
   "seasonType": "regular",
-  "week": 11,
-  "gameCount": 1,
+  "week": 12,
+  "gameCount": 16,
   "source": "ESPN schedule feed with H2H history",
   "games": [
     {
-      "gameId": "401873078",
+      "gameId": "401873079",
       "season": 2026,
       "seasonType": 2,
-      "week": 11,
-      "name": "Cincinnati Bengals at Washington Commanders",
-      "shortName": "CIN @ WSH",
-      "date": "2026-11-24T01:15:00.000Z",
-      "startTime": 1795482900000,
+      "week": 12,
+      "name": "Green Bay Packers at Los Angeles Rams",
+      "shortName": "GB @ LAR",
+      "date": "2026-11-26T01:00:00.000Z",
+      "startTime": 1795654800000,
       "state": "pre",
       "completed": false,
-      "status": "11/23 - 8:15 PM EST",
+      "status": "11/25 - 8:00 PM EST",
       "period": 0,
       "clock": "0:00",
       "neutralSite": false,
       "conferenceCompetition": false,
       "attendance": 0,
       "venue": {
-        "name": "Northwest Stadium",
-        "city": "Landover",
-        "state": "MD",
+        "name": "SoFi Stadium",
+        "city": "Inglewood",
+        "state": "CA",
         "indoor": false,
         "grass": false
       },
       "broadcasts": [
-        "ESPN"
+        "Netflix"
       ],
       "away": {
+        "teamId": "9",
+        "teamName": "Green Bay Packers",
+        "shortName": "Packers",
+        "abbreviation": "GB",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/gb.png",
+        "color": "204e32",
+        "alternateColor": "ffb612",
+        "isHome": false,
+        "score": "0",
+        "winner": false,
+        "record": "6-4"
+      },
+      "home": {
+        "teamId": "14",
+        "teamName": "Los Angeles Rams",
+        "shortName": "Rams",
+        "abbreviation": "LAR",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lar.png",
+        "color": "003594",
+        "alternateColor": "ffd100",
+        "isHome": true,
+        "score": "0",
+        "winner": false,
+        "record": "6-4"
+      },
+      "headToHead": {
+        "found": true,
+        "meetingCount": 5,
+        "lastMeeting": {
+          "gameId": "401671679",
+          "date": "2024-10-06T20:25:00.000Z",
+          "startTime": 1728246300000,
+          "season": 2024,
+          "seasonType": 2,
+          "week": 5,
+          "status": "Final",
+          "away": {
+            "teamId": "9",
+            "teamName": "Green Bay Packers",
+            "shortName": "Packers",
+            "abbreviation": "GB",
+            "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/gb.png",
+            "score": 24
+          },
+          "home": {
+            "teamId": "14",
+            "teamName": "Los Angeles Rams",
+            "shortName": "Rams",
+            "abbreviation": "LAR",
+            "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lar.png",
+            "score": 19
+          },
+          "winnerTeamId": "9",
+          "winnerTeamName": "Green Bay Packers",
+          "loserTeamId": "14",
+          "loserTeamName": "Los Angeles Rams",
+          "tied": false
+        },
+        "games": [
+          {
+            "gameId": "401671679",
+            "date": "2024-10-06T20:25:00.000Z",
+            "season": 2024,
+            "week": 5,
+            "awayTeamId": "9",
+            "awayTeam": "Green Bay Packers",
+            "awayAbbreviation": "GB",
+            "awayLogo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/gb.png",
+            "awayScore": 24,
+            "homeTeamId": "14",
+            "homeTeam": "Los Angeles Rams",
+            "homeAbbreviation": "LAR",
+            "homeLogo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lar.png",
+            "homeScore": 19,
+            "winnerTeamId": "9",
+            "winnerTeamName": "Green Bay Packers",
+            "tied": false
+          }
+        ]
+      }
+    },
+    {
+      "gameId": "401873081",
+      "season": 2026,
+      "seasonType": 2,
+      "week": 12,
+      "name": "Chicago Bears at Detroit Lions",
+      "shortName": "CHI @ DET",
+      "date": "2026-11-26T18:00:00.000Z",
+      "startTime": 1795716000000,
+      "state": "pre",
+      "completed": false,
+      "status": "11/26 - 1:00 PM EST",
+      "period": 0,
+      "clock": "0:00",
+      "neutralSite": false,
+      "conferenceCompetition": false,
+      "attendance": 0,
+      "venue": {
+        "name": "Ford Field",
+        "city": "Detroit",
+        "state": "MI",
+        "indoor": true,
+        "grass": false
+      },
+      "broadcasts": [
+        "CBS"
+      ],
+      "away": {
+        "teamId": "3",
+        "teamName": "Chicago Bears",
+        "shortName": "Bears",
+        "abbreviation": "CHI",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/chi.png",
+        "color": "0b1c3a",
+        "alternateColor": "e64100",
+        "isHome": false,
+        "score": "0",
+        "winner": false,
+        "record": "8-2"
+      },
+      "home": {
+        "teamId": "8",
+        "teamName": "Detroit Lions",
+        "shortName": "Lions",
+        "abbreviation": "DET",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/det.png",
+        "color": "0076b6",
+        "alternateColor": "bbbbbb",
+        "isHome": true,
+        "score": "0",
+        "winner": false,
+        "record": "8-2"
+      },
+      "headToHead": {
+        "found": true,
+        "meetingCount": 10,
+        "lastMeeting": {
+          "gameId": "401772965",
+          "date": "2026-01-04T21:25:00.000Z",
+          "startTime": 1767561900000,
+          "season": 2025,
+          "seasonType": 2,
+          "week": 18,
+          "status": "Final",
+          "away": {
+            "teamId": "8",
+            "teamName": "Detroit Lions",
+            "shortName": "Lions",
+            "abbreviation": "DET",
+            "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/det.png",
+            "score": 19
+          },
+          "home": {
+            "teamId": "3",
+            "teamName": "Chicago Bears",
+            "shortName": "Bears",
+            "abbreviation": "CHI",
+            "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/chi.png",
+            "score": 16
+          },
+          "winnerTeamId": "8",
+          "winnerTeamName": "Detroit Lions",
+          "loserTeamId": "3",
+          "loserTeamName": "Chicago Bears",
+          "tied": false
+        },
+        "games": [
+          {
+            "gameId": "401772965",
+            "date": "2026-01-04T21:25:00.000Z",
+            "season": 2025,
+            "week": 18,
+            "awayTeamId": "8",
+            "awayTeam": "Detroit Lions",
+            "awayAbbreviation": "DET",
+            "awayLogo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/det.png",
+            "awayScore": 19,
+            "homeTeamId": "3",
+            "homeTeam": "Chicago Bears",
+            "homeAbbreviation": "CHI",
+            "homeLogo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/chi.png",
+            "homeScore": 16,
+            "winnerTeamId": "8",
+            "winnerTeamName": "Detroit Lions",
+            "tied": false
+          }
+        ]
+      }
+    },
+    {
+      "gameId": "401873080",
+      "season": 2026,
+      "seasonType": 2,
+      "week": 12,
+      "name": "Philadelphia Eagles at Dallas Cowboys",
+      "shortName": "PHI @ DAL",
+      "date": "2026-11-26T21:30:00.000Z",
+      "startTime": 1795728600000,
+      "state": "pre",
+      "completed": false,
+      "status": "11/26 - 4:30 PM EST",
+      "period": 0,
+      "clock": "0:00",
+      "neutralSite": false,
+      "conferenceCompetition": false,
+      "attendance": 0,
+      "venue": {
+        "name": "AT&T Stadium",
+        "city": "Arlington",
+        "state": "TX",
+        "indoor": true,
+        "grass": false
+      },
+      "broadcasts": [
+        "Fox"
+      ],
+      "away": {
+        "teamId": "21",
+        "teamName": "Philadelphia Eagles",
+        "shortName": "Eagles",
+        "abbreviation": "PHI",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/phi.png",
+        "color": "06424d",
+        "alternateColor": "000000",
+        "isHome": false,
+        "score": "0",
+        "winner": false,
+        "record": "3-7"
+      },
+      "home": {
+        "teamId": "6",
+        "teamName": "Dallas Cowboys",
+        "shortName": "Cowboys",
+        "abbreviation": "DAL",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/dal.png",
+        "color": "002a5c",
+        "alternateColor": "b0b7bc",
+        "isHome": true,
+        "score": "0",
+        "winner": false,
+        "record": "5-6"
+      },
+      "headToHead": {
+        "found": true,
+        "meetingCount": 11,
+        "lastMeeting": {
+          "gameId": "401873009",
+          "date": "2026-10-27T00:15:00.000Z",
+          "startTime": 1793060100000,
+          "season": 2026,
+          "seasonType": 2,
+          "week": 7,
+          "status": "Final",
+          "away": {
+            "teamId": "6",
+            "teamName": "Dallas Cowboys",
+            "shortName": "Cowboys",
+            "abbreviation": "DAL",
+            "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/dal.png",
+            "score": 38
+          },
+          "home": {
+            "teamId": "21",
+            "teamName": "Philadelphia Eagles",
+            "shortName": "Eagles",
+            "abbreviation": "PHI",
+            "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/phi.png",
+            "score": 21
+          },
+          "winnerTeamId": "6",
+          "winnerTeamName": "Dallas Cowboys",
+          "loserTeamId": "21",
+          "loserTeamName": "Philadelphia Eagles",
+          "tied": false
+        },
+        "games": [
+          {
+            "gameId": "401873009",
+            "date": "2026-10-27T00:15:00.000Z",
+            "season": 2026,
+            "week": 7,
+            "awayTeamId": "6",
+            "awayTeam": "Dallas Cowboys",
+            "awayAbbreviation": "DAL",
+            "awayLogo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/dal.png",
+            "awayScore": 38,
+            "homeTeamId": "21",
+            "homeTeam": "Philadelphia Eagles",
+            "homeAbbreviation": "PHI",
+            "homeLogo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/phi.png",
+            "homeScore": 21,
+            "winnerTeamId": "6",
+            "winnerTeamName": "Dallas Cowboys",
+            "tied": false
+          }
+        ]
+      }
+    },
+    {
+      "gameId": "401873082",
+      "season": 2026,
+      "seasonType": 2,
+      "week": 12,
+      "name": "Kansas City Chiefs at Buffalo Bills",
+      "shortName": "KC @ BUF",
+      "date": "2026-11-27T01:20:00.000Z",
+      "startTime": 1795742400000,
+      "state": "pre",
+      "completed": false,
+      "status": "11/26 - 8:20 PM EST",
+      "period": 0,
+      "clock": "0:00",
+      "neutralSite": false,
+      "conferenceCompetition": false,
+      "attendance": 0,
+      "venue": {
+        "name": "Highmark Stadium",
+        "city": "Orchard Park",
+        "state": "NY",
+        "indoor": false,
+        "grass": false
+      },
+      "broadcasts": [
+        "NBC"
+      ],
+      "away": {
+        "teamId": "12",
+        "teamName": "Kansas City Chiefs",
+        "shortName": "Chiefs",
+        "abbreviation": "KC",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/kc.png",
+        "color": "e31837",
+        "alternateColor": "ffb612",
+        "isHome": false,
+        "score": "0",
+        "winner": false,
+        "record": "8-2"
+      },
+      "home": {
+        "teamId": "2",
+        "teamName": "Buffalo Bills",
+        "shortName": "Bills",
+        "abbreviation": "BUF",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/buf.png",
+        "color": "00338d",
+        "alternateColor": "d50a0a",
+        "isHome": true,
+        "score": "0",
+        "winner": false,
+        "record": "9-1"
+      },
+      "headToHead": {
+        "found": true,
+        "meetingCount": 9,
+        "lastMeeting": {
+          "gameId": "401772768",
+          "date": "2025-11-02T21:25:00.000Z",
+          "startTime": 1762118700000,
+          "season": 2025,
+          "seasonType": 2,
+          "week": 9,
+          "status": "Final",
+          "away": {
+            "teamId": "12",
+            "teamName": "Kansas City Chiefs",
+            "shortName": "Chiefs",
+            "abbreviation": "KC",
+            "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/kc.png",
+            "score": 21
+          },
+          "home": {
+            "teamId": "2",
+            "teamName": "Buffalo Bills",
+            "shortName": "Bills",
+            "abbreviation": "BUF",
+            "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/buf.png",
+            "score": 28
+          },
+          "winnerTeamId": "2",
+          "winnerTeamName": "Buffalo Bills",
+          "loserTeamId": "12",
+          "loserTeamName": "Kansas City Chiefs",
+          "tied": false
+        },
+        "games": [
+          {
+            "gameId": "401772768",
+            "date": "2025-11-02T21:25:00.000Z",
+            "season": 2025,
+            "week": 9,
+            "awayTeamId": "12",
+            "awayTeam": "Kansas City Chiefs",
+            "awayAbbreviation": "KC",
+            "awayLogo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/kc.png",
+            "awayScore": 21,
+            "homeTeamId": "2",
+            "homeTeam": "Buffalo Bills",
+            "homeAbbreviation": "BUF",
+            "homeLogo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/buf.png",
+            "homeScore": 28,
+            "winnerTeamId": "2",
+            "winnerTeamName": "Buffalo Bills",
+            "tied": false
+          }
+        ]
+      }
+    },
+    {
+      "gameId": "401873083",
+      "season": 2026,
+      "seasonType": 2,
+      "week": 12,
+      "name": "Denver Broncos at Pittsburgh Steelers",
+      "shortName": "DEN @ PIT",
+      "date": "2026-11-27T20:00:00.000Z",
+      "startTime": 1795809600000,
+      "state": "pre",
+      "completed": false,
+      "status": "11/27 - 3:00 PM EST",
+      "period": 0,
+      "clock": "0:00",
+      "neutralSite": false,
+      "conferenceCompetition": false,
+      "attendance": 0,
+      "venue": {
+        "name": "Acrisure Stadium",
+        "city": "Pittsburgh",
+        "state": "PA",
+        "indoor": false,
+        "grass": false
+      },
+      "broadcasts": [
+        "Prime Video"
+      ],
+      "away": {
+        "teamId": "7",
+        "teamName": "Denver Broncos",
+        "shortName": "Broncos",
+        "abbreviation": "DEN",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/den.png",
+        "color": "0a2343",
+        "alternateColor": "fc4c02",
+        "isHome": false,
+        "score": "0",
+        "winner": false,
+        "record": "8-2"
+      },
+      "home": {
+        "teamId": "23",
+        "teamName": "Pittsburgh Steelers",
+        "shortName": "Steelers",
+        "abbreviation": "PIT",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/pit.png",
+        "color": "000000",
+        "alternateColor": "ffb612",
+        "isHome": true,
+        "score": "0",
+        "winner": false,
+        "record": "6-4"
+      },
+      "headToHead": {
+        "found": true,
+        "meetingCount": 2,
+        "lastMeeting": {
+          "gameId": "401671668",
+          "date": "2024-09-15T20:25:00.000Z",
+          "startTime": 1726431900000,
+          "season": 2024,
+          "seasonType": 2,
+          "week": 2,
+          "status": "Final",
+          "away": {
+            "teamId": "23",
+            "teamName": "Pittsburgh Steelers",
+            "shortName": "Steelers",
+            "abbreviation": "PIT",
+            "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/pit.png",
+            "score": 13
+          },
+          "home": {
+            "teamId": "7",
+            "teamName": "Denver Broncos",
+            "shortName": "Broncos",
+            "abbreviation": "DEN",
+            "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/den.png",
+            "score": 6
+          },
+          "winnerTeamId": "23",
+          "winnerTeamName": "Pittsburgh Steelers",
+          "loserTeamId": "7",
+          "loserTeamName": "Denver Broncos",
+          "tied": false
+        },
+        "games": [
+          {
+            "gameId": "401671668",
+            "date": "2024-09-15T20:25:00.000Z",
+            "season": 2024,
+            "week": 2,
+            "awayTeamId": "23",
+            "awayTeam": "Pittsburgh Steelers",
+            "awayAbbreviation": "PIT",
+            "awayLogo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/pit.png",
+            "awayScore": 13,
+            "homeTeamId": "7",
+            "homeTeam": "Denver Broncos",
+            "homeAbbreviation": "DEN",
+            "homeLogo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/den.png",
+            "homeScore": 6,
+            "winnerTeamId": "23",
+            "winnerTeamName": "Pittsburgh Steelers",
+            "tied": false
+          }
+        ]
+      }
+    },
+    {
+      "gameId": "401873087",
+      "season": 2026,
+      "seasonType": 2,
+      "week": 12,
+      "name": "New Orleans Saints at Cincinnati Bengals",
+      "shortName": "NO @ CIN",
+      "date": "2026-11-29T18:00:00.000Z",
+      "startTime": 1795975200000,
+      "state": "pre",
+      "completed": false,
+      "status": "11/29 - 1:00 PM EST",
+      "period": 0,
+      "clock": "0:00",
+      "neutralSite": false,
+      "conferenceCompetition": false,
+      "attendance": 0,
+      "venue": {
+        "name": "Paycor Stadium",
+        "city": "Cincinnati",
+        "state": "OH",
+        "indoor": false,
+        "grass": false
+      },
+      "broadcasts": [
+        "CBS"
+      ],
+      "away": {
+        "teamId": "18",
+        "teamName": "New Orleans Saints",
+        "shortName": "Saints",
+        "abbreviation": "NO",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/no.png",
+        "color": "d3bc8d",
+        "alternateColor": "000000",
+        "isHome": false,
+        "score": "0",
+        "winner": false,
+        "record": "3-7"
+      },
+      "home": {
         "teamId": "4",
         "teamName": "Cincinnati Bengals",
         "shortName": "Bengals",
@@ -41,12 +599,749 @@
         "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/cin.png",
         "color": "fb4f14",
         "alternateColor": "000000",
+        "isHome": true,
+        "score": "0",
+        "winner": false,
+        "record": "7-3"
+      },
+      "headToHead": {
+        "found": true,
+        "meetingCount": 1,
+        "lastMeeting": {
+          "gameId": "401437783",
+          "date": "2022-10-16T17:00:00.000Z",
+          "startTime": 1665939600000,
+          "season": 2022,
+          "seasonType": 2,
+          "week": 6,
+          "status": "Final",
+          "away": {
+            "teamId": "4",
+            "teamName": "Cincinnati Bengals",
+            "shortName": "Bengals",
+            "abbreviation": "CIN",
+            "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/cin.png",
+            "score": 30
+          },
+          "home": {
+            "teamId": "18",
+            "teamName": "New Orleans Saints",
+            "shortName": "Saints",
+            "abbreviation": "NO",
+            "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/no.png",
+            "score": 26
+          },
+          "winnerTeamId": "4",
+          "winnerTeamName": "Cincinnati Bengals",
+          "loserTeamId": "18",
+          "loserTeamName": "New Orleans Saints",
+          "tied": false
+        },
+        "games": [
+          {
+            "gameId": "401437783",
+            "date": "2022-10-16T17:00:00.000Z",
+            "season": 2022,
+            "week": 6,
+            "awayTeamId": "4",
+            "awayTeam": "Cincinnati Bengals",
+            "awayAbbreviation": "CIN",
+            "awayLogo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/cin.png",
+            "awayScore": 30,
+            "homeTeamId": "18",
+            "homeTeam": "New Orleans Saints",
+            "homeAbbreviation": "NO",
+            "homeLogo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/no.png",
+            "homeScore": 26,
+            "winnerTeamId": "4",
+            "winnerTeamName": "Cincinnati Bengals",
+            "tied": false
+          }
+        ]
+      }
+    },
+    {
+      "gameId": "401873088",
+      "season": 2026,
+      "seasonType": 2,
+      "week": 12,
+      "name": "New York Giants at Indianapolis Colts",
+      "shortName": "NYG @ IND",
+      "date": "2026-11-29T18:00:00.000Z",
+      "startTime": 1795975200000,
+      "state": "pre",
+      "completed": false,
+      "status": "11/29 - 1:00 PM EST",
+      "period": 0,
+      "clock": "0:00",
+      "neutralSite": false,
+      "conferenceCompetition": false,
+      "attendance": 0,
+      "venue": {
+        "name": "Lucas Oil Stadium",
+        "city": "Indianapolis",
+        "state": "IN",
+        "indoor": true,
+        "grass": false
+      },
+      "broadcasts": [
+        "Fox"
+      ],
+      "away": {
+        "teamId": "19",
+        "teamName": "New York Giants",
+        "shortName": "Giants",
+        "abbreviation": "NYG",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/nyg.png",
+        "color": "003c7f",
+        "alternateColor": "c9243f",
         "isHome": false,
         "score": "0",
         "winner": false,
-        "record": "7-2"
+        "record": "6-3-1"
       },
       "home": {
+        "teamId": "11",
+        "teamName": "Indianapolis Colts",
+        "shortName": "Colts",
+        "abbreviation": "IND",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ind.png",
+        "color": "003b75",
+        "alternateColor": "ffffff",
+        "isHome": true,
+        "score": "0",
+        "winner": false,
+        "record": "3-8"
+      },
+      "headToHead": {
+        "found": true,
+        "meetingCount": 2,
+        "lastMeeting": {
+          "gameId": "401671846",
+          "date": "2024-12-29T18:00:00.000Z",
+          "startTime": 1735495200000,
+          "season": 2024,
+          "seasonType": 2,
+          "week": 17,
+          "status": "Final",
+          "away": {
+            "teamId": "11",
+            "teamName": "Indianapolis Colts",
+            "shortName": "Colts",
+            "abbreviation": "IND",
+            "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ind.png",
+            "score": 33
+          },
+          "home": {
+            "teamId": "19",
+            "teamName": "New York Giants",
+            "shortName": "Giants",
+            "abbreviation": "NYG",
+            "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/nyg.png",
+            "score": 45
+          },
+          "winnerTeamId": "19",
+          "winnerTeamName": "New York Giants",
+          "loserTeamId": "11",
+          "loserTeamName": "Indianapolis Colts",
+          "tied": false
+        },
+        "games": [
+          {
+            "gameId": "401671846",
+            "date": "2024-12-29T18:00:00.000Z",
+            "season": 2024,
+            "week": 17,
+            "awayTeamId": "11",
+            "awayTeam": "Indianapolis Colts",
+            "awayAbbreviation": "IND",
+            "awayLogo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ind.png",
+            "awayScore": 33,
+            "homeTeamId": "19",
+            "homeTeam": "New York Giants",
+            "homeAbbreviation": "NYG",
+            "homeLogo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/nyg.png",
+            "homeScore": 45,
+            "winnerTeamId": "19",
+            "winnerTeamName": "New York Giants",
+            "tied": false
+          }
+        ]
+      }
+    },
+    {
+      "gameId": "401873089",
+      "season": 2026,
+      "seasonType": 2,
+      "week": 12,
+      "name": "New York Jets at Miami Dolphins",
+      "shortName": "NYJ @ MIA",
+      "date": "2026-11-29T18:00:00.000Z",
+      "startTime": 1795975200000,
+      "state": "pre",
+      "completed": false,
+      "status": "11/29 - 1:00 PM EST",
+      "period": 0,
+      "clock": "0:00",
+      "neutralSite": false,
+      "conferenceCompetition": false,
+      "attendance": 0,
+      "venue": {
+        "name": "Hard Rock Stadium",
+        "city": "Miami Gardens",
+        "state": "FL",
+        "indoor": false,
+        "grass": false
+      },
+      "broadcasts": [
+        "CBS"
+      ],
+      "away": {
+        "teamId": "20",
+        "teamName": "New York Jets",
+        "shortName": "Jets",
+        "abbreviation": "NYJ",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/nyj.png",
+        "color": "115740",
+        "alternateColor": "ffffff",
+        "isHome": false,
+        "score": "0",
+        "winner": false,
+        "record": "3-8"
+      },
+      "home": {
+        "teamId": "15",
+        "teamName": "Miami Dolphins",
+        "shortName": "Dolphins",
+        "abbreviation": "MIA",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/mia.png",
+        "color": "008e97",
+        "alternateColor": "fc4c02",
+        "isHome": true,
+        "score": "0",
+        "winner": false,
+        "record": "1-9"
+      },
+      "headToHead": {
+        "found": true,
+        "meetingCount": 11,
+        "lastMeeting": {
+          "gameId": "401873015",
+          "date": "2026-10-25T17:00:00.000Z",
+          "startTime": 1792947600000,
+          "season": 2026,
+          "seasonType": 2,
+          "week": 7,
+          "status": "Final",
+          "away": {
+            "teamId": "15",
+            "teamName": "Miami Dolphins",
+            "shortName": "Dolphins",
+            "abbreviation": "MIA",
+            "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/mia.png",
+            "score": 28
+          },
+          "home": {
+            "teamId": "20",
+            "teamName": "New York Jets",
+            "shortName": "Jets",
+            "abbreviation": "NYJ",
+            "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/nyj.png",
+            "score": 25
+          },
+          "winnerTeamId": "15",
+          "winnerTeamName": "Miami Dolphins",
+          "loserTeamId": "20",
+          "loserTeamName": "New York Jets",
+          "tied": false
+        },
+        "games": [
+          {
+            "gameId": "401873015",
+            "date": "2026-10-25T17:00:00.000Z",
+            "season": 2026,
+            "week": 7,
+            "awayTeamId": "15",
+            "awayTeam": "Miami Dolphins",
+            "awayAbbreviation": "MIA",
+            "awayLogo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/mia.png",
+            "awayScore": 28,
+            "homeTeamId": "20",
+            "homeTeam": "New York Jets",
+            "homeAbbreviation": "NYJ",
+            "homeLogo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/nyj.png",
+            "homeScore": 25,
+            "winnerTeamId": "15",
+            "winnerTeamName": "Miami Dolphins",
+            "tied": false
+          }
+        ]
+      }
+    },
+    {
+      "gameId": "401873084",
+      "season": 2026,
+      "seasonType": 2,
+      "week": 12,
+      "name": "Atlanta Falcons at Minnesota Vikings",
+      "shortName": "ATL @ MIN",
+      "date": "2026-11-29T18:00:00.000Z",
+      "startTime": 1795975200000,
+      "state": "pre",
+      "completed": false,
+      "status": "11/29 - 1:00 PM EST",
+      "period": 0,
+      "clock": "0:00",
+      "neutralSite": false,
+      "conferenceCompetition": false,
+      "attendance": 0,
+      "venue": {
+        "name": "U.S. Bank Stadium",
+        "city": "Minneapolis",
+        "state": "MN",
+        "indoor": true,
+        "grass": false
+      },
+      "broadcasts": [
+        "Fox"
+      ],
+      "away": {
+        "teamId": "1",
+        "teamName": "Atlanta Falcons",
+        "shortName": "Falcons",
+        "abbreviation": "ATL",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/atl.png",
+        "color": "a71930",
+        "alternateColor": "000000",
+        "isHome": false,
+        "score": "0",
+        "winner": false,
+        "record": "3-7"
+      },
+      "home": {
+        "teamId": "16",
+        "teamName": "Minnesota Vikings",
+        "shortName": "Vikings",
+        "abbreviation": "MIN",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/min.png",
+        "color": "4f2683",
+        "alternateColor": "ffc62f",
+        "isHome": true,
+        "score": "0",
+        "winner": false,
+        "record": "7-3"
+      },
+      "headToHead": {
+        "found": true,
+        "meetingCount": 3,
+        "lastMeeting": {
+          "gameId": "401772919",
+          "date": "2025-09-15T00:20:00.000Z",
+          "startTime": 1757895600000,
+          "season": 2025,
+          "seasonType": 2,
+          "week": 2,
+          "status": "Final",
+          "away": {
+            "teamId": "1",
+            "teamName": "Atlanta Falcons",
+            "shortName": "Falcons",
+            "abbreviation": "ATL",
+            "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/atl.png",
+            "score": 22
+          },
+          "home": {
+            "teamId": "16",
+            "teamName": "Minnesota Vikings",
+            "shortName": "Vikings",
+            "abbreviation": "MIN",
+            "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/min.png",
+            "score": 6
+          },
+          "winnerTeamId": "1",
+          "winnerTeamName": "Atlanta Falcons",
+          "loserTeamId": "16",
+          "loserTeamName": "Minnesota Vikings",
+          "tied": false
+        },
+        "games": [
+          {
+            "gameId": "401772919",
+            "date": "2025-09-15T00:20:00.000Z",
+            "season": 2025,
+            "week": 2,
+            "awayTeamId": "1",
+            "awayTeam": "Atlanta Falcons",
+            "awayAbbreviation": "ATL",
+            "awayLogo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/atl.png",
+            "awayScore": 22,
+            "homeTeamId": "16",
+            "homeTeam": "Minnesota Vikings",
+            "homeAbbreviation": "MIN",
+            "homeLogo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/min.png",
+            "homeScore": 6,
+            "winnerTeamId": "1",
+            "winnerTeamName": "Atlanta Falcons",
+            "tied": false
+          }
+        ]
+      }
+    },
+    {
+      "gameId": "401873090",
+      "season": 2026,
+      "seasonType": 2,
+      "week": 12,
+      "name": "Tennessee Titans at Jacksonville Jaguars",
+      "shortName": "TEN @ JAX",
+      "date": "2026-11-29T18:00:00.000Z",
+      "startTime": 1795975200000,
+      "state": "pre",
+      "completed": false,
+      "status": "11/29 - 1:00 PM EST",
+      "period": 0,
+      "clock": "0:00",
+      "neutralSite": false,
+      "conferenceCompetition": false,
+      "attendance": 0,
+      "venue": {
+        "name": "EverBank Stadium",
+        "city": "Jacksonville",
+        "state": "FL",
+        "indoor": false,
+        "grass": false
+      },
+      "broadcasts": [
+        "Fox"
+      ],
+      "away": {
+        "teamId": "10",
+        "teamName": "Tennessee Titans",
+        "shortName": "Titans",
+        "abbreviation": "TEN",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ten.png",
+        "color": "4495d2",
+        "alternateColor": "001532",
+        "isHome": false,
+        "score": "0",
+        "winner": false,
+        "record": "1-9"
+      },
+      "home": {
+        "teamId": "30",
+        "teamName": "Jacksonville Jaguars",
+        "shortName": "Jaguars",
+        "abbreviation": "JAX",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/jax.png",
+        "color": "007487",
+        "alternateColor": "d7a22a",
+        "isHome": true,
+        "score": "0",
+        "winner": false,
+        "record": "7-3"
+      },
+      "headToHead": {
+        "found": true,
+        "meetingCount": 11,
+        "lastMeeting": {
+          "gameId": "401873057",
+          "date": "2026-11-15T18:00:00.000Z",
+          "startTime": 1794765600000,
+          "season": 2026,
+          "seasonType": 2,
+          "week": 10,
+          "status": "Final",
+          "away": {
+            "teamId": "30",
+            "teamName": "Jacksonville Jaguars",
+            "shortName": "Jaguars",
+            "abbreviation": "JAX",
+            "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/jax.png",
+            "score": 40
+          },
+          "home": {
+            "teamId": "10",
+            "teamName": "Tennessee Titans",
+            "shortName": "Titans",
+            "abbreviation": "TEN",
+            "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ten.png",
+            "score": 23
+          },
+          "winnerTeamId": "30",
+          "winnerTeamName": "Jacksonville Jaguars",
+          "loserTeamId": "10",
+          "loserTeamName": "Tennessee Titans",
+          "tied": false
+        },
+        "games": [
+          {
+            "gameId": "401873057",
+            "date": "2026-11-15T18:00:00.000Z",
+            "season": 2026,
+            "week": 10,
+            "awayTeamId": "30",
+            "awayTeam": "Jacksonville Jaguars",
+            "awayAbbreviation": "JAX",
+            "awayLogo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/jax.png",
+            "awayScore": 40,
+            "homeTeamId": "10",
+            "homeTeam": "Tennessee Titans",
+            "homeAbbreviation": "TEN",
+            "homeLogo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ten.png",
+            "homeScore": 23,
+            "winnerTeamId": "30",
+            "winnerTeamName": "Jacksonville Jaguars",
+            "tied": false
+          }
+        ]
+      }
+    },
+    {
+      "gameId": "401873085",
+      "season": 2026,
+      "seasonType": 2,
+      "week": 12,
+      "name": "Baltimore Ravens at Houston Texans",
+      "shortName": "BAL @ HOU",
+      "date": "2026-11-29T18:00:00.000Z",
+      "startTime": 1795975200000,
+      "state": "pre",
+      "completed": false,
+      "status": "11/29 - 1:00 PM EST",
+      "period": 0,
+      "clock": "0:00",
+      "neutralSite": false,
+      "conferenceCompetition": false,
+      "attendance": 0,
+      "venue": {
+        "name": "Reliant Stadium",
+        "city": "Houston",
+        "state": "TX",
+        "indoor": true,
+        "grass": false
+      },
+      "broadcasts": [
+        "CBS"
+      ],
+      "away": {
+        "teamId": "33",
+        "teamName": "Baltimore Ravens",
+        "shortName": "Ravens",
+        "abbreviation": "BAL",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/bal.png",
+        "color": "29126f",
+        "alternateColor": "000000",
+        "isHome": false,
+        "score": "0",
+        "winner": false,
+        "record": "4-7"
+      },
+      "home": {
+        "teamId": "34",
+        "teamName": "Houston Texans",
+        "shortName": "Texans",
+        "abbreviation": "HOU",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/hou.png",
+        "color": "021018",
+        "alternateColor": "eb0028",
+        "isHome": true,
+        "score": "0",
+        "winner": false,
+        "record": "4-6"
+      },
+      "headToHead": {
+        "found": true,
+        "meetingCount": 4,
+        "lastMeeting": {
+          "gameId": "401772743",
+          "date": "2025-10-05T17:00:00.000Z",
+          "startTime": 1759683600000,
+          "season": 2025,
+          "seasonType": 2,
+          "week": 5,
+          "status": "Final",
+          "away": {
+            "teamId": "34",
+            "teamName": "Houston Texans",
+            "shortName": "Texans",
+            "abbreviation": "HOU",
+            "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/hou.png",
+            "score": 44
+          },
+          "home": {
+            "teamId": "33",
+            "teamName": "Baltimore Ravens",
+            "shortName": "Ravens",
+            "abbreviation": "BAL",
+            "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/bal.png",
+            "score": 10
+          },
+          "winnerTeamId": "34",
+          "winnerTeamName": "Houston Texans",
+          "loserTeamId": "33",
+          "loserTeamName": "Baltimore Ravens",
+          "tied": false
+        },
+        "games": [
+          {
+            "gameId": "401772743",
+            "date": "2025-10-05T17:00:00.000Z",
+            "season": 2025,
+            "week": 5,
+            "awayTeamId": "34",
+            "awayTeam": "Houston Texans",
+            "awayAbbreviation": "HOU",
+            "awayLogo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/hou.png",
+            "awayScore": 44,
+            "homeTeamId": "33",
+            "homeTeam": "Baltimore Ravens",
+            "homeAbbreviation": "BAL",
+            "homeLogo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/bal.png",
+            "homeScore": 10,
+            "winnerTeamId": "34",
+            "winnerTeamName": "Houston Texans",
+            "tied": false
+          }
+        ]
+      }
+    },
+    {
+      "gameId": "401873093",
+      "season": 2026,
+      "seasonType": 2,
+      "week": 12,
+      "name": "New England Patriots at Los Angeles Chargers",
+      "shortName": "NE @ LAC",
+      "date": "2026-11-29T21:05:00.000Z",
+      "startTime": 1795986300000,
+      "state": "pre",
+      "completed": false,
+      "status": "11/29 - 4:05 PM EST",
+      "period": 0,
+      "clock": "0:00",
+      "neutralSite": false,
+      "conferenceCompetition": false,
+      "attendance": 0,
+      "venue": {
+        "name": "SoFi Stadium",
+        "city": "Inglewood",
+        "state": "CA",
+        "indoor": false,
+        "grass": false
+      },
+      "broadcasts": [
+        "CBS"
+      ],
+      "away": {
+        "teamId": "17",
+        "teamName": "New England Patriots",
+        "shortName": "Patriots",
+        "abbreviation": "NE",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ne.png",
+        "color": "002a5c",
+        "alternateColor": "c60c30",
+        "isHome": false,
+        "score": "0",
+        "winner": false,
+        "record": "5-5"
+      },
+      "home": {
+        "teamId": "24",
+        "teamName": "Los Angeles Chargers",
+        "shortName": "Chargers",
+        "abbreviation": "LAC",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lac.png",
+        "color": "0080c6",
+        "alternateColor": "ffc20e",
+        "isHome": true,
+        "score": "0",
+        "winner": false,
+        "record": "1-9"
+      },
+      "headToHead": {
+        "found": true,
+        "meetingCount": 4,
+        "lastMeeting": {
+          "gameId": "401772978",
+          "date": "2026-01-12T01:15:00.000Z",
+          "startTime": 1768180500000,
+          "season": 2025,
+          "seasonType": 3,
+          "week": 1,
+          "status": "Final",
+          "away": {
+            "teamId": "24",
+            "teamName": "Los Angeles Chargers",
+            "shortName": "Chargers",
+            "abbreviation": "LAC",
+            "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lac.png",
+            "score": 3
+          },
+          "home": {
+            "teamId": "17",
+            "teamName": "New England Patriots",
+            "shortName": "Patriots",
+            "abbreviation": "NE",
+            "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ne.png",
+            "score": 16
+          },
+          "winnerTeamId": "17",
+          "winnerTeamName": "New England Patriots",
+          "loserTeamId": "24",
+          "loserTeamName": "Los Angeles Chargers",
+          "tied": false
+        },
+        "games": [
+          {
+            "gameId": "401772978",
+            "date": "2026-01-12T01:15:00.000Z",
+            "season": 2025,
+            "week": 1,
+            "awayTeamId": "24",
+            "awayTeam": "Los Angeles Chargers",
+            "awayAbbreviation": "LAC",
+            "awayLogo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lac.png",
+            "awayScore": 3,
+            "homeTeamId": "17",
+            "homeTeam": "New England Patriots",
+            "homeAbbreviation": "NE",
+            "homeLogo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ne.png",
+            "homeScore": 16,
+            "winnerTeamId": "17",
+            "winnerTeamName": "New England Patriots",
+            "tied": false
+          }
+        ]
+      }
+    },
+    {
+      "gameId": "401873092",
+      "season": 2026,
+      "seasonType": 2,
+      "week": 12,
+      "name": "Washington Commanders at Arizona Cardinals",
+      "shortName": "WSH @ ARI",
+      "date": "2026-11-29T21:25:00.000Z",
+      "startTime": 1795987500000,
+      "state": "pre",
+      "completed": false,
+      "status": "11/29 - 4:25 PM EST",
+      "period": 0,
+      "clock": "0:00",
+      "neutralSite": false,
+      "conferenceCompetition": false,
+      "attendance": 0,
+      "venue": {
+        "name": "State Farm Stadium",
+        "city": "Glendale",
+        "state": "AZ",
+        "indoor": true,
+        "grass": false
+      },
+      "broadcasts": [
+        "Fox"
+      ],
+      "away": {
         "teamId": "28",
         "teamName": "Washington Commanders",
         "shortName": "Commanders",
@@ -54,21 +1349,34 @@
         "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/wsh.png",
         "color": "5a1414",
         "alternateColor": "ffb612",
+        "isHome": false,
+        "score": "0",
+        "winner": false,
+        "record": "4-5-1"
+      },
+      "home": {
+        "teamId": "22",
+        "teamName": "Arizona Cardinals",
+        "shortName": "Cardinals",
+        "abbreviation": "ARI",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ari.png",
+        "color": "a40227",
+        "alternateColor": "ffffff",
         "isHome": true,
         "score": "0",
         "winner": false,
-        "record": "3-5-1"
+        "record": "3-8"
       },
       "headToHead": {
         "found": true,
-        "meetingCount": 1,
+        "meetingCount": 2,
         "lastMeeting": {
-          "gameId": "401671490",
-          "date": "2024-09-24T00:15:00.000Z",
-          "startTime": 1727136900000,
+          "gameId": "401671755",
+          "date": "2024-09-29T20:05:00.000Z",
+          "startTime": 1727640300000,
           "season": 2024,
           "seasonType": 2,
-          "week": 3,
+          "week": 4,
           "status": "Final",
           "away": {
             "teamId": "28",
@@ -76,40 +1384,367 @@
             "shortName": "Commanders",
             "abbreviation": "WSH",
             "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/wsh.png",
-            "score": 38
+            "score": 42
           },
           "home": {
-            "teamId": "4",
-            "teamName": "Cincinnati Bengals",
-            "shortName": "Bengals",
-            "abbreviation": "CIN",
-            "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/cin.png",
-            "score": 33
+            "teamId": "22",
+            "teamName": "Arizona Cardinals",
+            "shortName": "Cardinals",
+            "abbreviation": "ARI",
+            "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ari.png",
+            "score": 14
           },
           "winnerTeamId": "28",
           "winnerTeamName": "Washington Commanders",
-          "loserTeamId": "4",
-          "loserTeamName": "Cincinnati Bengals",
+          "loserTeamId": "22",
+          "loserTeamName": "Arizona Cardinals",
           "tied": false
         },
         "games": [
           {
-            "gameId": "401671490",
-            "date": "2024-09-24T00:15:00.000Z",
+            "gameId": "401671755",
+            "date": "2024-09-29T20:05:00.000Z",
             "season": 2024,
-            "week": 3,
+            "week": 4,
             "awayTeamId": "28",
             "awayTeam": "Washington Commanders",
             "awayAbbreviation": "WSH",
             "awayLogo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/wsh.png",
-            "awayScore": 38,
-            "homeTeamId": "4",
-            "homeTeam": "Cincinnati Bengals",
-            "homeAbbreviation": "CIN",
-            "homeLogo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/cin.png",
-            "homeScore": 33,
+            "awayScore": 42,
+            "homeTeamId": "22",
+            "homeTeam": "Arizona Cardinals",
+            "homeAbbreviation": "ARI",
+            "homeLogo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/ari.png",
+            "homeScore": 14,
             "winnerTeamId": "28",
             "winnerTeamName": "Washington Commanders",
+            "tied": false
+          }
+        ]
+      }
+    },
+    {
+      "gameId": "401873091",
+      "season": 2026,
+      "seasonType": 2,
+      "week": 12,
+      "name": "Seattle Seahawks at San Francisco 49ers",
+      "shortName": "SEA @ SF",
+      "date": "2026-11-29T21:25:00.000Z",
+      "startTime": 1795987500000,
+      "state": "pre",
+      "completed": false,
+      "status": "11/29 - 4:25 PM EST",
+      "period": 0,
+      "clock": "0:00",
+      "neutralSite": false,
+      "conferenceCompetition": false,
+      "attendance": 0,
+      "venue": {
+        "name": "Levi's Stadium",
+        "city": "Santa Clara",
+        "state": "CA",
+        "indoor": false,
+        "grass": false
+      },
+      "broadcasts": [
+        "Fox"
+      ],
+      "away": {
+        "teamId": "26",
+        "teamName": "Seattle Seahawks",
+        "shortName": "Seahawks",
+        "abbreviation": "SEA",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/sea.png",
+        "color": "002a5c",
+        "alternateColor": "69be28",
+        "isHome": false,
+        "score": "0",
+        "winner": false,
+        "record": "6-4"
+      },
+      "home": {
+        "teamId": "25",
+        "teamName": "San Francisco 49ers",
+        "shortName": "49ers",
+        "abbreviation": "SF",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/sf.png",
+        "color": "aa0000",
+        "alternateColor": "b3995d",
+        "isHome": true,
+        "score": "0",
+        "winner": false,
+        "record": "9-1"
+      },
+      "headToHead": {
+        "found": true,
+        "meetingCount": 14,
+        "lastMeeting": {
+          "gameId": "401872992",
+          "date": "2026-10-11T20:25:00.000Z",
+          "startTime": 1791750300000,
+          "season": 2026,
+          "seasonType": 2,
+          "week": 5,
+          "status": "Final",
+          "away": {
+            "teamId": "25",
+            "teamName": "San Francisco 49ers",
+            "shortName": "49ers",
+            "abbreviation": "SF",
+            "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/sf.png",
+            "score": 32
+          },
+          "home": {
+            "teamId": "26",
+            "teamName": "Seattle Seahawks",
+            "shortName": "Seahawks",
+            "abbreviation": "SEA",
+            "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/sea.png",
+            "score": 29
+          },
+          "winnerTeamId": "25",
+          "winnerTeamName": "San Francisco 49ers",
+          "loserTeamId": "26",
+          "loserTeamName": "Seattle Seahawks",
+          "tied": false
+        },
+        "games": [
+          {
+            "gameId": "401872992",
+            "date": "2026-10-11T20:25:00.000Z",
+            "season": 2026,
+            "week": 5,
+            "awayTeamId": "25",
+            "awayTeam": "San Francisco 49ers",
+            "awayAbbreviation": "SF",
+            "awayLogo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/sf.png",
+            "awayScore": 32,
+            "homeTeamId": "26",
+            "homeTeam": "Seattle Seahawks",
+            "homeAbbreviation": "SEA",
+            "homeLogo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/sea.png",
+            "homeScore": 29,
+            "winnerTeamId": "25",
+            "winnerTeamName": "San Francisco 49ers",
+            "tied": false
+          }
+        ]
+      }
+    },
+    {
+      "gameId": "401873086",
+      "season": 2026,
+      "seasonType": 2,
+      "week": 12,
+      "name": "Las Vegas Raiders at Cleveland Browns",
+      "shortName": "LV @ CLE",
+      "date": "2026-11-30T01:20:00.000Z",
+      "startTime": 1796001600000,
+      "state": "pre",
+      "completed": false,
+      "status": "11/29 - 8:20 PM EST",
+      "period": 0,
+      "clock": "0:00",
+      "neutralSite": false,
+      "conferenceCompetition": false,
+      "attendance": 0,
+      "venue": {
+        "name": "Huntington Bank Field",
+        "city": "Cleveland",
+        "state": "OH",
+        "indoor": false,
+        "grass": false
+      },
+      "broadcasts": [
+        "NBC"
+      ],
+      "away": {
+        "teamId": "13",
+        "teamName": "Las Vegas Raiders",
+        "shortName": "Raiders",
+        "abbreviation": "LV",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lv.png",
+        "color": "000000",
+        "alternateColor": "a5acaf",
+        "isHome": false,
+        "score": "0",
+        "winner": false,
+        "record": "4-7"
+      },
+      "home": {
+        "teamId": "5",
+        "teamName": "Cleveland Browns",
+        "shortName": "Browns",
+        "abbreviation": "CLE",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/cle.png",
+        "color": "472a08",
+        "alternateColor": "ff3c00",
+        "isHome": true,
+        "score": "0",
+        "winner": false,
+        "record": "6-4"
+      },
+      "headToHead": {
+        "found": true,
+        "meetingCount": 3,
+        "lastMeeting": {
+          "gameId": "401772784",
+          "date": "2025-11-23T21:05:00.000Z",
+          "startTime": 1763931900000,
+          "season": 2025,
+          "seasonType": 2,
+          "week": 12,
+          "status": "Final",
+          "away": {
+            "teamId": "5",
+            "teamName": "Cleveland Browns",
+            "shortName": "Browns",
+            "abbreviation": "CLE",
+            "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/cle.png",
+            "score": 24
+          },
+          "home": {
+            "teamId": "13",
+            "teamName": "Las Vegas Raiders",
+            "shortName": "Raiders",
+            "abbreviation": "LV",
+            "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lv.png",
+            "score": 10
+          },
+          "winnerTeamId": "5",
+          "winnerTeamName": "Cleveland Browns",
+          "loserTeamId": "13",
+          "loserTeamName": "Las Vegas Raiders",
+          "tied": false
+        },
+        "games": [
+          {
+            "gameId": "401772784",
+            "date": "2025-11-23T21:05:00.000Z",
+            "season": 2025,
+            "week": 12,
+            "awayTeamId": "5",
+            "awayTeam": "Cleveland Browns",
+            "awayAbbreviation": "CLE",
+            "awayLogo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/cle.png",
+            "awayScore": 24,
+            "homeTeamId": "13",
+            "homeTeam": "Las Vegas Raiders",
+            "homeAbbreviation": "LV",
+            "homeLogo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lv.png",
+            "homeScore": 10,
+            "winnerTeamId": "5",
+            "winnerTeamName": "Cleveland Browns",
+            "tied": false
+          }
+        ]
+      }
+    },
+    {
+      "gameId": "401873094",
+      "season": 2026,
+      "seasonType": 2,
+      "week": 12,
+      "name": "Carolina Panthers at Tampa Bay Buccaneers",
+      "shortName": "CAR @ TB",
+      "date": "2026-12-01T01:15:00.000Z",
+      "startTime": 1796087700000,
+      "state": "pre",
+      "completed": false,
+      "status": "11/30 - 8:15 PM EST",
+      "period": 0,
+      "clock": "0:00",
+      "neutralSite": false,
+      "conferenceCompetition": false,
+      "attendance": 0,
+      "venue": {
+        "name": "Raymond James Stadium",
+        "city": "Tampa",
+        "state": "FL",
+        "indoor": false,
+        "grass": false
+      },
+      "broadcasts": [
+        "ESPN"
+      ],
+      "away": {
+        "teamId": "29",
+        "teamName": "Carolina Panthers",
+        "shortName": "Panthers",
+        "abbreviation": "CAR",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/car.png",
+        "color": "0085ca",
+        "alternateColor": "000000",
+        "isHome": false,
+        "score": "0",
+        "winner": false,
+        "record": "5-5"
+      },
+      "home": {
+        "teamId": "27",
+        "teamName": "Tampa Bay Buccaneers",
+        "shortName": "Buccaneers",
+        "abbreviation": "TB",
+        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/tb.png",
+        "color": "bd1c36",
+        "alternateColor": "3e3a35",
+        "isHome": true,
+        "score": "0",
+        "winner": false,
+        "record": "3-7"
+      },
+      "headToHead": {
+        "found": true,
+        "meetingCount": 11,
+        "lastMeeting": {
+          "gameId": "401873018",
+          "date": "2026-10-25T17:00:00.000Z",
+          "startTime": 1792947600000,
+          "season": 2026,
+          "seasonType": 2,
+          "week": 7,
+          "status": "Final",
+          "away": {
+            "teamId": "27",
+            "teamName": "Tampa Bay Buccaneers",
+            "shortName": "Buccaneers",
+            "abbreviation": "TB",
+            "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/tb.png",
+            "score": 43
+          },
+          "home": {
+            "teamId": "29",
+            "teamName": "Carolina Panthers",
+            "shortName": "Panthers",
+            "abbreviation": "CAR",
+            "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/car.png",
+            "score": 13
+          },
+          "winnerTeamId": "27",
+          "winnerTeamName": "Tampa Bay Buccaneers",
+          "loserTeamId": "29",
+          "loserTeamName": "Carolina Panthers",
+          "tied": false
+        },
+        "games": [
+          {
+            "gameId": "401873018",
+            "date": "2026-10-25T17:00:00.000Z",
+            "season": 2026,
+            "week": 7,
+            "awayTeamId": "27",
+            "awayTeam": "Tampa Bay Buccaneers",
+            "awayAbbreviation": "TB",
+            "awayLogo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/tb.png",
+            "awayScore": 43,
+            "homeTeamId": "29",
+            "homeTeam": "Carolina Panthers",
+            "homeAbbreviation": "CAR",
+            "homeLogo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/car.png",
+            "homeScore": 13,
+            "winnerTeamId": "27",
+            "winnerTeamName": "Tampa Bay Buccaneers",
             "tied": false
           }
         ]
