@@ -1,120 +1,11 @@
 {
-  "generatedAt": "2026-11-25T19:53:43.531Z",
+  "generatedAt": "2026-11-26T19:34:44.290Z",
   "season": 2026,
   "seasonType": "regular",
   "week": 12,
-  "gameCount": 16,
+  "gameCount": 15,
   "source": "ESPN schedule feed with H2H history",
   "games": [
-    {
-      "gameId": "401873079",
-      "season": 2026,
-      "seasonType": 2,
-      "week": 12,
-      "name": "Green Bay Packers at Los Angeles Rams",
-      "shortName": "GB @ LAR",
-      "date": "2026-11-26T01:00:00.000Z",
-      "startTime": 1795654800000,
-      "state": "pre",
-      "completed": false,
-      "status": "11/25 - 8:00 PM EST",
-      "period": 0,
-      "clock": "0:00",
-      "neutralSite": false,
-      "conferenceCompetition": false,
-      "attendance": 0,
-      "venue": {
-        "name": "SoFi Stadium",
-        "city": "Inglewood",
-        "state": "CA",
-        "indoor": false,
-        "grass": false
-      },
-      "broadcasts": [
-        "Netflix"
-      ],
-      "away": {
-        "teamId": "9",
-        "teamName": "Green Bay Packers",
-        "shortName": "Packers",
-        "abbreviation": "GB",
-        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/gb.png",
-        "color": "204e32",
-        "alternateColor": "ffb612",
-        "isHome": false,
-        "score": "0",
-        "winner": false,
-        "record": "6-4"
-      },
-      "home": {
-        "teamId": "14",
-        "teamName": "Los Angeles Rams",
-        "shortName": "Rams",
-        "abbreviation": "LAR",
-        "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lar.png",
-        "color": "003594",
-        "alternateColor": "ffd100",
-        "isHome": true,
-        "score": "0",
-        "winner": false,
-        "record": "6-4"
-      },
-      "headToHead": {
-        "found": true,
-        "meetingCount": 5,
-        "lastMeeting": {
-          "gameId": "401671679",
-          "date": "2024-10-06T20:25:00.000Z",
-          "startTime": 1728246300000,
-          "season": 2024,
-          "seasonType": 2,
-          "week": 5,
-          "status": "Final",
-          "away": {
-            "teamId": "9",
-            "teamName": "Green Bay Packers",
-            "shortName": "Packers",
-            "abbreviation": "GB",
-            "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/gb.png",
-            "score": 24
-          },
-          "home": {
-            "teamId": "14",
-            "teamName": "Los Angeles Rams",
-            "shortName": "Rams",
-            "abbreviation": "LAR",
-            "logo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lar.png",
-            "score": 19
-          },
-          "winnerTeamId": "9",
-          "winnerTeamName": "Green Bay Packers",
-          "loserTeamId": "14",
-          "loserTeamName": "Los Angeles Rams",
-          "tied": false
-        },
-        "games": [
-          {
-            "gameId": "401671679",
-            "date": "2024-10-06T20:25:00.000Z",
-            "season": 2024,
-            "week": 5,
-            "awayTeamId": "9",
-            "awayTeam": "Green Bay Packers",
-            "awayAbbreviation": "GB",
-            "awayLogo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/gb.png",
-            "awayScore": 24,
-            "homeTeamId": "14",
-            "homeTeam": "Los Angeles Rams",
-            "homeAbbreviation": "LAR",
-            "homeLogo": "https://a.espncdn.com/i/teamlogos/nfl/500/scoreboard/lar.png",
-            "homeScore": 19,
-            "winnerTeamId": "9",
-            "winnerTeamName": "Green Bay Packers",
-            "tied": false
-          }
-        ]
-      }
-    },
     {
       "gameId": "401873081",
       "season": 2026,
@@ -124,11 +15,11 @@
       "shortName": "CHI @ DET",
       "date": "2026-11-26T18:00:00.000Z",
       "startTime": 1795716000000,
-      "state": "pre",
+      "state": "in",
       "completed": false,
-      "status": "11/26 - 1:00 PM EST",
-      "period": 0,
-      "clock": "0:00",
+      "status": "0:06 - 2nd",
+      "period": 2,
+      "clock": "0:06",
       "neutralSite": false,
       "conferenceCompetition": false,
       "attendance": 0,
@@ -151,7 +42,7 @@
         "color": "0b1c3a",
         "alternateColor": "e64100",
         "isHome": false,
-        "score": "0",
+        "score": "10",
         "winner": false,
         "record": "8-2"
       },
@@ -164,7 +55,7 @@
         "color": "0076b6",
         "alternateColor": "bbbbbb",
         "isHome": true,
-        "score": "0",
+        "score": "19",
         "winner": false,
         "record": "8-2"
       },
